@@ -15,51 +15,43 @@
 package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.tommyettinger.random.EnhancedRandom;
-import com.github.tommyettinger.random.WhiskerRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 8:
+ * HotSpot Java 8 (BellSoft):
  * <br>
- *
- * <br>
- * OpenJ9 Java 15:
- * <br>
- *
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
- * <br>
- *
+ * FiveGaussianProbitBench score: 11818947.000000 (11.82M 1628.5%)
+ *                     uncertainty:   0.7%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * FiveGaussianProbitBench score: 12115728.000000 (12.12M 1631.0%)
+ *                     uncertainty:   1.3%
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * FiveGaussianProbitBench score: 12011566.000000 (12.01M 1630.1%)
+ *                     uncertainty:   1.0%
  * <br>
- * OpenJ9 Java 17 (Semeru):
+ * GraalVM Java 22:
  * <br>
- *
- * <br>
- * HotSpot Java 18 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 19 (BellSoft):
- * <br>
- *
+ * FiveGaussianProbitBench score: 48729500.000000 (48.73M 1770.2%)
+ *                     uncertainty:   2.6%
  */
-public final class GaussianProbitBench extends MicroBench {
+public final class FiveGaussianProbitBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
 		PouchRandom rng = new PouchRandom(0x12345678);
 		double sum = 0.0;
-		for (long i = 0; i < numIterations; i++)
-			sum += EnhancedRandom.probit(((rng.nextLong()>>>11)+1L)*1.1102230246251564E-16);
+		for (long i = 0; i < numIterations; i++) {
+			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);
+			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);
+			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);
+			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);
+			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);
+		}
 		return numIterations;
 	}
 }

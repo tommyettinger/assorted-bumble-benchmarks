@@ -18,8 +18,8 @@
         <maven.source.version>3.0.1</maven.source.version>
         <maven.gpg.version>1.6</maven.gpg.version>
 
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
 
         <gdx.version>1.12.1</gdx.version>
     </properties>
