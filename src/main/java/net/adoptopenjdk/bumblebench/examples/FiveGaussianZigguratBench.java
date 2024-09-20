@@ -14,51 +14,44 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
-import com.github.tommyettinger.random.EnhancedRandom;
+import com.github.tommyettinger.random.Ziggurat;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 8:
+ * HotSpot Java 8 (BellSoft):
  * <br>
- *
- * <br>
- * OpenJ9 Java 15:
- * <br>
- *
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
- * <br>
- *
+ * FiveGaussianZigguratBench score: 64376392.000000 (64.38M 1798.0%)
+ *                       uncertainty:   0.8%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * FiveGaussianZigguratBench score: 61688492.000000 (61.69M 1793.8%)
+ *                       uncertainty:   1.0%
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * FiveGaussianZigguratBench score: 60904660.000000 (60.90M 1792.5%)
+ *                       uncertainty:   1.1%
  * <br>
- * OpenJ9 Java 17 (Semeru):
+ * GraalVM Java 22:
  * <br>
- *
- * <br>
- * HotSpot Java 18 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 19 (BellSoft):
- * <br>
- *
+ * FiveGaussianZigguratBench score: 98396968.000000 (98.40M 1840.5%)
+ *                       uncertainty:   0.3%
  */
-public final class GaussianProbitBench extends MicroBench {
+public final class FiveGaussianZigguratBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
 		PouchRandom rng = new PouchRandom(0x12345678);
 		double sum = 0.0;
-		for (long i = 0; i < numIterations; i++)
-			sum += EnhancedRandom.probit(((rng.nextLong()>>>11)+1L)*1.1102230246251564E-16);
+		for (long i = 0; i < numIterations; i++) {
+			sum += Ziggurat.normal(rng.nextLong());
+			sum += Ziggurat.normal(rng.nextLong());
+			sum += Ziggurat.normal(rng.nextLong());
+			sum += Ziggurat.normal(rng.nextLong());
+			sum += Ziggurat.normal(rng.nextLong());
+        }
 		return numIterations;
 	}
 }

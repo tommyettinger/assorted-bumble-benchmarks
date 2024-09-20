@@ -33,8 +33,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Collection;
-import java.util.Map;
 
 /**
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:

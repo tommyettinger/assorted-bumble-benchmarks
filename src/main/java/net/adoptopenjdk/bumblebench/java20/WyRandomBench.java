@@ -16,7 +16,6 @@
 package net.adoptopenjdk.bumblebench.java20;
 
 import net.adoptopenjdk.bumblebench.core.MicroBench;
-import net.adoptopenjdk.bumblebench.examples.WrenRandom;
 
 /**
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:

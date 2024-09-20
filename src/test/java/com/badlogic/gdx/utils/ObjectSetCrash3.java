@@ -1,10 +1,8 @@
 package com.badlogic.gdx.utils;
 
 import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.backends.headless.HeadlessApplicationConfiguration;
-import com.badlogic.gdx.graphics.GL20;
 
 public class ObjectSetCrash3 extends ApplicationAdapter {
     /**

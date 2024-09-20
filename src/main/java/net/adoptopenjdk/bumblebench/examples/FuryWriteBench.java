@@ -24,7 +24,6 @@ import org.apache.fury.memory.MemoryBuffer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;

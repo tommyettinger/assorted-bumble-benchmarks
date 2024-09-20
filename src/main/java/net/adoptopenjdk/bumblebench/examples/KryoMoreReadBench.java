@@ -26,9 +26,6 @@ import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.ds.Utilities;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 
-import java.util.Collection;
-import java.util.Map;
-
 /**
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
