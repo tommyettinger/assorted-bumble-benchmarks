@@ -21,35 +21,35 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- * FiveGaussianBorgLinBench score: 88797264.000000 (88.80M 1830.2%)
+ * FiveGaussianLinnormalBench score: 88797264.000000 (88.80M 1830.2%)
  *                      uncertainty:   0.4%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * FiveGaussianBorgLinBench score: 87081856.000000 (87.08M 1828.2%)
+ * FiveGaussianLinnormalBench score: 87081856.000000 (87.08M 1828.2%)
  *                      uncertainty:   0.4%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- * FiveGaussianBorgLinBench score: 103184184.000000 (103.2M 1845.2%)
+ * FiveGaussianLinnormalBench score: 103184184.000000 (103.2M 1845.2%)
  *                      uncertainty:   1.0%
  * <br>
  * GraalVM Java 22:
  * <br>
- * FiveGaussianBorgLinBench score: 106505464.000000 (106.5M 1848.4%)
+ * FiveGaussianLinnormalBench score: 106505464.000000 (106.5M 1848.4%)
  *                      uncertainty:   0.8
  */
-public final class FiveGaussianBorgLinBench extends MicroBench {
+public final class FiveGaussianLinnormalBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
 		PouchRandom rng = new PouchRandom(0x12345678);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
-			sum += BorgLin.normal(rng.nextLong());
-			sum += BorgLin.normal(rng.nextLong());
-			sum += BorgLin.normal(rng.nextLong());
-			sum += BorgLin.normal(rng.nextLong());
-			sum += BorgLin.normal(rng.nextLong());
+			sum += Linnormal.normal(rng.nextLong());
+			sum += Linnormal.normal(rng.nextLong());
+			sum += Linnormal.normal(rng.nextLong());
+			sum += Linnormal.normal(rng.nextLong());
+			sum += Linnormal.normal(rng.nextLong());
         }
 		return numIterations;
 	}

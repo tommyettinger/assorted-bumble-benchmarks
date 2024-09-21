@@ -7,12 +7,11 @@ import java.util.Random;
  * Uses a large table of the results of {@link #probitHighPrecision(double)}, and interpolates between them using
  * linear interpolation.
  * <br>
- * As for the name... The original version of this uses Catmull-Rom splines, a type of Cubic Hermite Spline. This is
- * like Ziggurat, and a ziggurat was a major base of leadership in various societies. And the main society to use a Cube
- * as their base of leadership would be The Borg, naturally. This is a variant on Borg that uses Linear interpolation.
+ * This is called Linnormal because it uses a Lin-ear interpolated Normal distribution, and because "Linnorm" was taken
+ * by an older random number generator class.
  */
-public final class BorgLin {
-    private BorgLin() {}
+public final class Linnormal {
+    private Linnormal() {}
 
     /**
      * A way of taking a double in the (0.0, 1.0) range and mapping it to a Gaussian or normal distribution, so high
