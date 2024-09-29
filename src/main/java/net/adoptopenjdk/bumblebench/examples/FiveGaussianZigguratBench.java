@@ -14,10 +14,35 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import com.github.tommyettinger.random.Ziggurat;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianZigguratBench score: 39404420.000000 (39.40M 1748.9%)
+ *                       uncertainty:   0.3%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianZigguratBench score: 70981576.000000 (70.98M 1807.8%)
+ *                       uncertainty:   1.5%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianZigguratBench score: 68527800.000000 (68.53M 1804.3%)
+ *                       uncertainty:   0.5%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianZigguratBench score: 110710616.000000 (110.7M 1852.2%)
+ *                       uncertainty:   0.5%
+ */
+// OLD, uses PouchRandom
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
@@ -43,7 +68,7 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
 public final class FiveGaussianZigguratBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
+		GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
 			sum += Ziggurat.normal(rng.nextLong());
