@@ -17,8 +17,35 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 import java.util.Random;
-
 /**
+ * This tests long generation even though Random is not very fast at it.
+ * <br>
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * JavaRandomLongBench score: 60710468.000000 (60.71M 1792.2%)
+ *                 uncertainty:   0.3%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * JavaRandomLongBench score: 62247444.000000 (62.25M 1794.7%)
+ *                 uncertainty:   0.4%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * JavaRandomLongBench score: 61781164.000000 (61.78M 1793.9%)
+ *                 uncertainty:   1.1%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * JavaRandomLongBench score: 526582080.000000 (526.6M 2008.2%)
+ *                 uncertainty:   0.3%
+ * <br>
+ * GraalVM is, as in JavaRandomBench with ints, much faster here.
+ */
+
+/* *
  * This tests long generation even though Random is not very fast at it.
  * <br>
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
