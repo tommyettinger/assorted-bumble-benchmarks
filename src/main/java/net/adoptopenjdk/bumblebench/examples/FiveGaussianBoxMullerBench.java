@@ -14,9 +14,34 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianBoxMullerBench score: 5362142.000000 (5.362M 1549.5%)
+ *                        uncertainty:   0.4%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianBoxMullerBench score: 6590391.500000 (6.590M 1570.1%)
+ *                        uncertainty:   1.8%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianBoxMullerBench score: 6598713.500000 (6.599M 1570.2%)
+ *                        uncertainty:   2.7%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianBoxMullerBench score: 14921352.000000 (14.92M 1651.8%)
+ *                        uncertainty:   0.9%
+ */
+// OLD, uses PouchRandom
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
@@ -42,7 +67,7 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
 public final class FiveGaussianBoxMullerBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
+		GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
 			sum += Math.sqrt(-2 * Math.log(1 - rng.nextDouble())) * Math.cos(2 * Math.PI * rng.nextDouble());

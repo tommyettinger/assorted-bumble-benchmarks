@@ -14,10 +14,35 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import com.github.tommyettinger.random.Ziggurat;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianBorgBench score: 83215520.000000 (83.22M 1823.7%)
+ *                   uncertainty:   0.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianBorgBench score: 81063208.000000 (81.06M 1821.1%)
+ *                   uncertainty:   0.4%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianBorgBench score: 65646784.000000 (65.65M 1800.0%)
+ *                   uncertainty:   0.8%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianBorgBench score: 75216944.000000 (75.22M 1813.6%)
+ *                   uncertainty:   0.7%
+ */
+// OLD, uses PouchRandom
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
@@ -43,7 +68,7 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
 public final class FiveGaussianBorgBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
+		GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
 			sum += Borg.normal(rng.nextLong());

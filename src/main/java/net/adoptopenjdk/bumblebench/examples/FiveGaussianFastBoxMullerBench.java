@@ -15,9 +15,34 @@
 package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.tommyettinger.digital.TrigTools;
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianFastBoxMullerBench score: 10456531.000000 (10.46M 1616.3%)
+ *                            uncertainty:   1.0%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianFastBoxMullerBench score: 14426357.000000 (14.43M 1648.5%)
+ *                            uncertainty:   0.6%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianFastBoxMullerBench score: 14377790.000000 (14.38M 1648.1%)
+ *                            uncertainty:   0.3%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianFastBoxMullerBench score: 33515968.000000 (33.52M 1732.8%)
+ *                            uncertainty:   1.4%
+ */
+// OLD, uses PouchRandom
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
@@ -43,7 +68,7 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
 public final class FiveGaussianFastBoxMullerBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
+		GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
 			long n;
