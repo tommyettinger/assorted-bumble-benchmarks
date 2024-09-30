@@ -16,8 +16,32 @@ package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.tommyettinger.random.GoldenQuasiRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
-// rearranged some code just a little.
+// I think this is an improvement.
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianLinnormalV2Bench score: 114967240.000000 (115.0M 1856.0%)
+ *                          uncertainty:   1.5%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianLinnormalV2Bench score: 119983336.000000 (120.0M 1860.3%)
+ *                          uncertainty:   1.1%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianLinnormalV2Bench score: 109236040.000000 (109.2M 1850.9%)
+ *                          uncertainty:   0.6%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianLinnormalV2Bench score: 124712776.000000 (124.7M 1864.2%)
+ *                          uncertainty:   1.7%
+ */
+// rearranged some code just a little.
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
