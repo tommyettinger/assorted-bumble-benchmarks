@@ -202,8 +202,8 @@ public final class Linnormal {
         final int top10 = (int) (n >>> 53);
         final double s = TABLE[top10];
         double t = (n & 0x1FFFFFFFFFFFFFL) * 0x1p-53;
-        if (top10 == 1023) t *= t * (8.375 - s);
-        else t *= (TABLE[top10 + 1] - s);
-        return Math.copySign(t + s, sign);
+        if (top10 == 1023) t = t * t * (8.375 - s) + s;
+        else t = t * (TABLE[top10 + 1] - s) + s;
+        return Math.copySign(t, sign);
     }
 }
