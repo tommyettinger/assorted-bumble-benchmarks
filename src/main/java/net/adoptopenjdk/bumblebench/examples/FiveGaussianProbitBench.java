@@ -15,9 +15,34 @@
 package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.tommyettinger.random.EnhancedRandom;
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianProbitBench score: 12224914.000000 (12.22M 1631.9%)
+ *                     uncertainty:   1.1%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianProbitBench score: 12390087.000000 (12.39M 1633.2%)
+ *                     uncertainty:   0.7%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianProbitBench score: 12320710.000000 (12.32M 1632.7%)
+ *                     uncertainty:   0.6%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianProbitBench score: 53633812.000000 (53.63M 1779.8%)
+ *                     uncertainty:   0.3%
+ */
+// OLD, uses PouchRandom
+/* *
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
@@ -43,7 +68,7 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
 public final class FiveGaussianProbitBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
+		GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
 		double sum = 0.0;
 		for (long i = 0; i < numIterations; i++) {
 			sum += EnhancedRandom.probit(((rng.nextLong() >>> 11) + 1L) * 1.1102230246251564E-16);

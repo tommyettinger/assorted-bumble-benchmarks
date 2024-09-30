@@ -14,6 +14,7 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
+import com.github.tommyettinger.random.GoldenQuasiRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
@@ -21,28 +22,28 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- * FiveGaussianPolarBench score: 10387409.000000 (10.39M 1615.6%)
- *                    uncertainty:   0.8%
+ * FiveGaussianPolarBench score: 9780250.000000 (9.780M 1609.6%)
+ *                    uncertainty:   1.2%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * FiveGaussianPolarBench score: 11262775.000000 (11.26M 1623.7%)
- *                    uncertainty:   0.6%
+ * FiveGaussianPolarBench score: 12149789.000000 (12.15M 1631.3%)
+ *                    uncertainty:   1.1%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- * FiveGaussianPolarBench score: 11604896.000000 (11.60M 1626.7%)
- *                    uncertainty:   0.4%
+ * FiveGaussianPolarBench score: 12293733.000000 (12.29M 1632.5%)
+ *                    uncertainty:   3.0%
  * <br>
  * GraalVM Java 22:
  * <br>
- * FiveGaussianPolarBench score: 28842328.000000 (28.84M 1717.7%)
+ * FiveGaussianPolarBench score: 37517988.000000 (37.52M 1744.0%)
  *                    uncertainty:   1.0%
  */
 public final class FiveGaussianPolarBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-        PouchRandom rng = new PouchRandom(0x12345678);
+        GoldenQuasiRandom rng = new GoldenQuasiRandom(0x12345678L);
         double sum = 0.0;
         for (long i = 0; i < numIterations; i++) {
             double v1, v2, s, multiplier;
@@ -73,3 +74,28 @@ public final class FiveGaussianPolarBench extends MicroBench {
 		return numIterations;
 	}
 }
+
+// OLD, uses PouchRandom
+/* *
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * FiveGaussianPolarBench score: 10387409.000000 (10.39M 1615.6%)
+ *                    uncertainty:   0.8%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * FiveGaussianPolarBench score: 11262775.000000 (11.26M 1623.7%)
+ *                    uncertainty:   0.6%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * FiveGaussianPolarBench score: 11604896.000000 (11.60M 1626.7%)
+ *                    uncertainty:   0.4%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * FiveGaussianPolarBench score: 28842328.000000 (28.84M 1717.7%)
+ *                    uncertainty:   1.0%
+ */
