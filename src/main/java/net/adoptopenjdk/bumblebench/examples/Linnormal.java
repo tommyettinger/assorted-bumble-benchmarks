@@ -169,4 +169,41 @@ public final class Linnormal {
         }
         return Math.copySign(x, sign);
     }
+
+    /**
+     * Given any {@code long} as input, this maps the full range of non-negative long values to much of the non-negative
+     * half of the range of the normal distribution with standard deviation 1.0, and similarly maps all negative long
+     * values to their equivalent-magnitude non-negative counterparts. Notably, an input of 0 will map to {@code 0.0},
+     * an input of -1 will map to {@code -0.0}, and inputs of {@link Long#MIN_VALUE} and  {@link Long#MAX_VALUE} will
+     * map to {@code -3.879050994931691} and {@code 3.879050994931691}, respectively. If you only pass this small
+     * sequential inputs, there may be no detectable difference between some outputs. This is meant to be given inputs
+     * with large differences if very different outputs are desired.
+     * <br>
+     * The algorithm here can be called Linnormal; it is comparatively quite simple, and mostly relies on lookup from a
+     * precomputed table of results of {@link #probitHighPrecision(double)}, followed by linear interpolation. Values in
+     * the "trail" of the normal distribution, that is, those produced by long values in the uppermost 1/2048 of all
+     * values of the lowermost 1/2048 of all values, are computed differently, and not in a linear way.
+     * <br>
+     * This is like the "Ziggurat algorithm" to make normal-distributed doubles, but this preserves patterns in the
+     * input. Uses a large table of the results of {@link #probitHighPrecision(double)}, and interpolates between
+     * them using linear interpolation. This tends to be faster than Ziggurat at generating normal-distributed values,
+     * though it probably has slightly worse quality. Since Ziggurat is already much faster than other common methods,
+     * such as the Box-Muller Method, {@link #probit(double)} function, or the Marsaglia Polar Method (which Java itself
+     * uses), this being faster than Ziggurat is a good thing. All methods of generating normal-distributed variables
+     * while preserving input patterns are approximations, and this is slightly less accurate than some ways (but better
+     * than the simplest ways, like just summing many random variables and re-centering around 0).
+     *
+     * @param n any long; input patterns will be preserved
+     * @return a normal-distributed double, matching patterns in {@code n}
+     */
+    public static double normalV2(long n) {
+        final long sign = n >> 63;
+        n ^= sign;
+        final int top10 = (int) (n >>> 53);
+        final double s = TABLE[top10];
+        double t = (n & 0x1FFFFFFFFFFFFFL) * 0x1p-53;
+        if (top10 == 1023) t *= t * (8.375 - s);
+        else t *= (TABLE[top10 + 1] - s);
+        return Math.copySign(t + s, sign);
+    }
 }
