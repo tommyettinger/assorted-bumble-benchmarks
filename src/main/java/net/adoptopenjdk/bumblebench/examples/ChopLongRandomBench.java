@@ -14,9 +14,32 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
+import com.github.tommyettinger.random.ChopRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
-import net.adoptopenjdk.bumblebench.examples.ChopIntRandomBench.ChopRandom;
-
+/**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * ChopLongRandomBench score: 690486208.000000 (690.5M 2035.3%)
+ *                 uncertainty:   2.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * ChopLongRandomBench score: 639100992.000000 (639.1M 2027.6%)
+ *                 uncertainty:   1.2%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * ChopLongRandomBench score: 556760960.000000 (556.8M 2013.8%)
+ *                 uncertainty:   1.4%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * ChopLongRandomBench score: 822262208.000000 (822.3M 2052.8%)
+ *                 uncertainty:   3.7%
+ */
+// OLDEST
 /*
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * (Generating two ints and combining them, this we know works.)
@@ -46,8 +69,8 @@ import net.adoptopenjdk.bumblebench.examples.ChopIntRandomBench.ChopRandom;
  * ChopLongRandomBench score: 508210464.000000 (508.2M 2004.6%)
  *                uncertainty:   1.2%
  */
-
-/**
+//OLD
+/* *
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * (With single-generation optimization, this could pass tests?)
  * <br>
