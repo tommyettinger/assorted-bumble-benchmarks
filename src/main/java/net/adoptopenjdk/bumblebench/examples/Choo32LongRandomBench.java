@@ -21,19 +21,23 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- *
+ * Choo32LongRandomBench score: 424087296.000000 (424.1M 1986.5%)
+ *                   uncertainty:   0.7%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * Choo32LongRandomBench score: 369206496.000000 (369.2M 1972.7%)
+ *                   uncertainty:   0.4%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * Choo32LongRandomBench score: 480176032.000000 (480.2M 1999.0%)
+ *                   uncertainty:   0.3%
  * <br>
  * GraalVM Java 22:
  * <br>
- *
+ * Choo32LongRandomBench score: 424928320.000000 (424.9M 1986.7%)
+ *                   uncertainty:   0.2%
  */
 public final class Choo32LongRandomBench extends MicroBench {
 
