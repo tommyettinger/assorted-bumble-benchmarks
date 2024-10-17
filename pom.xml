@@ -21,7 +21,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <gdx.version>1.12.1</gdx.version>
+        <gdx.version>1.13.0</gdx.version>
     </properties>
     <licenses>
         <license>
@@ -130,17 +130,17 @@
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
-            <version>5.6.0</version>
+            <version>5.6.2</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>kryo-jdkgdxds</artifactId>
-            <version>1.6.3.0</version>
+            <version>1.6.5.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>tantrum-jdkgdxds</artifactId>
-            <version>1.6.3.3</version>
+            <version>1.6.5.4</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
@@ -179,7 +179,7 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>digital</artifactId>
-            <version>0.5.0</version>
+            <version>0.5.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -191,7 +191,7 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds</artifactId>
-            <version>1.6.3</version>
+            <version>1.6.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -202,7 +202,7 @@
         <dependency>
             <groupId>org.apache.fury</groupId>
             <artifactId>fury-core</artifactId>
-            <version>0.7.0</version>
+            <version>0.7.1</version>
         </dependency>
         <!--        For local installations-->
 
