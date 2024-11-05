@@ -28,23 +28,28 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 8:
  * <br>
- *
+ * KryoReadBench score: 791.959595 (792.0 667.5%)
+ *           uncertainty:   2.0%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * KryoReadBench score: 787.097351 (787.1 666.8%)
+ *           uncertainty:   1.7%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * KryoReadBench score: 766.513489 (766.5 664.2%)
+ *           uncertainty:   3.9%
  * <br>
  * GraalVM Java 22:
  * <br>
- *
+ * KryoReadBench score: 869.969360 (870.0 676.8%)
+ *           uncertainty:   3.5%
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * KryoReadBench score: 758.789246 (758.8 663.2%)
+ *           uncertainty:   5.0%
  */
 public final class KryoReadBench extends MiniBench {
 	@Override
