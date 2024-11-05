@@ -236,3 +236,4 @@ target/
 **/generated/
 *.exe
 kryomore.dat
+kryonotmore.dat

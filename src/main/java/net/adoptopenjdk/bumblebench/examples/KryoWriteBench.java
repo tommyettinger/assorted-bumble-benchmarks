@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-/**
+/*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
@@ -59,6 +59,14 @@ import java.util.HashMap;
  * <br>
  * KryoWriteBench score: 685.817810 (685.8 653.1%)
  *            uncertainty:   5.0%
+ */
+/**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * KryoWriteBench score: 671.841064 (671.8 651.0%)
+ *            uncertainty:   0.8%
  */
 public final class KryoWriteBench extends MiniBench {
 	@Override

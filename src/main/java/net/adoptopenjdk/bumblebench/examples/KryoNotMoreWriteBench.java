@@ -17,15 +17,9 @@ package net.adoptopenjdk.bumblebench.examples;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.OrderedSet;
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.CollectionSerializer;
-import com.esotericsoftware.kryo.serializers.MapSerializer;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectMap;
-import com.github.tommyettinger.ds.Utilities;
-import com.github.tommyettinger.kryo.jdkgdxds.ObjectListSerializer;
-import com.github.tommyettinger.kryo.jdkgdxds.ObjectObjectMapSerializer;
 import com.github.tommyettinger.random.FourWheelRandom;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
@@ -36,44 +30,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/*
- * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
- * <br>
- * HotSpot Java 8:
- * <br>
- * KryoMoreWriteBench score: 645.111816 (645.1 646.9%)
- *                uncertainty:   0.2%
- * <br>
- * HotSpot Java 17 (Adoptium):
- * <br>
- * KryoMoreWriteBench score: 641.252441 (641.3 646.3%)
- *                uncertainty:   4.8%
- * <br>
- * HotSpot Java 21 (BellSoft):
- * <br>
- * KryoMoreWriteBench score: 643.034302 (643.0 646.6%)
- *                uncertainty:   6.5%
- * <br>
- * GraalVM Java 22:
- * <br>
- * KryoMoreWriteBench score: 691.737305 (691.7 653.9%)
- *                uncertainty:   3.2%
- * <br>
- * HotSpot Java 23 (Adoptium):
- * <br>
- * KryoMoreWriteBench score: 627.062500 (627.1 644.1%)
- *                uncertainty:   3.7%
- */
-
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * KryoMoreWriteBench score: 619.414856 (619.4 642.9%)
- *                uncertainty:   2.6%
+ * KryoNotMoreWriteBench score: 658.895996 (658.9 649.1%)
+ *                   uncertainty:   2.2%
  */
-public final class KryoMoreWriteBench extends MiniBench {
+public final class KryoNotMoreWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -101,8 +66,8 @@ public final class KryoMoreWriteBench extends MiniBench {
 
 		Kryo kryo = new Kryo();
 		kryo.register(Vector2.class);
-		kryo.register(ObjectList.class, new ObjectListSerializer());
-		kryo.register(ObjectObjectMap.class, new ObjectObjectMapSerializer());
+		kryo.register(ObjectList.class);
+		kryo.register(ObjectObjectMap.class);
 //		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
 //			@Override
 //			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
@@ -175,8 +140,8 @@ public final class KryoMoreWriteBench extends MiniBench {
 
 		Kryo kryo = new Kryo();
 		kryo.register(Vector2.class);
-		kryo.register(ObjectList.class, new ObjectListSerializer());
-		kryo.register(ObjectObjectMap.class, new ObjectObjectMapSerializer());
+		kryo.register(ObjectList.class);
+		kryo.register(ObjectObjectMap.class);
 //		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
 //			@Override
 //			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
@@ -225,7 +190,7 @@ public final class KryoMoreWriteBench extends MiniBench {
 //		kryo.register(ObjectObjectMap.class, ms);
 
 		try {
-			Output output = new Output(new FileOutputStream("kryomore.dat"));
+			Output output = new Output(new FileOutputStream("kryonotmore.dat"));
 			kryo.writeObject(output, big);
 			output.close();
 		} catch (FileNotFoundException e) {
