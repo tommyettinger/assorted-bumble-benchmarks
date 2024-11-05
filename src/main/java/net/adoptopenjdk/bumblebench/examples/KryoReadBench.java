@@ -20,6 +20,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.ByteBufferInput;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -59,7 +60,6 @@ public final class KryoReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("kryo.dat").readBytes();
 		HashMap<String, ArrayList<Vector2>> big;
 		Kryo kryo = new Kryo();
 		kryo.register(HashMap.class);
@@ -67,13 +67,17 @@ public final class KryoReadBench extends MiniBench {
 		kryo.register(Vector2.class);
 
 		long counter = 0;
+
+		ByteBuffer buffer = new HeadlessFiles().local("kryo.dat").map();
+		buffer.flip();
+		ByteBufferInput input = new ByteBufferInput(buffer);
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
+				input.setBuffer(buffer);
 				startTimer();
-				ByteBufferInput input = new ByteBufferInput(data);
 				big = kryo.readObject(input, HashMap.class);
-				counter += big.size();
 				pauseTimer();
+				counter += big.size();
 			}
 		}
 		return numLoops * numIterationsPerLoop;

@@ -24,6 +24,9 @@ import com.github.tommyettinger.kryo.jdkgdxds.ObjectListSerializer;
 import com.github.tommyettinger.kryo.jdkgdxds.ObjectObjectMapSerializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 
+import java.nio.ByteBuffer;
+import java.util.HashMap;
+
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
@@ -60,10 +63,7 @@ public final class KryoMoreReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("kryomore.dat").readBytes();
 		ObjectObjectMap<String, ObjectList<Vector2>> big;
-
-
 		Kryo kryo = new Kryo();
 		kryo.register(Vector2.class);
 		kryo.register(ObjectList.class, new ObjectListSerializer());
@@ -102,13 +102,17 @@ public final class KryoMoreReadBench extends MiniBench {
 //		kryo.register(ObjectObjectMap.class, ms);
 
 		long counter = 0;
+
+		ByteBuffer buffer = new HeadlessFiles().local("kryomore.dat").map();
+		buffer.flip();
+		ByteBufferInput input = new ByteBufferInput(buffer);
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
+				input.setBuffer(buffer);
 				startTimer();
-				ByteBufferInput input = new ByteBufferInput(data);
 				big = kryo.readObject(input, ObjectObjectMap.class);
-				counter += big.size();
 				pauseTimer();
+				counter += big.size();
 			}
 		}
 		return numLoops * numIterationsPerLoop;

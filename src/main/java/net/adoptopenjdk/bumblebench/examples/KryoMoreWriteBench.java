@@ -128,13 +128,16 @@ public final class KryoMoreWriteBench extends MiniBench {
 //		kryo.register(ObjectObjectMap.class, ms);
 
 		long counter = 0;
+
+		Output output = new Output(65536, -1);
+
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
+				output.reset();
 				startTimer();
-				Output output = new Output(65536, -1);
 				kryo.writeObject(output, big);
-				counter += output.total();
 				pauseTimer();
+				counter += output.total();
 			}
 		}
 		return numLoops * numIterationsPerLoop;

@@ -37,28 +37,28 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 8:
  * <br>
- * KryoWriteBench score: 633.149719 (633.1 645.1%)
- *            uncertainty:   1.2%
+ * KryoWriteBench score: 666.036682 (666.0 650.1%)
+ *            uncertainty:   0.7%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * KryoWriteBench score: 671.979736 (672.0 651.0%)
- *            uncertainty:   1.6%
+ * KryoWriteBench score: 629.724426 (629.7 644.5%)
+ *            uncertainty:   0.4%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- * KryoWriteBench score: 660.632507 (660.6 649.3%)
- *            uncertainty:   8.3%
+ * KryoWriteBench score: 645.699951 (645.7 647.0%)
+ *            uncertainty:   0.7%
  * <br>
  * GraalVM Java 22:
  * <br>
- * KryoWriteBench score: 729.367371 (729.4 659.2%)
- *            uncertainty:   3.3%
+ * KryoWriteBench score: 741.616821 (741.6 660.9%)
+ *            uncertainty:   0.8%
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * KryoWriteBench score: 689.462891 (689.5 653.6%)
- *            uncertainty:   8.0%
+ * KryoWriteBench score: 685.817810 (685.8 653.1%)
+ *            uncertainty:   5.0%
  */
 public final class KryoWriteBench extends MiniBench {
 	@Override
@@ -91,13 +91,16 @@ public final class KryoWriteBench extends MiniBench {
 		kryo.register(Vector2.class);
 
 		long counter = 0;
+
+		Output output = new Output(65536, -1);
+
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
+				output.reset();
 				startTimer();
-				Output output = new Output(65536, -1);
 				kryo.writeObject(output, big);
-				counter += output.total();
 				pauseTimer();
+				counter += output.total();
 			}
 		}
 		return numLoops * numIterationsPerLoop;
@@ -140,7 +143,38 @@ public final class KryoWriteBench extends MiniBench {
 
 }
 
-// OLD
+
+//OLDER SURROUNDING CODE
+/*
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * KryoWriteBench score: 633.149719 (633.1 645.1%)
+ *            uncertainty:   1.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * KryoWriteBench score: 671.979736 (672.0 651.0%)
+ *            uncertainty:   1.6%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * KryoWriteBench score: 660.632507 (660.6 649.3%)
+ *            uncertainty:   8.3%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * KryoWriteBench score: 729.367371 (729.4 659.2%)
+ *            uncertainty:   3.3%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * KryoWriteBench score: 689.462891 (689.5 653.6%)
+ *            uncertainty:   8.0%
+ */
+
+// OLDEST EVERYTHING
 /*
  * Java 17:
  * <br>
