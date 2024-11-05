@@ -235,3 +235,4 @@ target/
 **/out/
 **/generated/
 *.exe
+kryomore.dat

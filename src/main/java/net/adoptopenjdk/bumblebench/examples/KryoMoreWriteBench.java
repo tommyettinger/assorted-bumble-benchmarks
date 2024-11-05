@@ -24,6 +24,8 @@ import com.esotericsoftware.kryo.serializers.MapSerializer;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.ds.Utilities;
+import com.github.tommyettinger.kryo.jdkgdxds.ObjectListSerializer;
+import com.github.tommyettinger.kryo.jdkgdxds.ObjectObjectMapSerializer;
 import com.github.tommyettinger.random.FourWheelRandom;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
@@ -35,46 +37,32 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 /**
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
  * <br>
- * KryoMoreWriteBench score: 421.100128 (421.1 604.3%)
- *                uncertainty:   1.5%
- * <br>
- * OpenJ9 Java 15:
- * <br>
- * KryoMoreWriteBench score: 349.401306 (349.4 585.6%)
- *                uncertainty:   2.5%
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
- * <br>
- * KryoMoreWriteBench score: 433.209595 (433.2 607.1%)
- *                uncertainty:   1.9%
+ * KryoMoreWriteBench score: 645.111816 (645.1 646.9%)
+ *                uncertainty:   0.2%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * KryoMoreWriteBench score: 428.985321 (429.0 606.1%)
- *                uncertainty:   2.0%
+ * KryoMoreWriteBench score: 641.252441 (641.3 646.3%)
+ *                uncertainty:   4.8%
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
- * KryoMoreWriteBench score: 441.461853 (441.5 609.0%)
- *                uncertainty:   2.1%
+ * KryoMoreWriteBench score: 643.034302 (643.0 646.6%)
+ *                uncertainty:   6.5%
  * <br>
- * OpenJ9 Java 17 (Semeru):
+ * GraalVM Java 22:
  * <br>
- *
+ * KryoMoreWriteBench score: 691.737305 (691.7 653.9%)
+ *                uncertainty:   3.2%
  * <br>
- * HotSpot Java 18 (Adoptium):
+ * HotSpot Java 23 (Adoptium):
  * <br>
- * KryoMoreWriteBench score: 389.832520 (389.8 596.6%)
- *                uncertainty:   7.9%
- * <br>
- * HotSpot Java 19 (BellSoft):
- * <br>
- * KryoMoreWriteBench score: 410.989960 (411.0 601.9%)
- *                uncertainty:   2.2%
+ * KryoMoreWriteBench score: 627.062500 (627.1 644.1%)
+ *                uncertainty:   3.7%
  */
 public final class KryoMoreWriteBench extends MiniBench {
 	@Override
@@ -104,28 +92,30 @@ public final class KryoMoreWriteBench extends MiniBench {
 
 		Kryo kryo = new Kryo();
 		kryo.register(Vector2.class);
-		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
-			@Override
-			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectList<>(size);
-			}
-
-			@Override
-			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
-				return new ObjectList<>(original.size());
-			}
-		});
-		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
-			@Override
-			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
-			}
-
-			@Override
-			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
-				return new ObjectObjectMap<>(original.size());
-			}
-		});
+		kryo.register(ObjectList.class, new ObjectListSerializer());
+		kryo.register(ObjectObjectMap.class, new ObjectObjectMapSerializer());
+//		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
+//			@Override
+//			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectList<>(size);
+//			}
+//
+//			@Override
+//			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
+//				return new ObjectList<>(original.size());
+//			}
+//		});
+//		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
+//			@Override
+//			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
+//			}
+//
+//			@Override
+//			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
+//				return new ObjectObjectMap<>(original.size());
+//			}
+//		});
 
 //		Kryo kryo = new Kryo();
 //		kryo.register(Vector2.class);
@@ -173,28 +163,30 @@ public final class KryoMoreWriteBench extends MiniBench {
 
 		Kryo kryo = new Kryo();
 		kryo.register(Vector2.class);
-		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
-			@Override
-			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectList<>(size);
-			}
-
-			@Override
-			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
-				return new ObjectList<>(original.size());
-			}
-		});
-		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
-			@Override
-			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
-			}
-
-			@Override
-			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
-				return new ObjectObjectMap<>(original.size());
-			}
-		});
+		kryo.register(ObjectList.class, new ObjectListSerializer());
+		kryo.register(ObjectObjectMap.class, new ObjectObjectMapSerializer());
+//		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
+//			@Override
+//			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectList<>(size);
+//			}
+//
+//			@Override
+//			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
+//				return new ObjectList<>(original.size());
+//			}
+//		});
+//		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
+//			@Override
+//			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
+//			}
+//
+//			@Override
+//			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
+//				return new ObjectObjectMap<>(original.size());
+//			}
+//		});
 
 //		kryo.register(Vector2.class);
 //		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<Vector2>>(){
@@ -231,3 +223,71 @@ public final class KryoMoreWriteBench extends MiniBench {
 
 }
 
+// TEMPLATE
+/*
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ *
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ *
+ */
+
+//OLD
+/*
+ * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * KryoMoreWriteBench score: 421.100128 (421.1 604.3%)
+ *                uncertainty:   1.5%
+ * <br>
+ * OpenJ9 Java 15:
+ * <br>
+ * KryoMoreWriteBench score: 349.401306 (349.4 585.6%)
+ *                uncertainty:   2.5%
+ * <br>
+ * HotSpot Java 16 (AdoptOpenJDK):
+ * <br>
+ * KryoMoreWriteBench score: 433.209595 (433.2 607.1%)
+ *                uncertainty:   1.9%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * KryoMoreWriteBench score: 428.985321 (429.0 606.1%)
+ *                uncertainty:   2.0%
+ * <br>
+ * GraalVM Java 17:
+ * <br>
+ * KryoMoreWriteBench score: 441.461853 (441.5 609.0%)
+ *                uncertainty:   2.1%
+ * <br>
+ * OpenJ9 Java 17 (Semeru):
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 18 (Adoptium):
+ * <br>
+ * KryoMoreWriteBench score: 389.832520 (389.8 596.6%)
+ *                uncertainty:   7.9%
+ * <br>
+ * HotSpot Java 19 (BellSoft):
+ * <br>
+ * KryoMoreWriteBench score: 410.989960 (411.0 601.9%)
+ *                uncertainty:   2.2%
+ */

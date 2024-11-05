@@ -57,11 +57,10 @@ public final class FiveGaussianLinnormalBench extends MicroBench {
 }
 
 // TEMPLATE
-
-/* *
+/*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 8 (BellSoft):
+ * HotSpot Java 8:
  * <br>
  *
  * <br>
@@ -74,6 +73,10 @@ public final class FiveGaussianLinnormalBench extends MicroBench {
  *
  * <br>
  * GraalVM Java 22:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 23 (Adoptium):
  * <br>
  *
  */

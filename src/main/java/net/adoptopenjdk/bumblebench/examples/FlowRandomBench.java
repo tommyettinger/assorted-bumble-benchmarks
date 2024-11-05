@@ -82,17 +82,9 @@ public final class FlowRandomBench extends MicroBench {
 }
 // TEMPLATE
 /*
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
- * <br>
- *
- * <br>
- * OpenJ9 Java 15:
- * <br>
- *
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
  * <br>
  *
  * <br>
@@ -100,27 +92,15 @@ public final class FlowRandomBench extends MicroBench {
  * <br>
  *
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
  *
  * <br>
- * OpenJ9 Java 17 (Semeru):
+ * GraalVM Java 22:
  * <br>
  *
  * <br>
- * HotSpot Java 18 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 19 (BellSoft):
- * <br>
- *
- * <br>
- * HotSpot Java 20 (BellSoft):
- * <br>
- *
- * <br>
- * GraalVM Java 20:
+ * HotSpot Java 23 (Adoptium):
  * <br>
  *
  */
