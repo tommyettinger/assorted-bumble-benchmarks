@@ -15,23 +15,23 @@
 package net.adoptopenjdk.bumblebench.examples;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.OrderedSet;
+import com.github.tommyettinger.ds.ObjectList;
+import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.random.FourWheelRandom;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
+import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
+import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
 import org.apache.fury.memory.MemoryBuffer;
-import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
 
 /*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
@@ -63,7 +63,7 @@ import java.util.HashMap;
  * <br>
  *
  */
-public final class FuryWriteBench extends MiniBench {
+public final class FuryMoreWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -78,20 +78,20 @@ public final class FuryWriteBench extends MiniBench {
 			e.printStackTrace();
 		}
 		final String[] words = StringKit.split(book, " ");
-		ObjectSet<String> unique = ObjectSet.with(words);
-		HashMap<String, ArrayList<Vector2>> big = new HashMap<>(unique.size);
+		OrderedSet<String> unique = OrderedSet.with(words);
+		ObjectObjectMap<String, ObjectList<Vector2>> big = new ObjectObjectMap<>(unique.size);
 		FourWheelRandom random = new FourWheelRandom(12345);
 		for(String u : unique){
-			big.put(u, new ArrayList<>(Arrays.asList(
+			big.put(u, ObjectList.with(
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
-			)));
+			));
 		}
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.register(HashMap.class);
-		fury.register(ArrayList.class);
-		fury.register(Vector2.class);
+		fury.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fury));
+		fury.registerSerializer(ObjectList.class, new ObjectListSerializer(fury));
+		fury.registerSerializer(Vector2.class, new Vector2Serializer(fury));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
@@ -115,27 +115,27 @@ public final class FuryWriteBench extends MiniBench {
 		}
 		final String[] words = StringKit.split(book, " ");
 		OrderedSet<String> unique = OrderedSet.with(words);
-		HashMap<String, ArrayList<Vector2>> big = new HashMap<>(unique.size);
+		ObjectObjectMap<String, ObjectList<Vector2>> big = new ObjectObjectMap<>(unique.size);
 		FourWheelRandom random = new FourWheelRandom(12345);
 		for(String u : unique){
-			big.put(u, new ArrayList<>(Arrays.asList(
+			big.put(u, ObjectList.with(
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
-			)));
+			));
 		}
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.register(HashMap.class);
-		fury.register(ArrayList.class);
-		fury.register(Vector2.class);
+		fury.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fury));
+		fury.registerSerializer(ObjectList.class, new ObjectListSerializer(fury));
+		fury.registerSerializer(Vector2.class, new Vector2Serializer(fury));
 
 		try {
-			FileOutputStream stream = new FileOutputStream("fury.dat");
+			FileOutputStream stream = new FileOutputStream("furymore.dat");
 			byte[] bytes = fury.serializeJavaObject(big);
-			System.out.println("Fury serialized data is " + bytes.length + " bytes in size.");
+			System.out.println("Fury (Tantrum) serialized data (jdkgdxds) is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
 			stream.close();
