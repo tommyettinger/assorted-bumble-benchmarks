@@ -18,15 +18,131 @@ import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.ByteBufferInput;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.serializers.CollectionSerializer;
-import com.esotericsoftware.kryo.serializers.MapSerializer;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectMap;
-import com.github.tommyettinger.ds.Utilities;
+import com.github.tommyettinger.kryo.jdkgdxds.ObjectListSerializer;
+import com.github.tommyettinger.kryo.jdkgdxds.ObjectObjectMapSerializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * KryoMoreReadBench score: 786.796448 (786.8 666.8%)
+ *               uncertainty:   1.5%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * KryoMoreReadBench score: 780.973938 (781.0 666.1%)
+ *               uncertainty:   3.4%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * KryoMoreReadBench score: 778.308960 (778.3 665.7%)
+ *               uncertainty:   7.5%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * KryoMoreReadBench score: 799.815979 (799.8 668.4%)
+ *               uncertainty:   5.8%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * KryoMoreReadBench score: 721.266113 (721.3 658.1%)
+ *               uncertainty:  10.2%
+ */
+public final class KryoMoreReadBench extends MiniBench {
+	@Override
+	protected int maxIterationsPerLoop() {
+		return 1000007;
+	}
+
+	@Override
+	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
+		byte[] data = new HeadlessFiles().local("kryomore.dat").readBytes();
+		ObjectObjectMap<String, ObjectList<Vector2>> big;
+
+
+		Kryo kryo = new Kryo();
+		kryo.register(Vector2.class);
+		kryo.register(ObjectList.class, new ObjectListSerializer());
+		kryo.register(ObjectObjectMap.class, new ObjectObjectMapSerializer());
+//		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
+//			@Override
+//			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectList<>(size);
+//			}
+//
+//			@Override
+//			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
+//				return new ObjectList<>(original.size());
+//			}
+//		});
+//		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
+//			@Override
+//			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
+//				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
+//			}
+//
+//			@Override
+//			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
+//				return new ObjectObjectMap<>(original.size());
+//			}
+//		});
+
+//		Kryo kryo = new Kryo();
+//		kryo.register(Vector2.class);
+//		CollectionSerializer<ObjectList<Vector2>> cs = new CollectionSerializer<>();
+//		cs.setElementClass(Vector2.class);
+//		kryo.register(ObjectList.class, cs);
+//		MapSerializer<ObjectObjectMap<String, ObjectList<Vector2>>> ms = new MapSerializer<>();
+//		ms.setKeyClass(String.class);
+//		ms.setValueClass(ObjectList.class, cs);
+//		kryo.register(ObjectObjectMap.class, ms);
+
+		long counter = 0;
+		for (long i = 0; i < numLoops; i++) {
+			for (int j = 0; j < numIterationsPerLoop; j++) {
+				startTimer();
+				ByteBufferInput input = new ByteBufferInput(data);
+				big = kryo.readObject(input, ObjectObjectMap.class);
+				counter += big.size();
+				pauseTimer();
+			}
+		}
+		return numLoops * numIterationsPerLoop;
+	}
+}
+
+// TEMPLATE
+/*
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ *
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ *
+ */
+
+
+// OLD
+/*
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -68,64 +184,3 @@ import net.adoptopenjdk.bumblebench.core.MiniBench;
  * KryoMoreReadBench score: 416.608795 (416.6 603.2%)
  *               uncertainty:   2.7%
  */
-public final class KryoMoreReadBench extends MiniBench {
-	@Override
-	protected int maxIterationsPerLoop() {
-		return 1000007;
-	}
-
-	@Override
-	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("kryomore.dat").readBytes();
-		ObjectObjectMap<String, ObjectList<Vector2>> big;
-
-
-		Kryo kryo = new Kryo();
-		kryo.register(Vector2.class);
-		kryo.register(ObjectList.class, new CollectionSerializer<ObjectList<?>>(){
-			@Override
-			protected ObjectList<?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectList<>(size);
-			}
-
-			@Override
-			protected ObjectList<?> createCopy(Kryo kryo, ObjectList original) {
-				return new ObjectList<>(original.size());
-			}
-		});
-		kryo.register(ObjectObjectMap.class, new MapSerializer<ObjectObjectMap<?, ?>>(){
-			@Override
-			protected ObjectObjectMap<?, ?> create(Kryo kryo, Input input, Class type, int size) {
-				return new ObjectObjectMap<>(size, Utilities.getDefaultLoadFactor());
-			}
-
-			@Override
-			protected ObjectObjectMap<?, ?> createCopy(Kryo kryo, ObjectObjectMap<?, ?> original) {
-				return new ObjectObjectMap<>(original.size());
-			}
-		});
-
-//		Kryo kryo = new Kryo();
-//		kryo.register(Vector2.class);
-//		CollectionSerializer<ObjectList<Vector2>> cs = new CollectionSerializer<>();
-//		cs.setElementClass(Vector2.class);
-//		kryo.register(ObjectList.class, cs);
-//		MapSerializer<ObjectObjectMap<String, ObjectList<Vector2>>> ms = new MapSerializer<>();
-//		ms.setKeyClass(String.class);
-//		ms.setValueClass(ObjectList.class, cs);
-//		kryo.register(ObjectObjectMap.class, ms);
-
-		long counter = 0;
-		for (long i = 0; i < numLoops; i++) {
-			for (int j = 0; j < numIterationsPerLoop; j++) {
-				startTimer();
-				ByteBufferInput input = new ByteBufferInput(data);
-				big = kryo.readObject(input, ObjectObjectMap.class);
-				counter += big.size();
-				pauseTimer();
-			}
-		}
-		return numLoops * numIterationsPerLoop;
-	}
-}
-
