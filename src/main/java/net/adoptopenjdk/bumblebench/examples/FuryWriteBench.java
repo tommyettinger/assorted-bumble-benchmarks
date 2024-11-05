@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.OrderedSet;
 import com.github.tommyettinger.random.FourWheelRandom;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
+import org.apache.fury.logging.LoggerFactory;
 import org.apache.fury.memory.MemoryBuffer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
@@ -61,7 +62,8 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * FuryWriteBench score: 1135.690552 (1136 703.5%)
+ *            uncertainty:  14.4%
  */
 public final class FuryWriteBench extends MiniBench {
 	@Override
@@ -88,6 +90,7 @@ public final class FuryWriteBench extends MiniBench {
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
 			)));
 		}
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.register(HashMap.class);
 		fury.register(ArrayList.class);

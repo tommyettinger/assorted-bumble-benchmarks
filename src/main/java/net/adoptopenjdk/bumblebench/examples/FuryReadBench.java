@@ -19,6 +19,7 @@ import com.badlogic.gdx.math.Vector2;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
+import org.apache.fury.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -48,6 +49,7 @@ public final class FuryReadBench extends MiniBench {
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
 		byte[] data = new HeadlessFiles().local("fury.dat").readBytes();
 		HashMap<String, ArrayList<Vector2>> big;
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.register(HashMap.class);
 		fury.register(ArrayList.class);

@@ -22,6 +22,8 @@ import com.github.tommyettinger.random.FourWheelRandom;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
+import org.apache.fury.logging.FuryLogger;
+import org.apache.fury.logging.LoggerFactory;
 import org.apache.fury.memory.MemoryBuffer;
 import squidpony.StringKit;
 
@@ -58,7 +60,8 @@ import java.nio.file.Paths;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * FuryNotMoreWriteBench score: 898.888428 (898.9 680.1%)
+ *                   uncertainty:  17.2%
  */
 public final class FuryNotMoreWriteBench extends MiniBench {
 	@Override
@@ -85,6 +88,7 @@ public final class FuryNotMoreWriteBench extends MiniBench {
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
 			));
 		}
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.register(ObjectObjectMap.class);
 		fury.register(ObjectList.class);

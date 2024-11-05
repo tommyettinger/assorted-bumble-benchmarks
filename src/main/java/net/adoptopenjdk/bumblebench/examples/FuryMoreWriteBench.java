@@ -25,6 +25,7 @@ import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
+import org.apache.fury.logging.LoggerFactory;
 import org.apache.fury.memory.MemoryBuffer;
 import squidpony.StringKit;
 
@@ -61,7 +62,8 @@ import java.nio.file.Paths;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * FuryMoreWriteBench score: 797.525940 (797.5 668.2%)
+ *                uncertainty:   6.3%
  */
 public final class FuryMoreWriteBench extends MiniBench {
 	@Override
@@ -88,6 +90,7 @@ public final class FuryMoreWriteBench extends MiniBench {
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
 			));
 		}
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fury));
 		fury.registerSerializer(ObjectList.class, new ObjectListSerializer(fury));
