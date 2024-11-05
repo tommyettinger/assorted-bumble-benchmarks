@@ -33,10 +33,32 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Java 17:
+ * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
- * KryoWriteBench score: 450.081726 (450.1 610.9%)
+ * HotSpot Java 8:
+ * <br>
+ * KryoWriteBench score: 633.149719 (633.1 645.1%)
  *            uncertainty:   1.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * KryoWriteBench score: 671.979736 (672.0 651.0%)
+ *            uncertainty:   1.6%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * KryoWriteBench score: 660.632507 (660.6 649.3%)
+ *            uncertainty:   8.3%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * KryoWriteBench score: 729.367371 (729.4 659.2%)
+ *            uncertainty:   3.3%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * KryoWriteBench score: 689.462891 (689.5 653.6%)
+ *            uncertainty:   8.0%
  */
 public final class KryoWriteBench extends MiniBench {
 	@Override
@@ -118,3 +140,10 @@ public final class KryoWriteBench extends MiniBench {
 
 }
 
+// OLD
+/*
+ * Java 17:
+ * <br>
+ * KryoWriteBench score: 450.081726 (450.1 610.9%)
+ *            uncertainty:   1.2%
+ */

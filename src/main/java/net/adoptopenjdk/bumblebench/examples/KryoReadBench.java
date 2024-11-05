@@ -24,10 +24,27 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Java 17:
+ * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
- * KryoReadBench score: 450.349823 (450.3 611.0%)
- *           uncertainty:   0.4%
+ * HotSpot Java 8:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ *
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ *
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ *
  */
 public final class KryoReadBench extends MiniBench {
 	@Override
@@ -58,3 +75,10 @@ public final class KryoReadBench extends MiniBench {
 	}
 }
 
+// OLD
+/*
+ * Java 17:
+ * <br>
+ * KryoReadBench score: 450.349823 (450.3 611.0%)
+ *           uncertainty:   0.4%
+ */
