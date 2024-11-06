@@ -60,10 +60,15 @@ import java.util.HashMap;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 23 (Adoptium):
+ * HotSpot Java 23 (Adoptium), Fury 0.7.1:
  * <br>
  * FuryWriteBench score: 1135.690552 (1136 703.5%)
  *            uncertainty:  14.4%
+ * <br>
+ * HotSpot Java 23 (Adoptium), Fury 0.8.0:
+ * <br>
+ * FuryWriteBench score: 996.084900 (996.1 690.4%)
+ *            uncertainty:   3.7%
  */
 public final class FuryWriteBench extends MiniBench {
 	@Override
@@ -130,6 +135,7 @@ public final class FuryWriteBench extends MiniBench {
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.register(HashMap.class);
 		fury.register(ArrayList.class);

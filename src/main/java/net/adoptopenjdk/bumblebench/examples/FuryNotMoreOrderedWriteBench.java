@@ -62,10 +62,15 @@ import java.nio.file.Paths;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 23 (Adoptium):
+ * HotSpot Java 23 (Adoptium), Fury 0.7.1:
  * <br>
  * FuryNotMoreOrderedWriteBench score: 645.030640 (645.0 646.9%)
  *                          uncertainty:   4.2%
+ * <br>
+ * HotSpot Java 23 (Adoptium), Fury 0.8.0:
+ * <br>
+ * FuryNotMoreOrderedWriteBench score: 650.952332 (651.0 647.8%)
+ *                          uncertainty:  11.0%
  */
 public final class FuryNotMoreOrderedWriteBench extends MiniBench {
 	@Override

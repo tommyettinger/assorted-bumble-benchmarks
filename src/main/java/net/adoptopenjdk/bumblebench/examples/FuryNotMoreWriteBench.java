@@ -58,10 +58,15 @@ import java.nio.file.Paths;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 23 (Adoptium):
+ * HotSpot Java 23 (Adoptium), Fury 0.7.1:
  * <br>
  * FuryNotMoreWriteBench score: 898.888428 (898.9 680.1%)
  *                   uncertainty:  17.2%
+ * <br>
+ * HotSpot Java 23 (Adoptium), Fury 0.8.0:
+ * <br>
+ * FuryNotMoreWriteBench score: 900.169128 (900.2 680.3%)
+ *                   uncertainty:   1.5%
  */
 public final class FuryNotMoreWriteBench extends MiniBench {
 	@Override
@@ -128,6 +133,7 @@ public final class FuryNotMoreWriteBench extends MiniBench {
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
+		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.register(ObjectObjectMap.class);
 		fury.register(ObjectList.class);
