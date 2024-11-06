@@ -16,13 +16,19 @@ package net.adoptopenjdk.bumblebench.examples;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
+import com.github.tommyettinger.ds.ObjectList;
+import com.github.tommyettinger.ds.ObjectObjectMap;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
+import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
+import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fury.Fury;
 import org.apache.fury.config.Language;
-import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fury.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 /*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
@@ -52,10 +58,10 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * FuryReadBench score: 1119.545654 (1120 702.1%)
- *           uncertainty:   2.3%
+ * FuryNotMoreReadBench score: 1071.419922 (1071 697.7%)
+ *                  uncertainty:   0.4%
  */
-public final class FuryReadBench extends MiniBench {
+public final class FuryNotMoreReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -63,19 +69,19 @@ public final class FuryReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("fury.dat").readBytes();
-		HashMap<String, ArrayList<Vector2>> big;
+		byte[] data = new HeadlessFiles().local("furynotmore.dat").readBytes();
+		ObjectObjectMap<String, ObjectList<Vector2>> big;
 		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.register(HashMap.class);
-		fury.register(ArrayList.class);
+		fury.register(ObjectObjectMap.class);
+		fury.register(ObjectList.class);
 		fury.register(Vector2.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = fury.deserializeJavaObject(data, HashMap.class);
+				big = fury.deserializeJavaObject(data, ObjectObjectMap.class);
 				counter += big.size();
 				pauseTimer();
 			}
