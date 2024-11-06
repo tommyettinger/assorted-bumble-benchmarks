@@ -235,6 +235,7 @@ target/
 **/out/
 **/generated/
 *.exe
+kryo.dat
 kryomore.dat
 kryonotmore.dat
 furynotmore.dat

@@ -24,7 +24,7 @@ import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
+/*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
@@ -52,6 +52,14 @@ import java.util.HashMap;
  * KryoReadBench score: 758.789246 (758.8 663.2%)
  *           uncertainty:   5.0%
  */
+/**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * KryoReadBench score: 826.265747 (826.3 671.7%)
+ *           uncertainty:   0.9%
+ */
 public final class KryoReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
@@ -68,7 +76,9 @@ public final class KryoReadBench extends MiniBench {
 
 		long counter = 0;
 
-		ByteBuffer buffer = new HeadlessFiles().local("kryo.dat").map();
+		byte[] bytes = new HeadlessFiles().local("kryo.dat").readBytes();
+		ByteBuffer buffer = ByteBuffer.allocateDirect(bytes.length);
+		buffer.put(bytes);
 		buffer.flip();
 		ByteBufferInput input = new ByteBufferInput(buffer);
 		for (long i = 0; i < numLoops; i++) {
@@ -77,6 +87,7 @@ public final class KryoReadBench extends MiniBench {
 				startTimer();
 				big = kryo.readObject(input, HashMap.class);
 				pauseTimer();
+				input.reset();
 				counter += big.size();
 			}
 		}
