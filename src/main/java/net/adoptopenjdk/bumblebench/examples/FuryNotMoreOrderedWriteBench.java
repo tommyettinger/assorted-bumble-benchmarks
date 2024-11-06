@@ -64,7 +64,8 @@ import java.nio.file.Paths;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * FuryNotMoreOrderedWriteBench score: 645.030640 (645.0 646.9%)
+ *                          uncertainty:   4.2%
  */
 public final class FuryNotMoreOrderedWriteBench extends MiniBench {
 	@Override
@@ -152,20 +153,3 @@ public final class FuryNotMoreOrderedWriteBench extends MiniBench {
     }
 
 }
-
-//OLD
-/*
- * With serializeJavaObject():
- * <br>
- * Java 17:
- * <br>
- * FuryWriteBench score: 526.263489 (526.3 626.6%)
- *            uncertainty:   8.4%
- * <br>
- * With serialize():
- * <br>
- * Java 17:
- * <br>
- * FuryWriteBench score: 521.859558 (521.9 625.7%)
- *            uncertainty:  19.0%
- */

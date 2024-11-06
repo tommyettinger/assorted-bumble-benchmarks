@@ -67,7 +67,8 @@ import java.nio.file.Paths;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * FuryMoreOrderedWriteBench score: 677.433350 (677.4 651.8%)
+ *                       uncertainty:   2.0%
  */
 public final class FuryMoreOrderedWriteBench extends MiniBench {
 	@Override
