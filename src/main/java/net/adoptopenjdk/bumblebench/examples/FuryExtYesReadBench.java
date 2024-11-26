@@ -59,7 +59,7 @@ public final class FuryExtYesReadBench extends MiniBench {
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
 		byte[] data = new HeadlessFiles().local("furyExtYes.dat").readBytes();
-		ArrayList<Point4Float> pts = new ArrayList<>((1<<20));
+		ArrayList<Point4Float> pts;
 		LoggerFactory.disableLogging();
 		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
 		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
