@@ -85,8 +85,8 @@
 <!--        </dependency>-->
         <dependency>
             <groupId>com.github.yellowstonegames.SquidSquad</groupId>
-            <artifactId>SquidGrid</artifactId>
-            <version>b0c70155fa</version>
+            <artifactId>squidgrid</artifactId>
+            <version>34f086d046</version>
 <!--            <version>2460adb6a0</version>-->
             <scope>compile</scope>
         </dependency>
@@ -207,7 +207,7 @@
         <dependency>
             <groupId>org.apache.fury</groupId>
             <artifactId>fury-core</artifactId>
-            <version>0.8.0</version>
+            <version>0.9.0</version>
         </dependency>
         <!--        For local installations-->
 
