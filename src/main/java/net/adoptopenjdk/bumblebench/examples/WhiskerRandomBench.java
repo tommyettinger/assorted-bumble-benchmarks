@@ -17,6 +17,46 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * WhiskerRandomBench score: 1334465920.000000 (1.334G 2101.2%)
+ *                uncertainty:   2.7%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * WhiskerRandomBench score: 2069169664.000000 (2.069G 2145.0%)
+ *                uncertainty:   0.6%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * WhiskerRandomBench score: 2125176192.000000 (2.125G 2147.7%)
+ *                uncertainty:   1.9%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * WhiskerRandomBench score: 2143432064.000000 (2.143G 2148.6%)
+ *                uncertainty:   0.6%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * WhiskerRandomBench score: 2076152832.000000 (2.076G 2145.4%)
+ *                uncertainty:   1.2%
+ */
+public final class WhiskerRandomBench extends MicroBench {
+
+	protected long doBatch(long numIterations) throws InterruptedException {
+		WhiskerRandom rng = new WhiskerRandom(0x12345678);
+		long sum = 0L;
+		for (long i = 0; i < numIterations; i++)
+			sum += rng.nextLong();
+		return numIterations;
+	}
+}
+
+//OLD
+/*
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -57,13 +97,3 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  *
  */
-public final class WhiskerRandomBench extends MicroBench {
-
-	protected long doBatch(long numIterations) throws InterruptedException {
-		WhiskerRandom rng = new WhiskerRandom(0x12345678);
-		long sum = 0L;
-		for (long i = 0; i < numIterations; i++)
-			sum += rng.nextLong();
-		return numIterations;
-	}
-}
