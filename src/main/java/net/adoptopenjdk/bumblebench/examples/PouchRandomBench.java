@@ -18,6 +18,46 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * PouchRandomBench score: 1323647488.000000 (1.324G 2100.4%)
+             uncertainty:   1.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * PouchRandomBench score: 2155992320.000000 (2.156G 2149.2%)
+ *              uncertainty:   0.5%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * PouchRandomBench score: 2139570816.000000 (2.140G 2148.4%)
+ *              uncertainty:   0.2%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * PouchRandomBench score: 2188049664.000000 (2.188G 2150.6%)
+ *              uncertainty:   0.7%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * PouchRandomBench score: 2186736640.000000 (2.187G 2150.6%)
+ *              uncertainty:   0.5%
+ */
+public final class PouchRandomBench extends MicroBench {
+
+	protected long doBatch(long numIterations) throws InterruptedException {
+		PouchRandom rng = new PouchRandom(0x12345678);
+		long sum = 0L;
+		for (long i = 0; i < numIterations; i++)
+			sum += rng.nextLong();
+		return numIterations;
+	}
+}
+
+//OLD
+/*
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -60,13 +100,3 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * PouchRandomBench score: 1929308800.000000 (1.929G 2138.0%)
  *              uncertainty:   0.7%
  */
-public final class PouchRandomBench extends MicroBench {
-
-	protected long doBatch(long numIterations) throws InterruptedException {
-		PouchRandom rng = new PouchRandom(0x12345678);
-		long sum = 0L;
-		for (long i = 0; i < numIterations; i++)
-			sum += rng.nextLong();
-		return numIterations;
-	}
-}
