@@ -18,6 +18,60 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8:
+ * <br>
+ * AceRandomBench score: 1015590400.000000 (1.016G 2073.9%)
+ *            uncertainty:  15.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * AceRandomBench score: 2615975936.000000 (2.616G 2168.5%)
+ *            uncertainty:   0.3%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * AceRandomBench score: 2603627520.000000 (2.604G 2168.0%)
+ *            uncertainty:   0.5%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * AceRandomBench score: 2581860864.000000 (2.582G 2167.2%)
+ *            uncertainty:   0.6%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * AceRandomBench score: 2585031680.000000 (2.585G 2167.3%)
+ *            uncertainty:   0.3%
+ */
+public final class AceRandomBench extends MicroBench {
+
+	private long sum = 0L;
+	protected long doBatch(long numIterations) throws InterruptedException {
+		AceRandom rng = new AceRandom(0x12345678);
+		for (long i = 0; i < numIterations; i++)
+			sum += rng.nextLong();
+		return numIterations;
+	}
+
+	/**
+	 * Optionally implemented by subclasses and called at the end of a run to verify
+	 * whether the run was correct or not. Defaults to true. If false, an ERROR message
+	 * is printed instead of the final score. Implementing methods may output their own
+	 * error message(s) as well.
+	 */
+	@Override
+	protected boolean verify() {
+		System.out.println("Final sum was: ");
+		System.out.println(sum);
+		System.out.println();
+		return super.verify();
+	}
+}
+
+//OLD
+/*
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -86,27 +140,3 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * AceRandomBench score: 1705748992.000000 (1.706G 2125.7%)
  *            uncertainty:   3.1%
  */
-public final class AceRandomBench extends MicroBench {
-
-	private long sum = 0L;
-	protected long doBatch(long numIterations) throws InterruptedException {
-		AceRandom rng = new AceRandom(0x12345678);
-		for (long i = 0; i < numIterations; i++)
-			sum += rng.nextLong();
-		return numIterations;
-	}
-
-	/**
-	 * Optionally implemented by subclasses and called at the end of a run to verify
-	 * whether the run was correct or not. Defaults to true. If false, an ERROR message
-	 * is printed instead of the final score. Implementing methods may output their own
-	 * error message(s) as well.
-	 */
-	@Override
-	protected boolean verify() {
-		System.out.println("Final sum was: ");
-		System.out.println(sum);
-		System.out.println();
-		return super.verify();
-	}
-}
