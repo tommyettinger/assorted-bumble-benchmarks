@@ -17,6 +17,44 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * MathCbrtBench score: 21551406.000000 (21.55M 1688.6%)
+ *         uncertainty:   0.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * MathCbrtBench score: 171566144.000000 (171.6M 1896.0%)
+ *         uncertainty:   0.7%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * MathCbrtBench score: 178729584.000000 (178.7M 1900.1%)
+ *         uncertainty:   0.3%
+ * <br>
+ * GraalVM Java 22:
+ * <br>
+ * MathCbrtBench score: 170263792.000000 (170.3M 1895.3%)
+ *         uncertainty:   0.4%
+ * <br>
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * MathCbrtBench score: 168600896.000000 (168.6M 1894.3%)
+ *         uncertainty:   0.4%
+ */
+public final class MathCbrtBench extends MicroBench {
+	 protected long doBatch (long numIterations) throws InterruptedException {
+		  double sum = 0.01;
+		  final double shrink = 16180.339887498949 / numIterations;
+		  for (long i = 0; i < numIterations; i++)
+			  sum += Math.cbrt(i + shrink);
+		  return numIterations;
+	 }
+}
+
+/* OLD
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -34,12 +72,3 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * MathCbrtBench score: 29086090.000000 (29.09M 1718.6%)
  *          uncertainty:   0.1%
  */
-public final class MathCbrtBench extends MicroBench {
-	 protected long doBatch (long numIterations) throws InterruptedException {
-		  double sum = 0.01, inc = -0.5;
-		  final double shrink = 1.6180339887498949 / numIterations;
-		  for (long i = 0; i < numIterations; i++)
-			  sum = Math.cbrt(sum + sum + (inc += shrink));
-		  return numIterations;
-	 }
-}
