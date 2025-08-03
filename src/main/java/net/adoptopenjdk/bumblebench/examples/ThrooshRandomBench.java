@@ -22,19 +22,23 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- *
+ * ThrooshRandomBench score: 1413559424.000000 (1.414G 2106.9%)
+ *                uncertainty:   0.4%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * ThrooshRandomBench score: 1843327616.000000 (1.843G 2133.5%)
+ *                uncertainty:   0.4%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * ThrooshRandomBench score: 1831296640.000000 (1.831G 2132.8%)
+ *                uncertainty:   0.4%
  * <br>
  * GraalVM Java 24:
  * <br>
- *
+ * ThrooshRandomBench score: 1797725184.000000 (1.798G 2131.0%)
+ *                uncertainty:   0.6%
  */
 public final class ThrooshRandomBench extends MicroBench {
 
