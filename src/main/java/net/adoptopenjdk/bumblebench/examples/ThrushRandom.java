@@ -296,7 +296,7 @@ public class ThrushRandom extends EnhancedRandom {
 				+ (stateA << 26 | stateA >>> 38));
 	}
 	// variant, one-line version
-//      return d^=(a=(b=(b<<41|b>>>23)+(c+=0xBEA225F9EB34556DL))+(a<<26|a>>>38));
+//      return d^=(a=(b=(b<<41|b>>>23)^(c+=0xBEA225F9EB34556DL))+(a<<26|a>>>38));
 
 	@Override
 	public long previousLong () {

@@ -18,17 +18,9 @@ package net.adoptopenjdk.bumblebench.examples;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 8:
- * <br>
- *
- * <br>
- * OpenJ9 Java 15:
- * <br>
- *
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
+ * HotSpot Java 8 (BellSoft):
  * <br>
  *
  * <br>
@@ -36,19 +28,11 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  *
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
  *
  * <br>
- * OpenJ9 Java 17 (Semeru):
- * <br>
- *
- * <br>
- * HotSpot Java 18 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 19 (BellSoft):
+ * GraalVM Java 24:
  * <br>
  *
  */
@@ -64,18 +48,10 @@ public final class ThrooshRandomBench extends MicroBench {
 }
 
 // TEMPLATE
-/*
- * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
+/* *
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 8:
- * <br>
- *
- * <br>
- * OpenJ9 Java 15:
- * <br>
- *
- * <br>
- * HotSpot Java 16 (AdoptOpenJDK):
+ * HotSpot Java 8 (BellSoft):
  * <br>
  *
  * <br>
@@ -83,19 +59,11 @@ public final class ThrooshRandomBench extends MicroBench {
  * <br>
  *
  * <br>
- * GraalVM Java 17:
+ * HotSpot Java 21 (BellSoft):
  * <br>
  *
  * <br>
- * OpenJ9 Java 17 (Semeru):
- * <br>
- *
- * <br>
- * HotSpot Java 18 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 19 (BellSoft):
+ * GraalVM Java 24:
  * <br>
  *
  */
