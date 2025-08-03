@@ -16,9 +16,9 @@ import com.github.tommyettinger.tantrum.libgdx.Vector3Serializer;
 import net.jpountz.lz4.LZ4Compressor;
 import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.meta.DeflaterMetaCompressor;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.meta.DeflaterMetaCompressor;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -27,10 +27,10 @@ import java.nio.charset.StandardCharsets;
 
 public class SizeComparisonTest {
     /**
-     * Fury bytes length : 53
-     * Fury with Zstd    : 62
-     * Fury with LZ4     : 55
-     * Fury with Deflate : 53
+     * Fory bytes length : 53
+     * Fory with Zstd    : 62
+     * Fory with LZ4     : 55
+     * Fory with Deflate : 53
      * Kryo bytes length : 47
      * Kryo with Zstd    : 56
      * Kryo with LZ4     : 49
@@ -44,9 +44,9 @@ public class SizeComparisonTest {
     public void testSmallStringArray() {
         System.out.println("Small Array<String>");
 
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-        fury.registerSerializer(Array.class, new ArraySerializer(fury));
-        fury.register(Array.class);
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+        fory.registerSerializer(Array.class, new ArraySerializer(fory));
+        fory.register(Array.class);
 
         Json json = new Json();
 
@@ -62,24 +62,24 @@ public class SizeComparisonTest {
 
         DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
 
-        byte[] bytesFury = fury.serializeJavaObject(data);
+        byte[] bytesFory = fory.serializeJavaObject(data);
         {
-            Array<?> data2 = fury.deserializeJavaObject(bytesFury, Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(bytesFory, Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryZstd = Zstd.compress(bytesFury);
+        byte[] bytesForyZstd = Zstd.compress(bytesFory);
         {
-            Array<?> data2 = fury.deserializeJavaObject(Zstd.decompress(bytesFuryZstd, (int)Zstd.getFrameContentSize(bytesFuryZstd)), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryLz4 = lz4Compressor.compress(bytesFury);
+        byte[] bytesForyLz4 = lz4Compressor.compress(bytesFory);
         {
-            Array<?> data2 = fury.deserializeJavaObject(lz4Decompressor.decompress(bytesFuryLz4, bytesFury.length), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryDeflate = deflate.compress(bytesFury, 0, bytesFury.length);
+        byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
         {
-            Array<?> data2 = fury.deserializeJavaObject(deflate.decompress(bytesFuryDeflate, 0, bytesFuryDeflate.length), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -133,10 +133,10 @@ public class SizeComparisonTest {
             Assert.assertEquals(data, data2);
         }
 
-        System.out.println("Fury bytes length : " + bytesFury.length);
-        System.out.println("Fury with Zstd    : " + bytesFuryZstd.length);
-        System.out.println("Fury with LZ4     : " + bytesFuryLz4.length);
-        System.out.println("Fury with Deflate : " + bytesFuryDeflate.length);
+        System.out.println("Fory bytes length : " + bytesFory.length);
+        System.out.println("Fory with Zstd    : " + bytesForyZstd.length);
+        System.out.println("Fory with LZ4     : " + bytesForyLz4.length);
+        System.out.println("Fory with Deflate : " + bytesForyDeflate.length);
         System.out.println("Kryo bytes length : " + bytesKryo.length);
         System.out.println("Kryo with Zstd    : " + bytesKryoZstd.length);
         System.out.println("Kryo with LZ4     : " + bytesKryoLz4.length);
@@ -149,10 +149,10 @@ public class SizeComparisonTest {
     }
 
     /**
-     * Fury bytes length : 10072
-     * Fury with Zstd    : 2847
-     * Fury with LZ4     : 8141
-     * Fury with Deflate : 4110
+     * Fory bytes length : 10072
+     * Fory with Zstd    : 2847
+     * Fory with LZ4     : 8141
+     * Fory with Deflate : 4110
      * Kryo bytes length : 9049
      * Kryo with Zstd    : 2848
      * Kryo with LZ4     : 8038
@@ -166,11 +166,11 @@ public class SizeComparisonTest {
     public void testLargeStringArray() {
         System.out.println("Large Array<String>");
 
-        Fury fury = Fury.builder().withLanguage(Language.JAVA)
+        Fory fory = Fory.builder().withLanguage(Language.JAVA)
                 .requireClassRegistration(true)
                 .build();
-        fury.registerSerializer(Array.class, new ArraySerializer(fury));
-        fury.register(Array.class);
+        fory.registerSerializer(Array.class, new ArraySerializer(fory));
+        fory.register(Array.class);
 
         Json json = new Json();
 
@@ -190,24 +190,24 @@ public class SizeComparisonTest {
 
         DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
 
-        byte[] bytesFury = fury.serializeJavaObject(data);
+        byte[] bytesFory = fory.serializeJavaObject(data);
         {
-            Array<?> data2 = fury.deserializeJavaObject(bytesFury, Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(bytesFory, Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryZstd = Zstd.compress(bytesFury);
+        byte[] bytesForyZstd = Zstd.compress(bytesFory);
         {
-            Array<?> data2 = fury.deserializeJavaObject(Zstd.decompress(bytesFuryZstd, (int)Zstd.getFrameContentSize(bytesFuryZstd)), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryLz4 = lz4Compressor.compress(bytesFury);
+        byte[] bytesForyLz4 = lz4Compressor.compress(bytesFory);
         {
-            Array<?> data2 = fury.deserializeJavaObject(lz4Decompressor.decompress(bytesFuryLz4, bytesFury.length), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesFuryDeflate = deflate.compress(bytesFury, 0, bytesFury.length);
+        byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
         {
-            Array<?> data2 = fury.deserializeJavaObject(deflate.decompress(bytesFuryDeflate, 0, bytesFuryDeflate.length), Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -261,10 +261,10 @@ public class SizeComparisonTest {
             Assert.assertEquals(data, data2);
         }
 
-        System.out.println("Fury bytes length : " + bytesFury.length);
-        System.out.println("Fury with Zstd    : " + bytesFuryZstd.length);
-        System.out.println("Fury with LZ4     : " + bytesFuryLz4.length);
-        System.out.println("Fury with Deflate : " + bytesFuryDeflate.length);
+        System.out.println("Fory bytes length : " + bytesFory.length);
+        System.out.println("Fory with Zstd    : " + bytesForyZstd.length);
+        System.out.println("Fory with LZ4     : " + bytesForyLz4.length);
+        System.out.println("Fory with Deflate : " + bytesForyDeflate.length);
         System.out.println("Kryo bytes length : " + bytesKryo.length);
         System.out.println("Kryo with Zstd    : " + bytesKryoZstd.length);
         System.out.println("Kryo with LZ4     : " + bytesKryoLz4.length);
@@ -279,12 +279,12 @@ public class SizeComparisonTest {
     @Test
     public void testSmallVector3Array() {
         MathUtils.random.setSeed(1234567890L);
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).withRefTracking(true).build();
-        fury.registerSerializer(Array.class, new ArraySerializer(fury));
-        fury.register(Array.class);
-        fury.register(Array.ArrayIterable.class);
-        fury.register(Array.ArrayIterator.class);
-        fury.registerSerializer(Vector3.class, new Vector3Serializer(fury));
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).withRefTracking(true).build();
+        fory.registerSerializer(Array.class, new ArraySerializer(fory));
+        fory.register(Array.class);
+        fory.register(Array.ArrayIterable.class);
+        fory.register(Array.ArrayIterator.class);
+        fory.registerSerializer(Vector3.class, new Vector3Serializer(fory));
 
         Json json = new Json();
 
@@ -298,9 +298,9 @@ public class SizeComparisonTest {
         }
         data.add(sum);
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Array<?> data2 = fury.deserializeJavaObject(bytes, Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(bytes, Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -311,8 +311,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Small Array<Vector3>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);
@@ -321,12 +321,12 @@ public class SizeComparisonTest {
     @Test
     public void testLargeVector3Array() {
         MathUtils.random.setSeed(1234567890L);
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).withRefTracking(true).build();
-        fury.registerSerializer(Array.class, new ArraySerializer(fury));
-        fury.register(Array.class);
-        fury.register(Array.ArrayIterable.class);
-        fury.register(Array.ArrayIterator.class);
-        fury.registerSerializer(Vector3.class, new Vector3Serializer(fury));
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).withRefTracking(true).build();
+        fory.registerSerializer(Array.class, new ArraySerializer(fory));
+        fory.register(Array.class);
+        fory.register(Array.ArrayIterable.class);
+        fory.register(Array.ArrayIterator.class);
+        fory.registerSerializer(Vector3.class, new Vector3Serializer(fory));
 
         Json json = new Json();
 
@@ -340,9 +340,9 @@ public class SizeComparisonTest {
         }
         data.add(sum);
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Array<?> data2 = fury.deserializeJavaObject(bytes, Array.class);
+            Array<?> data2 = fory.deserializeJavaObject(bytes, Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -353,8 +353,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Large Array<Vector3>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);
@@ -362,8 +362,8 @@ public class SizeComparisonTest {
 
     @Test
     public void testSmallStringQueue() {
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-        fury.registerSerializer(Queue.class, new QueueSerializer(fury));
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+        fory.registerSerializer(Queue.class, new QueueSerializer(fory));
 
         Json json = new Json();
 
@@ -372,9 +372,9 @@ public class SizeComparisonTest {
             data.addLast(s);
         }
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Queue<?> data2 = fury.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -385,8 +385,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Small Queue<String>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);
@@ -394,10 +394,10 @@ public class SizeComparisonTest {
 
     @Test
     public void testLargeStringQueue() {
-        Fury fury = Fury.builder().withLanguage(Language.JAVA)
+        Fory fory = Fory.builder().withLanguage(Language.JAVA)
                 .requireClassRegistration(true)
                 .build();
-        fury.registerSerializer(Queue.class, new QueueSerializer(fury));
+        fory.registerSerializer(Queue.class, new QueueSerializer(fory));
 
         Json json = new Json();
 
@@ -407,9 +407,9 @@ public class SizeComparisonTest {
             data.addLast(i + " " + i);
         }
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Queue<?> data2 = fury.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -420,8 +420,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Large Queue<String>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);
@@ -430,9 +430,9 @@ public class SizeComparisonTest {
     @Test
     public void testSmallVector3Queue() {
         MathUtils.random.setSeed(1234567890L);
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-        fury.registerSerializer(Queue.class, new QueueSerializer(fury));
-        fury.registerSerializer(Vector3.class, new Vector3Serializer(fury));
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+        fory.registerSerializer(Queue.class, new QueueSerializer(fory));
+        fory.registerSerializer(Vector3.class, new Vector3Serializer(fory));
 
         Json json = new Json();
 
@@ -441,9 +441,9 @@ public class SizeComparisonTest {
             data.addLast(new Vector3(MathUtils.random(), MathUtils.random(), MathUtils.random()));
         }
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Queue<?> data2 = fury.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -454,8 +454,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Small Queue<Vector3>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);
@@ -464,9 +464,9 @@ public class SizeComparisonTest {
     @Test
     public void testLargeVector3Queue() {
         MathUtils.random.setSeed(1234567890L);
-        Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-        fury.registerSerializer(Queue.class, new QueueSerializer(fury));
-        fury.registerSerializer(Vector3.class, new Vector3Serializer(fury));
+        Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+        fory.registerSerializer(Queue.class, new QueueSerializer(fory));
+        fory.registerSerializer(Vector3.class, new Vector3Serializer(fory));
 
         Json json = new Json();
 
@@ -480,9 +480,9 @@ public class SizeComparisonTest {
         }
         data.addLast(sum);
 
-        byte[] bytes = fury.serializeJavaObject(data);
+        byte[] bytes = fory.serializeJavaObject(data);
         {
-            Queue<?> data2 = fury.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -493,8 +493,8 @@ public class SizeComparisonTest {
         }
 
         System.out.println("Large Queue<Vector3>");
-        System.out.println("Fury bytes length : " + bytes.length);
-        System.out.println("Fury String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
+        System.out.println("Fory bytes length : " + bytes.length);
+        System.out.println("Fory String length: " + new String(bytes, StandardCharsets.ISO_8859_1).length());
         System.out.println("JSON bytes length : " + text.getBytes(StandardCharsets.ISO_8859_1).length);
         System.out.println("JSON String length: " + text.length());
         System.out.println("JSON data: " + text);

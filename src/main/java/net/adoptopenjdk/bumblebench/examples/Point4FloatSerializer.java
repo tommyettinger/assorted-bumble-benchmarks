@@ -18,16 +18,16 @@
 package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.yellowstonegames.grid.Point4Float;
-import org.apache.fury.Fury;
-import org.apache.fury.memory.MemoryBuffer;
-import org.apache.fury.serializer.Serializer;
+import org.apache.fory.Fory;
+import org.apache.fory.memory.MemoryBuffer;
+import org.apache.fory.serializer.Serializer;
 
 /**
- * Fury {@link Serializer} for libGDX {@link Point4Float}s.
+ * Fory {@link Serializer} for libGDX {@link Point4Float}s.
  */
 public class Point4FloatSerializer extends Serializer<Point4Float> {
-    public Point4FloatSerializer(Fury fury) {
-        super(fury, Point4Float.class);
+    public Point4FloatSerializer(Fory fory) {
+        super(fory, Point4Float.class);
     }
 
     @Override

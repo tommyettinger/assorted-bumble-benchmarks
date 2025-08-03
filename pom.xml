@@ -86,7 +86,8 @@
         <dependency>
             <groupId>com.github.yellowstonegames.SquidSquad</groupId>
             <artifactId>squidgrid</artifactId>
-            <version>34f086d046</version>
+            <version>57d6d201bf</version>
+<!--            <version>34f086d046</version>-->
 <!--            <version>2460adb6a0</version>-->
             <scope>compile</scope>
         </dependency>
@@ -135,22 +136,22 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds_interop</artifactId>
-            <version>1.6.5.1</version>
+            <version>1.11.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>kryo-jdkgdxds</artifactId>
-            <version>1.6.5.1</version>
+            <version>1.11.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>tantrum-jdkgdxds</artifactId>
-            <version>1.6.5.4</version>
+            <version>1.11.0.12</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>tantrum-libgdx</artifactId>
-            <version>1.12.1.3</version>
+            <version>1.13.1.12</version>
         </dependency>
         <dependency>
             <groupId>de.javakaffee</groupId>
@@ -184,19 +185,19 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>digital</artifactId>
-            <version>0.6.2</version>
+            <version>0.8.1</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>juniper</artifactId>
-            <version>0.6.5</version>
+            <version>0.6.9</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds</artifactId>
-            <version>1.8.0</version>
+            <version>1.11.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -205,16 +206,10 @@
             <version>6ceb4ab88a</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.fury</groupId>
-            <artifactId>fury-core</artifactId>
-            <version>0.10.0</version>
+            <groupId>org.apache.fory</groupId>
+            <artifactId>fory-core</artifactId>
+            <version>0.11.2</version>
         </dependency>
-<!--Does not work; fury-extensions depends on an unpublished test project.-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.fury</groupId>-->
-<!--            <artifactId>fury-extensions</artifactId>-->
-<!--            <version>0.10.0</version>-->
-<!--        </dependency>-->
 
         <!--        For local installations-->
 

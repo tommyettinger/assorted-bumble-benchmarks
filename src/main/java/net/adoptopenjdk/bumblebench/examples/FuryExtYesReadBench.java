@@ -18,10 +18,10 @@ import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
-import org.apache.fury.serializer.collection.CollectionSerializers;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.serializer.collection.CollectionSerializers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,10 +47,10 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * FuryExtYesReadBench score: 39.550735 (39.55 367.8%)
+ * ForyExtYesReadBench score: 39.550735 (39.55 367.8%)
  *                 uncertainty:  21.4%
  */
-public final class FuryExtYesReadBench extends MiniBench {
+public final class ForyExtYesReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -58,18 +58,18 @@ public final class FuryExtYesReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("furyExtYes.dat").readBytes();
+		byte[] data = new HeadlessFiles().local("foryExtYes.dat").readBytes();
 		ArrayList<Point4Float> pts;
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.register(Point4Float.class);
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.register(Point4Float.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				pts = fury.deserializeJavaObject(data, ArrayList.class);
+				pts = fory.deserializeJavaObject(data, ArrayList.class);
 				counter += pts.size();
 				pauseTimer();
 			}

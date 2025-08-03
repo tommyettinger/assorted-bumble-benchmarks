@@ -17,12 +17,12 @@ package net.adoptopenjdk.bumblebench.examples;
 import com.github.luben.zstd.ZstdOutputStreamNoFinalizer;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
-import org.apache.fury.memory.MemoryBuffer;
-import org.apache.fury.meta.ZstdMetaCompressor;
-import org.apache.fury.serializer.collection.CollectionSerializers;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.memory.MemoryBuffer;
+import org.apache.fory.meta.ZstdMetaCompressor;
+import org.apache.fory.serializer.collection.CollectionSerializers;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,10 +53,10 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * FuryZstdExtYesWriteBench score: 66.441704 (66.44 419.6%)
+ * ForyZstdExtYesWriteBench score: 66.441704 (66.44 419.6%)
  *                      uncertainty:   2.5%
  */
-public final class FuryZstdExtYesWriteBench extends MiniBench {
+public final class ForyZstdExtYesWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -71,19 +71,19 @@ public final class FuryZstdExtYesWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withMetaShare(true)
+		Fory fory = Fory.builder().withMetaShare(true)
 						.withMetaCompressor(new ZstdMetaCompressor())
 						.withLanguage(Language.JAVA).build();
-//		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.register(Point4Float.class);
+//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.register(Point4Float.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fury.serializeJavaObject(mem, pts);
+				fory.serializeJavaObject(mem, pts);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -99,19 +99,19 @@ public final class FuryZstdExtYesWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withMetaShare(true)
+		Fory fory = Fory.builder().withMetaShare(true)
 				.withMetaCompressor(new ZstdMetaCompressor())
 				.withLanguage(Language.JAVA).build();
-//		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.register(Point4Float.class);
+//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.register(Point4Float.class);
 
 		System.out.println("There are " + pts.size() + " keys in the Map.");
 
 		try {
-			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("furyZstdExtYes.dat")), 20);
-			byte[] bytes = fury.serializeJavaObject(pts);
-			System.out.println("Fury serialized data is " + bytes.length + " bytes in size.");
+			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("foryZstdExtYes.dat")), 20);
+			byte[] bytes = fory.serializeJavaObject(pts);
+			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
 			stream.close();

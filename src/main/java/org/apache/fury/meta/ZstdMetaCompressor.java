@@ -17,7 +17,7 @@
  * under the License.
  */
 
-package org.apache.fury.meta;
+package org.apache.fory.meta;
 
 import com.github.luben.zstd.Zstd;
 import com.github.luben.zstd.ZstdException;

@@ -16,11 +16,11 @@ package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
-import org.apache.fury.memory.MemoryBuffer;
-import org.apache.fury.serializer.collection.CollectionSerializers;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.memory.MemoryBuffer;
+import org.apache.fory.serializer.collection.CollectionSerializers;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -48,10 +48,10 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * FuryExtNoWriteBench score: 118.128784 (118.1 477.2%)
+ * ForyExtNoWriteBench score: 118.128784 (118.1 477.2%)
  *                 uncertainty:   6.8%
  */
-public final class FuryExtNoWriteBench extends MiniBench {
+public final class ForyExtNoWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -66,16 +66,16 @@ public final class FuryExtNoWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.registerSerializer(Point4Float.class, new Point4FloatSerializer(fury));
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fury.serializeJavaObject(mem, pts);
+				fory.serializeJavaObject(mem, pts);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -91,16 +91,16 @@ public final class FuryExtNoWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.registerSerializer(Point4Float.class, new Point4FloatSerializer(fury));
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		System.out.println("There are " + pts.size() + " keys in the Map.");
 
 		try {
-			FileOutputStream stream = new FileOutputStream("furyExtNo.dat");
-			byte[] bytes = fury.serializeJavaObject(pts);
-			System.out.println("Fury serialized data is " + bytes.length + " bytes in size.");
+			FileOutputStream stream = new FileOutputStream("foryExtNo.dat");
+			byte[] bytes = fory.serializeJavaObject(pts);
+			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
 			stream.close();

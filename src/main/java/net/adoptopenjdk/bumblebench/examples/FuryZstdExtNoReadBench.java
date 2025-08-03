@@ -20,11 +20,11 @@ import com.badlogic.gdx.utils.StreamUtils;
 import com.github.luben.zstd.ZstdInputStreamNoFinalizer;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
-import org.apache.fury.meta.ZstdMetaCompressor;
-import org.apache.fury.serializer.collection.CollectionSerializers;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.meta.ZstdMetaCompressor;
+import org.apache.fory.serializer.collection.CollectionSerializers;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -51,10 +51,10 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * FuryZstdExtNoReadBench score: 66.641258 (66.64 419.9%)
+ * ForyZstdExtNoReadBench score: 66.641258 (66.64 419.9%)
  *                    uncertainty:   8.4
  */
-public final class FuryZstdExtNoReadBench extends MiniBench {
+public final class ForyZstdExtNoReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -63,7 +63,7 @@ public final class FuryZstdExtNoReadBench extends MiniBench {
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
 		byte[] data;
-		FileHandle fh = new HeadlessFiles().local("furyZstdExtNo.dat");
+		FileHandle fh = new HeadlessFiles().local("foryZstdExtNo.dat");
 		InputStream iStream = fh.read();
 		try {
 			data = StreamUtils.copyStreamToByteArray(new ZstdInputStreamNoFinalizer(iStream), (int)fh.length());
@@ -74,18 +74,18 @@ public final class FuryZstdExtNoReadBench extends MiniBench {
 		}
 		ArrayList<Point4Float> pts;
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withMetaShare(true)
+		Fory fory = Fory.builder().withMetaShare(true)
 				.withMetaCompressor(new ZstdMetaCompressor())
 				.withLanguage(Language.JAVA).build();
-//		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fury));
-		fury.registerSerializer(Point4Float.class, new Point4FloatSerializer(fury));
+//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				pts = fury.deserializeJavaObject(data, ArrayList.class);
+				pts = fory.deserializeJavaObject(data, ArrayList.class);
 				counter += pts.size();
 				pauseTimer();
 			}

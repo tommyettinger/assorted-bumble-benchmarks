@@ -22,9 +22,9 @@ import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
 import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
 import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -56,10 +56,10 @@ import java.util.HashMap;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * FuryMoreReadBench score: 977.462708 (977.5 688.5%)
+ * ForyMoreReadBench score: 977.462708 (977.5 688.5%)
  *               uncertainty:   3.6%
  */
-public final class FuryMoreReadBench extends MiniBench {
+public final class ForyMoreReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -67,19 +67,19 @@ public final class FuryMoreReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("furymore.dat").readBytes();
+		byte[] data = new HeadlessFiles().local("forymore.dat").readBytes();
 		ObjectObjectMap<String, ObjectList<Vector2>> big;
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fury));
-		fury.registerSerializer(ObjectList.class, new ObjectListSerializer(fury));
-		fury.registerSerializer(Vector2.class, new Vector2Serializer(fury));
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fory));
+		fory.registerSerializer(ObjectList.class, new ObjectListSerializer(fory));
+		fory.registerSerializer(Vector2.class, new Vector2Serializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = fury.deserializeJavaObject(data, ObjectObjectMap.class);
+				big = fory.deserializeJavaObject(data, ObjectObjectMap.class);
 				counter += big.size();
 				pauseTimer();
 			}
@@ -95,14 +95,14 @@ public final class FuryMoreReadBench extends MiniBench {
  * <br>
  * Java 17:
  * <br>
- * FuryReadBench score: 640.986328 (641.0 646.3%)
+ * ForyReadBench score: 640.986328 (641.0 646.3%)
  *           uncertainty:   1.2%
  * <br>
  * With deserialize():
  * <br>
  * Java 17:
  * <br>
- * FuryReadBench score: 632.360962 (632.4 644.9%)
+ * ForyReadBench score: 632.360962 (632.4 644.9%)
  *           uncertainty:   2.1%
  */
 

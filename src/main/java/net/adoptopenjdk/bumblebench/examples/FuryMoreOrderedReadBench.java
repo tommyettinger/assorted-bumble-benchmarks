@@ -26,9 +26,9 @@ import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
 import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectOrderedMapSerializer;
 import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.LoggerFactory;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.LoggerFactory;
 
 /*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
@@ -57,10 +57,10 @@ import org.apache.fury.logging.LoggerFactory;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * FuryMoreOrderedReadBench score: 918.961731 (919.0 682.3%)
+ * ForyMoreOrderedReadBench score: 918.961731 (919.0 682.3%)
  *                      uncertainty:   1.1%
  */
-public final class FuryMoreOrderedReadBench extends MiniBench {
+public final class ForyMoreOrderedReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -68,19 +68,19 @@ public final class FuryMoreOrderedReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("furymoreordered.dat").readBytes();
+		byte[] data = new HeadlessFiles().local("forymoreordered.dat").readBytes();
 		ObjectObjectOrderedMap<String, ObjectDeque<Vector2>> big;
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.registerSerializer(ObjectObjectOrderedMap.class, new ObjectObjectOrderedMapSerializer(fury));
-		fury.registerSerializer(ObjectDeque.class, new ObjectDequeSerializer(fury));
-		fury.registerSerializer(Vector2.class, new Vector2Serializer(fury));
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ObjectObjectOrderedMap.class, new ObjectObjectOrderedMapSerializer(fory));
+		fory.registerSerializer(ObjectDeque.class, new ObjectDequeSerializer(fory));
+		fory.registerSerializer(Vector2.class, new Vector2Serializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = fury.deserializeJavaObject(data, ObjectObjectOrderedMap.class);
+				big = fory.deserializeJavaObject(data, ObjectObjectOrderedMap.class);
 				counter += big.size();
 				pauseTimer();
 			}

@@ -20,11 +20,11 @@ import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.random.FourWheelRandom;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fury.Fury;
-import org.apache.fury.config.Language;
-import org.apache.fury.logging.FuryLogger;
-import org.apache.fury.logging.LoggerFactory;
-import org.apache.fury.memory.MemoryBuffer;
+import org.apache.fory.Fory;
+import org.apache.fory.config.Language;
+import org.apache.fory.logging.ForyLogger;
+import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.memory.MemoryBuffer;
 import squidpony.StringKit;
 
 import java.io.FileOutputStream;
@@ -58,17 +58,17 @@ import java.nio.file.Paths;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * HotSpot Java 23 (Adoptium), Fury 0.7.1:
+ * HotSpot Java 23 (Adoptium), Fory 0.7.1:
  * <br>
- * FuryNotMoreWriteBench score: 898.888428 (898.9 680.1%)
+ * ForyNotMoreWriteBench score: 898.888428 (898.9 680.1%)
  *                   uncertainty:  17.2%
  * <br>
- * HotSpot Java 23 (Adoptium), Fury 0.8.0:
+ * HotSpot Java 23 (Adoptium), Fory 0.8.0:
  * <br>
- * FuryNotMoreWriteBench score: 900.169128 (900.2 680.3%)
+ * ForyNotMoreWriteBench score: 900.169128 (900.2 680.3%)
  *                   uncertainty:   1.5%
  */
-public final class FuryNotMoreWriteBench extends MiniBench {
+public final class ForyNotMoreWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -94,17 +94,17 @@ public final class FuryNotMoreWriteBench extends MiniBench {
 			));
 		}
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.register(ObjectObjectMap.class);
-		fury.register(ObjectList.class);
-		fury.register(Vector2.class);
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.register(ObjectObjectMap.class);
+		fory.register(ObjectList.class);
+		fory.register(Vector2.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fury.serializeJavaObject(mem, big);
+				fory.serializeJavaObject(mem, big);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -134,15 +134,15 @@ public final class FuryNotMoreWriteBench extends MiniBench {
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
 		LoggerFactory.disableLogging();
-		Fury fury = Fury.builder().withLanguage(Language.JAVA).build();
-		fury.register(ObjectObjectMap.class);
-		fury.register(ObjectList.class);
-		fury.register(Vector2.class);
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.register(ObjectObjectMap.class);
+		fory.register(ObjectList.class);
+		fory.register(Vector2.class);
 
 		try {
-			FileOutputStream stream = new FileOutputStream("furynotmore.dat");
-			byte[] bytes = fury.serializeJavaObject(big);
-			System.out.println("Fury (Default) serialized data (jdkgdxds) is " + bytes.length + " bytes in size.");
+			FileOutputStream stream = new FileOutputStream("forynotmore.dat");
+			byte[] bytes = fory.serializeJavaObject(big);
+			System.out.println("Fory (Default) serialized data (jdkgdxds) is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
 			stream.close();
