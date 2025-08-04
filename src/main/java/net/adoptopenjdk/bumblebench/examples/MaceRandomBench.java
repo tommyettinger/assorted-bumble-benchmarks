@@ -23,19 +23,23 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- *
+ * MaceRandomBench score: 1061079616.000000 (1.061G 2078.3%)
+ *             uncertainty:  14.4%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * MaceRandomBench score: 2492611328.000000 (2.493G 2163.7%)
+ *             uncertainty:   0.1%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * MaceRandomBench score: 2466171136.000000 (2.466G 2162.6%)
+ *             uncertainty:   0.3%
  * <br>
  * GraalVM Java 24:
  * <br>
- *
+ * MaceRandomBench score: 2759608064.000000 (2.760G 2173.8%)
+ *             uncertainty:   0.3%
  */
 public final class MaceRandomBench extends MicroBench {
 
