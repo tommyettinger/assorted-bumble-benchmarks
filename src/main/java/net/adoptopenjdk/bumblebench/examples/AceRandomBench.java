@@ -44,6 +44,11 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * AceRandomBench score: 2585031680.000000 (2.585G 2167.3%)
  *            uncertainty:   0.3%
+ * <br>
+ * GraalVM Java 24:
+ * <br>
+ * AceRandomBench score: 2550781440.000000 (2.551G 2166.0%)
+ *            uncertainty:   0.2%
  */
 public final class AceRandomBench extends MicroBench {
 
