@@ -86,7 +86,7 @@
         <dependency>
             <groupId>com.squidpony</groupId>
             <artifactId>squidgrid</artifactId>
-            <version>4.0.0</version>
+            <version>4.0.1</version>
             <scope>compile</scope>
         </dependency>
 <!--        <dependency>-->
@@ -142,22 +142,22 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds_interop</artifactId>
-            <version>1.12.2.0</version>
+            <version>1.12.4.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>kryo-jdkgdxds</artifactId>
-            <version>1.12.2.1</version>
+            <version>1.12.4.1</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>tantrum-jdkgdxds</artifactId>
-            <version>1.12.2.14</version>
+            <version>1.12.4.16</version>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>tantrum-libgdx</artifactId>
-            <version>1.13.1.14</version>
+            <version>1.13.1.16</version>
         </dependency>
         <dependency>
             <groupId>de.javakaffee</groupId>
@@ -191,19 +191,19 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>digital</artifactId>
-            <version>0.9.2</version>
+            <version>0.9.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>juniper</artifactId>
-            <version>0.8.2</version>
+            <version>0.8.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds</artifactId>
-            <version>1.12.2</version>
+            <version>1.12.4</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -214,7 +214,7 @@
         <dependency>
             <groupId>org.apache.fory</groupId>
             <artifactId>fory-core</artifactId>
-            <version>0.12.1</version>
+            <version>0.12.3</version>
         </dependency>
 
         <!--        For local installations-->
