@@ -14,7 +14,7 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
-import com.github.tommyettinger.random.DistinctRandom;
+import com.github.tommyettinger.random.LFSR64QuasiRandom;
 import com.github.tommyettinger.random.Mx3Random;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
@@ -23,32 +23,31 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- * Mx3RandomBench score: 1178805888.000000 (1.179G 2088.8%)
- *            uncertainty:   0.4%
+ * LFSR64QuasiRandomBench score: 1513764352.000000 (1.514G 2113.8%)
+ *                    uncertainty:   0.1%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * Mx3RandomBench score: 1331102336.000000 (1.331G 2100.9%)
- *            uncertainty:   1.5%
+ * LFSR64QuasiRandomBench score: 1383628544.000000 (1.384G 2104.8%)
+ *                    uncertainty:   0.9%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- * Mx3RandomBench score: 1349764992.000000 (1.350G 2102.3%)
- *            uncertainty:   0.4%
+ * LFSR64QuasiRandomBench score: 1451821056.000000 (1.452G 2109.6%)
+ *                    uncertainty:   0.2%
  * <br>
  * GraalVM Java 24:
  * <br>
- * Mx3RandomBench score: 1390036352.000000 (1.390G 2105.3%)
- *            uncertainty:   0.3%
+ * LFSR64QuasiRandomBench score: 1563887616.000000 (1.564G 2117.0%)
+ *                    uncertainty:   0.6%
  */
-public final class Mx3RandomBench extends MicroBench {
+public final class LFSR64QuasiRandomBench extends MicroBench {
 
 	protected long doBatch(long numIterations) throws InterruptedException {
-		Mx3Random rng = new Mx3Random(0x12345678);
+        LFSR64QuasiRandom rng = new LFSR64QuasiRandom(0x12345678);
 		long sum = 0L;
 		for (long i = 0; i < numIterations; i++)
 			sum += rng.nextLong();
 		return numIterations;
 	}
 }
-
