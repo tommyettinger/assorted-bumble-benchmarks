@@ -18,6 +18,39 @@ import com.github.tommyettinger.random.DistinctRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * DistinctRandomBench score: 1476139008.000000 (1.476G 2111.3%)
+ *                 uncertainty:   0.2%
+ * <br>
+ * HotSpot Java 17 (Adoptium):
+ * <br>
+ * DistinctRandomBench score: 1769454976.000000 (1.769G 2129.4%)
+ *                 uncertainty:   0.1%
+ * <br>
+ * HotSpot Java 21 (BellSoft):
+ * <br>
+ * DistinctRandomBench score: 1791336704.000000 (1.791G 2130.6%)
+ *                 uncertainty:   0.9%
+ * <br>
+ * GraalVM Java 24:
+ * <br>
+ * DistinctRandomBench score: 1597137664.000000 (1.597G 2119.1%)
+ *                 uncertainty:   0.1%
+ */
+public final class DistinctRandomBench extends MicroBench {
+
+	protected long doBatch(long numIterations) throws InterruptedException {
+		DistinctRandom rng = new DistinctRandom(0x12345678);
+		long sum = 0L;
+		for (long i = 0; i < numIterations; i++)
+			sum += rng.nextLong();
+		return numIterations;
+	}
+}
+/* OLD
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:
  * <br>
  * HotSpot Java 8:
@@ -45,13 +78,3 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * DistinctRandomBench score: 1087576320.000000 (1.088G 2080.7%)
  *                 uncertainty:   1.0%
  */
-public final class DistinctRandomBench extends MicroBench {
-
-	protected long doBatch(long numIterations) throws InterruptedException {
-		DistinctRandom rng = new DistinctRandom(0x12345678);
-		long sum = 0L;
-		for (long i = 0; i < numIterations; i++)
-			sum += rng.nextLong();
-		return numIterations;
-	}
-}
