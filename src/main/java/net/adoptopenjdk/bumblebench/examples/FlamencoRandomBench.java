@@ -22,23 +22,23 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
- * FlamencoRandomBench score: 713586240.000000 (713.6M 2038.6%)
- *               uncertainty:   1.6%
+ * FlamencoRandomBench score: 674990208.000000 (675.0M 2033.0%)
+ *               uncertainty:   0.3%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- * FlamencoRandomBench score: 640838464.000000 (640.8M 2027.8%)
- *               uncertainty:   2.8%
+ * FlamencoRandomBench score: 672420416.000000 (672.4M 2032.6%)
+ *               uncertainty:   0.6%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- * FlamencoRandomBench score: 678734400.000000 (678.7M 2033.6%)
- *               uncertainty:   0.4%
+ * FlamencoRandomBench score: 719216640.000000 (719.2M 2039.4%)
+ *               uncertainty:   0.2%
  * <br>
  * GraalVM Java 24:
  * <br>
- * FlamencoRandomBench score: 634068800.000000 (634.1M 2026.8%)
- *               uncertainty:   0.1%
+ * FlamencoRandomBench score: 683796416.000000 (683.8M 2034.3%)
+ *               uncertainty:   0.4%
  */
 public final class FlamencoRandomBench extends MicroBench {
 
