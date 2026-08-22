@@ -14,8 +14,8 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.parser.ParserConfig;
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
 import com.github.tommyettinger.ds.ObjectObjectMap;
@@ -41,13 +41,12 @@ public final class FastJsonReadBench extends MiniBench {
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
 		String data = new HeadlessFiles().local("fastjson.json").readString();
 		HashMap<String, ArrayList<Vector2>> big;
-		ParserConfig config = new ParserConfig();
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = JSON.parseObject(data, HashMap.class);
+				big = JSON.parseObject(data, new TypeReference<HashMap<String, ArrayList<Vector2>>>() {});
 				counter += big.size();
 				pauseTimer();
 			}
@@ -67,7 +66,7 @@ public final class FastJsonReadBench extends MiniBench {
 
 		String data = JSON.toJSONString(deep);
 		System.out.println(data);
-		after = JSON.parseObject(data, ArrayList.class);
+		after = JSON.parseObject(data, new TypeReference<ArrayList<ArrayList<HashMap<Vector2, String>>>>() {});
 		System.out.println(after);
 	}
 }
