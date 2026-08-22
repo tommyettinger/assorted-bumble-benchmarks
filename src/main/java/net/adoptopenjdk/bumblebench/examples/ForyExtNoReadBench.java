@@ -47,6 +47,11 @@ import java.util.ArrayList;
  * <br>
  * ForyExtNoReadBench score: 67.331001 (67.33 421.0%)
  *                uncertainty:   7.4%
+ * <br>
+ * HotSpot Java 24 (BellSoft):
+ * <br>
+ * ForyExtNoReadBench score: 43.235626 (43.24 376.7%)
+ *                uncertainty:  18.4%
  */
 public final class ForyExtNoReadBench extends MiniBench {
 	@Override

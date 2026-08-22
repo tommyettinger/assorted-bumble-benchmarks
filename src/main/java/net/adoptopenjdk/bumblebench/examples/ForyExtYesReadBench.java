@@ -49,6 +49,11 @@ import java.util.HashMap;
  * <br>
  * ForyExtYesReadBench score: 39.550735 (39.55 367.8%)
  *                 uncertainty:  21.4%
+ * <br>
+ * HotSpot Java 24 (BellSoft):
+ * <br>
+ * ForyExtYesReadBench score: 58.928036 (58.93 407.6%)
+ *                 uncertainty:  10.1%
  */
 public final class ForyExtYesReadBench extends MiniBench {
 	@Override
