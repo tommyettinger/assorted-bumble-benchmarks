@@ -109,7 +109,7 @@ public final class ForyNotMoreOrderedWriteBench extends MiniBench {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fory.serializeJavaObject(mem, big);
+				fory.serialize(mem, big);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -147,7 +147,7 @@ public final class ForyNotMoreOrderedWriteBench extends MiniBench {
 
 		try {
 			FileOutputStream stream = new FileOutputStream("forynotmoreordered.dat");
-			byte[] bytes = fory.serializeJavaObject(big);
+			byte[] bytes = fory.serialize(big);
 			System.out.println("Fory (default) serialized data (jdkgdxds ordered) is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();

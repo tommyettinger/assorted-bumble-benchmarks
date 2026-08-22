@@ -21,6 +21,7 @@ import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
 import org.apache.fory.memory.MemoryBuffer;
+import org.apache.fory.resolver.TypeResolver;
 import org.apache.fory.serializer.collection.CollectionSerializers;
 
 import java.io.FileOutputStream;
@@ -68,7 +69,7 @@ public final class ForyQuatWriteBench extends MiniBench {
 		}
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializerAndType(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Quaternion.class);
 
 		long counter = 0;
@@ -76,7 +77,7 @@ public final class ForyQuatWriteBench extends MiniBench {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fory.serializeJavaObject(mem, pts);
+				fory.serialize(mem, pts);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -93,14 +94,14 @@ public final class ForyQuatWriteBench extends MiniBench {
 		}
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Quaternion.class);
 
 		System.out.println("There are " + pts.size() + " keys in the List.");
 
 		try {
 			FileOutputStream stream = new FileOutputStream("foryQuat.dat");
-			byte[] bytes = fory.serializeJavaObject(pts);
+			byte[] bytes = fory.serialize(pts);
 			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();

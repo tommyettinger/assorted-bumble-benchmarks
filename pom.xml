@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <groupId>com.github.tommyettinger</groupId>
-    <version>1.13.1-SNAPSHOT</version>
+    <version>1.14.2-SNAPSHOT</version>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>assorted-benchmarks</artifactId>
@@ -21,7 +21,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
 
-        <gdx.version>1.13.1</gdx.version>
+        <gdx.version>1.14.2</gdx.version>
     </properties>
     <licenses>
         <license>
@@ -84,9 +84,9 @@
 <!--            <scope>compile</scope>-->
 <!--        </dependency>-->
         <dependency>
-            <groupId>com.squidpony</groupId>
+            <groupId>com.github.yellowstonegames.squidsquad</groupId>
             <artifactId>squidgrid</artifactId>
-            <version>4.0.1</version>
+            <version>4.0.12</version>
             <scope>compile</scope>
         </dependency>
 <!--        <dependency>-->
@@ -118,11 +118,13 @@
             <groupId>com.jsoniter</groupId>
             <artifactId>jsoniter</artifactId>
             <version>0.9.23</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.29.0-GA</version>
+            <scope>compile</scope>
         </dependency>
 <!--        <dependency>-->
 <!--            <groupId>de.ruedigermoeller</groupId>-->
@@ -132,17 +134,20 @@
         <dependency>
             <groupId>org.msgpack</groupId>
             <artifactId>msgpack-core</artifactId>
-            <version>0.9.3</version>
+            <version>0.9.12</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
             <version>5.6.2</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds_interop</artifactId>
-            <version>1.12.4.0</version>
+            <version>2.1.8.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
@@ -150,29 +155,34 @@
             <version>1.12.4.1</version>
         </dependency>
         <dependency>
-            <groupId>com.github.tommyettinger</groupId>
+            <groupId>com.github.tommyettinger.tantrum</groupId>
             <artifactId>tantrum-jdkgdxds</artifactId>
-            <version>1.12.4.16</version>
+            <version>1.6.1.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.tommyettinger</groupId>
+            <groupId>com.github.tommyettinger.tantrum</groupId>
             <artifactId>tantrum-libgdx</artifactId>
-            <version>1.13.1.16</version>
+            <version>1.6.1.0</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>de.javakaffee</groupId>
             <artifactId>kryo-serializers</artifactId>
             <version>0.45</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.luben</groupId>
             <artifactId>zstd-jni</artifactId>
             <version>1.5.6-9</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>org.lz4</groupId>
+            <groupId>at.yawk.lz4</groupId>
             <artifactId>lz4-java</artifactId>
-            <version>1.8.0</version>
+            <version>1.11.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <!--        Using JitPack-->
@@ -191,19 +201,19 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>digital</artifactId>
-            <version>0.9.4</version>
+            <version>0.10.2</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>juniper</artifactId>
-            <version>0.8.4</version>
+            <version>0.10.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jdkgdxds</artifactId>
-            <version>1.12.4</version>
+            <version>2.1.8</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -214,7 +224,12 @@
         <dependency>
             <groupId>org.apache.fory</groupId>
             <artifactId>fory-core</artifactId>
-            <version>0.12.3</version>
+            <version>1.6.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.fory</groupId>
+            <artifactId>fory-json</artifactId>
+            <version>1.6.1</version>
         </dependency>
 
         <!--        For local installations-->

@@ -61,14 +61,14 @@ public final class ForyQuatReadBench extends MiniBench {
 		ArrayList<Quaternion> pts;
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Quaternion.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				pts = fory.deserializeJavaObject(data, ArrayList.class);
+				pts = fory.deserialize(data, ArrayList.class);
 				counter += pts.size();
 				pauseTimer();
 			}

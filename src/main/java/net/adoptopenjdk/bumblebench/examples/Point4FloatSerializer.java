@@ -19,6 +19,8 @@ package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.yellowstonegames.grid.Point4Float;
 import org.apache.fory.Fory;
+import org.apache.fory.context.ReadContext;
+import org.apache.fory.context.WriteContext;
 import org.apache.fory.memory.MemoryBuffer;
 import org.apache.fory.serializer.Serializer;
 
@@ -27,11 +29,11 @@ import org.apache.fory.serializer.Serializer;
  */
 public class Point4FloatSerializer extends Serializer<Point4Float> {
     public Point4FloatSerializer(Fory fory) {
-        super(fory, Point4Float.class);
+        super(fory.getConfig(), Point4Float.class);
     }
 
     @Override
-    public void write(final MemoryBuffer output, final Point4Float data) {
+    public void write(final WriteContext output, final Point4Float data) {
         output.writeFloat32(data.x);
         output.writeFloat32(data.y);
         output.writeFloat32(data.z);
@@ -39,7 +41,7 @@ public class Point4FloatSerializer extends Serializer<Point4Float> {
     }
 
     @Override
-    public Point4Float read(MemoryBuffer input) {
+    public Point4Float read(ReadContext input) {
         return new Point4Float(input.readFloat32(), input.readFloat32(), input.readFloat32(), input.readFloat32());
     }
 }

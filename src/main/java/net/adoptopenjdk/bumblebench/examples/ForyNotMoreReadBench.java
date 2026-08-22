@@ -81,7 +81,7 @@ public final class ForyNotMoreReadBench extends MiniBench {
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = fory.deserializeJavaObject(data, ObjectObjectMap.class);
+				big = fory.deserialize(data, ObjectObjectMap.class);
 				counter += big.size();
 				pauseTimer();
 			}

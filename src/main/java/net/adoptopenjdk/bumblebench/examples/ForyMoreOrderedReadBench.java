@@ -80,7 +80,7 @@ public final class ForyMoreOrderedReadBench extends MiniBench {
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = fory.deserializeJavaObject(data, ObjectObjectOrderedMap.class);
+				big = fory.deserialize(data, ObjectObjectOrderedMap.class);
 				counter += big.size();
 				pauseTimer();
 			}

@@ -67,7 +67,7 @@ public final class ForyExtNoWriteBench extends MiniBench {
 		}
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		long counter = 0;
@@ -75,7 +75,7 @@ public final class ForyExtNoWriteBench extends MiniBench {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fory.serializeJavaObject(mem, pts);
+				fory.serialize(mem, pts);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -92,14 +92,14 @@ public final class ForyExtNoWriteBench extends MiniBench {
 		}
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		System.out.println("There are " + pts.size() + " keys in the Map.");
 
 		try {
 			FileOutputStream stream = new FileOutputStream("foryExtNo.dat");
-			byte[] bytes = fory.serializeJavaObject(pts);
+			byte[] bytes = fory.serialize(pts);
 			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();

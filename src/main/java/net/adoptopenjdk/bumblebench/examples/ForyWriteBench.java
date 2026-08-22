@@ -106,7 +106,7 @@ public final class ForyWriteBench extends MiniBench {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fory.serializeJavaObject(mem, big);
+				fory.serialize(mem, big);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -143,7 +143,7 @@ public final class ForyWriteBench extends MiniBench {
 
 		try {
 			FileOutputStream stream = new FileOutputStream("fory.dat");
-			byte[] bytes = fory.serializeJavaObject(big);
+			byte[] bytes = fory.serialize(big);
 			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();

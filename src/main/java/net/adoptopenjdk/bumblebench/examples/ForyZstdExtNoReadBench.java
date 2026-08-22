@@ -78,14 +78,14 @@ public final class ForyZstdExtNoReadBench extends MiniBench {
 				.withMetaCompressor(new ZstdMetaCompressor())
 				.withLanguage(Language.JAVA).build();
 //		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				pts = fory.deserializeJavaObject(data, ArrayList.class);
+				pts = fory.deserialize(data, ArrayList.class);
 				counter += pts.size();
 				pauseTimer();
 			}

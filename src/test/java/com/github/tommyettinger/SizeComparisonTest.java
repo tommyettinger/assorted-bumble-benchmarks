@@ -62,24 +62,24 @@ public class SizeComparisonTest {
 
         DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
 
-        byte[] bytesFory = fory.serializeJavaObject(data);
+        byte[] bytesFory = fory.serialize(data);
         {
-            Array<?> data2 = fory.deserializeJavaObject(bytesFory, Array.class);
+            Array<?> data2 = fory.deserialize(bytesFory, Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyZstd = Zstd.compress(bytesFory);
         {
-            Array<?> data2 = fory.deserializeJavaObject(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
+            Array<?> data2 = fory.deserialize(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyLz4 = lz4Compressor.compress(bytesFory);
         {
-            Array<?> data2 = fory.deserializeJavaObject(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
+            Array<?> data2 = fory.deserialize(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
         {
-            Array<?> data2 = fory.deserializeJavaObject(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
+            Array<?> data2 = fory.deserialize(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -190,24 +190,24 @@ public class SizeComparisonTest {
 
         DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
 
-        byte[] bytesFory = fory.serializeJavaObject(data);
+        byte[] bytesFory = fory.serialize(data);
         {
-            Array<?> data2 = fory.deserializeJavaObject(bytesFory, Array.class);
+            Array<?> data2 = fory.deserialize(bytesFory, Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyZstd = Zstd.compress(bytesFory);
         {
-            Array<?> data2 = fory.deserializeJavaObject(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
+            Array<?> data2 = fory.deserialize(Zstd.decompress(bytesForyZstd, (int)Zstd.getFrameContentSize(bytesForyZstd)), Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyLz4 = lz4Compressor.compress(bytesFory);
         {
-            Array<?> data2 = fory.deserializeJavaObject(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
+            Array<?> data2 = fory.deserialize(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
         byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
         {
-            Array<?> data2 = fory.deserializeJavaObject(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
+            Array<?> data2 = fory.deserialize(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -298,9 +298,9 @@ public class SizeComparisonTest {
         }
         data.add(sum);
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Array<?> data2 = fory.deserializeJavaObject(bytes, Array.class);
+            Array<?> data2 = fory.deserialize(bytes, Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -340,9 +340,9 @@ public class SizeComparisonTest {
         }
         data.add(sum);
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Array<?> data2 = fory.deserializeJavaObject(bytes, Array.class);
+            Array<?> data2 = fory.deserialize(bytes, Array.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -372,9 +372,9 @@ public class SizeComparisonTest {
             data.addLast(s);
         }
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserialize(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -407,9 +407,9 @@ public class SizeComparisonTest {
             data.addLast(i + " " + i);
         }
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserialize(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -441,9 +441,9 @@ public class SizeComparisonTest {
             data.addLast(new Vector3(MathUtils.random(), MathUtils.random(), MathUtils.random()));
         }
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserialize(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 
@@ -480,9 +480,9 @@ public class SizeComparisonTest {
         }
         data.addLast(sum);
 
-        byte[] bytes = fory.serializeJavaObject(data);
+        byte[] bytes = fory.serialize(data);
         {
-            Queue<?> data2 = fory.deserializeJavaObject(bytes, Queue.class);
+            Queue<?> data2 = fory.deserialize(bytes, Queue.class);
             Assert.assertEquals(data, data2);
         }
 

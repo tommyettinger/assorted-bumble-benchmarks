@@ -75,7 +75,7 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 						.withMetaCompressor(new ZstdMetaCompressor())
 						.withLanguage(Language.JAVA).build();
 //		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Point4Float.class);
 
 		long counter = 0;
@@ -83,7 +83,7 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
 				startTimer();
-				fory.serializeJavaObject(mem, pts);
+				fory.serialize(mem, pts);
 				pauseTimer();
 				counter += mem.size();
 			}
@@ -103,14 +103,14 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 				.withMetaCompressor(new ZstdMetaCompressor())
 				.withLanguage(Language.JAVA).build();
 //		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory));
+		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Point4Float.class);
 
 		System.out.println("There are " + pts.size() + " keys in the Map.");
 
 		try {
 			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("foryZstdExtYes.dat")), 20);
-			byte[] bytes = fory.serializeJavaObject(pts);
+			byte[] bytes = fory.serialize(pts);
 			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
