@@ -39,6 +39,11 @@ import java.util.HashMap;
  * <br>
  * FastJsonReadBench score: 171.888123 (171.9 514.7%)
  *               uncertainty:   0.5%
+ * <br>
+ * (same as above, but with FieldBased enabled)
+ * <br>
+ * FastJsonReadBench score: 211.745392 (211.7 535.5%)
+ *               uncertainty:   1.1%
  */
 public final class FastJsonReadBench extends MiniBench {
 	@Override

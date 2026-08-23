@@ -42,6 +42,11 @@ import java.util.HashMap;
  * <br>
  * FastJsonWriteBench score: 215.896835 (215.9 537.5%)
  *                uncertainty:   3.9%
+ * <br>
+ * (same as above, but with FieldBased enabled)
+ * <br>
+ * FastJsonWriteBench score: 269.577728 (269.6 559.7%)
+ *                uncertainty:   4.1%
  */
 public final class FastJsonWriteBench extends MiniBench {
 	@Override
