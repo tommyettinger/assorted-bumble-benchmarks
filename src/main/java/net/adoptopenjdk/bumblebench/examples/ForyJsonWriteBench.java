@@ -35,7 +35,8 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 24 (BellSoft):
  * <br>
- * 
+ * ForyJsonWriteBench score: 203.580246 (203.6 531.6%)
+ *                uncertainty:  10.6%
  */
 public final class ForyJsonWriteBench extends MiniBench {
 	private static final ForyJson JSON = ForyJson.builder().build();
