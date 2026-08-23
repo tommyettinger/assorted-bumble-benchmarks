@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
+ * Doesn't work with the current Fory, 1.6.1 . Not sure why.
+ * <br>
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
