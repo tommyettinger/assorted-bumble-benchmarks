@@ -27,6 +27,7 @@ import java.util.HashMap;
 
 /**
  * Wow, that's bad. This treats the "isUnit()" and "isZero()" predicates as getters for non-existent properties.
+ * It is fast, though.
  * Java 17:
  * <br>
  * FastJsonReadBench score: 57.170677 (57.17 404.6%)
@@ -34,8 +35,8 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 24 (BellSoft):
  * <br>
- * FastJsonReadBench score: 175.999847 (176.0 517.0%)
- *               uncertainty:   0.2%
+ * FastJsonReadBench score: 171.888123 (171.9 514.7%)
+ *               uncertainty:   0.5%
  */
 public final class FastJsonReadBench extends MiniBench {
 	@Override
@@ -48,11 +49,12 @@ public final class FastJsonReadBench extends MiniBench {
 		String data = new HeadlessFiles().local("fastjson.json").readString();
 		HashMap<String, ArrayList<Vector2>> big;
 
+		TypeReference<HashMap<String, ArrayList<Vector2>>> type = new TypeReference<HashMap<String, ArrayList<Vector2>>>() {};
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				big = JSON.parseObject(data, new TypeReference<HashMap<String, ArrayList<Vector2>>>() {});
+				big = JSON.parseObject(data, type);
 				counter += big.size();
 				pauseTimer();
 			}
@@ -70,9 +72,10 @@ public final class FastJsonReadBench extends MiniBench {
 		deep.add(new ArrayList<>(Arrays.asList(hm2, hm3)));
 		deep.add(new ArrayList<>(Arrays.asList(hm0, hm1, hm2, hm3)));
 
+		TypeReference<ArrayList<ArrayList<HashMap<Vector2, String>>>> type = new TypeReference<ArrayList<ArrayList<HashMap<Vector2, String>>>>() {};
 		String data = JSON.toJSONString(deep);
 		System.out.println(data);
-		after = JSON.parseObject(data, new TypeReference<ArrayList<ArrayList<HashMap<Vector2, String>>>>() {});
+		after = JSON.parseObject(data, type);
 		System.out.println(after);
 	}
 }
