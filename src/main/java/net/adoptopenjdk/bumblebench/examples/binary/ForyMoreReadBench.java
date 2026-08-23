@@ -12,27 +12,21 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.StreamUtils;
-import com.github.luben.zstd.ZstdInputStreamNoFinalizer;
-import com.github.yellowstonegames.grid.Point4Float;
+import com.badlogic.gdx.math.Vector2;
+import com.github.tommyettinger.ds.ObjectList;
+import com.github.tommyettinger.ds.ObjectObjectMap;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
+import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
+import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
-import org.apache.fory.meta.ZstdMetaCompressor;
-import org.apache.fory.serializer.collection.CollectionSerializers;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-/**
- * Doesn't work with the current Fory, 1.6.1 . Not sure why.
- * <br>
+/*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
@@ -53,10 +47,16 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * ForyZstdExtNoReadBench score: 66.641258 (66.64 419.9%)
- *                    uncertainty:   8.4
+ *
  */
-public final class ForyZstdExtNoReadBench extends MiniBench {
+
+/**
+ * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
+ * <br>
+ * ForyMoreReadBench score: 977.462708 (977.5 688.5%)
+ *               uncertainty:   3.6%
+ */
+public final class ForyMoreReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -64,34 +64,42 @@ public final class ForyZstdExtNoReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data;
-		FileHandle fh = new HeadlessFiles().local("foryZstdExtNo.dat");
-		InputStream iStream = fh.read();
-		try {
-			data = StreamUtils.copyStreamToByteArray(new ZstdInputStreamNoFinalizer(iStream), (int)fh.length());
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		} finally {
-			StreamUtils.closeQuietly(iStream);
-		}
-		ArrayList<Point4Float> pts;
+		byte[] data = new HeadlessFiles().local("forymore.dat").readBytes();
+		ObjectObjectMap<String, ObjectList<Vector2>> big;
 		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-				.withMetaCompressor(new ZstdMetaCompressor())
-				.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
-		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		fory.registerSerializer(ObjectObjectMap.class, new ObjectObjectMapSerializer(fory));
+		fory.registerSerializer(ObjectList.class, new ObjectListSerializer(fory));
+		fory.registerSerializer(Vector2.class, new Vector2Serializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
 				startTimer();
-				pts = fory.deserialize(data, ArrayList.class);
-				counter += pts.size();
+				big = fory.deserialize(data, ObjectObjectMap.class);
+				counter += big.size();
 				pauseTimer();
 			}
 		}
 		return numLoops * numIterationsPerLoop;
 	}
 }
+
+
+// OLD
+/*
+ * With deserializeJavaObject():
+ * <br>
+ * Java 17:
+ * <br>
+ * ForyReadBench score: 640.986328 (641.0 646.3%)
+ *           uncertainty:   1.2%
+ * <br>
+ * With deserialize():
+ * <br>
+ * Java 17:
+ * <br>
+ * ForyReadBench score: 632.360962 (632.4 644.9%)
+ *           uncertainty:   2.1%
+ */
+

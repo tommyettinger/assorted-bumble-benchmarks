@@ -12,7 +12,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ObjectSet;

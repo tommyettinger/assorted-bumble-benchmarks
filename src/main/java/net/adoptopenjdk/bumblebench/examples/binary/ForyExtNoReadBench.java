@@ -12,12 +12,12 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
-import com.badlogic.gdx.math.Quaternion;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
+import net.adoptopenjdk.bumblebench.examples.Point4FloatSerializer;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
@@ -46,15 +46,15 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * ForyQuatReadBench score: 71.158875 (71.16 426.5%)
- *               uncertainty:   4.6%
+ * ForyExtNoReadBench score: 67.331001 (67.33 421.0%)
+ *                uncertainty:   7.4%
  * <br>
  * HotSpot Java 24 (BellSoft):
  * <br>
- * ForyQuatReadBench score: 50.219666 (50.22 391.6%)
- *               uncertainty:   2.8%
+ * ForyExtNoReadBench score: 43.235626 (43.24 376.7%)
+ *                uncertainty:  18.4%
  */
-public final class ForyQuatReadBench extends MiniBench {
+public final class ForyExtNoReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -62,12 +62,12 @@ public final class ForyQuatReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("foryQuat.dat").readBytes();
-		ArrayList<Quaternion> pts;
+		byte[] data = new HeadlessFiles().local("foryExtNo.dat").readBytes();
+		ArrayList<Point4Float> pts;
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
 		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
-		fory.register(Quaternion.class);
+		fory.registerSerializer(Point4Float.class, new Point4FloatSerializer(fory));
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {

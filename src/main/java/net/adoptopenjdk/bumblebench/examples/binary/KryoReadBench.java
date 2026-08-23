@@ -12,20 +12,15 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
-import com.github.tommyettinger.ds.ObjectList;
-import com.github.tommyettinger.ds.ObjectObjectMap;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
-import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.ByteBufferInput;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fory.Fory;
-import org.apache.fory.config.Language;
-import org.apache.fory.logging.LoggerFactory;
 
+import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -34,34 +29,38 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 8:
  * <br>
- *
+ * KryoReadBench score: 791.959595 (792.0 667.5%)
+ *           uncertainty:   2.0%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
- *
+ * KryoReadBench score: 787.097351 (787.1 666.8%)
+ *           uncertainty:   1.7%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
- *
+ * KryoReadBench score: 766.513489 (766.5 664.2%)
+ *           uncertainty:   3.9%
  * <br>
  * GraalVM Java 22:
  * <br>
- *
+ * KryoReadBench score: 869.969360 (870.0 676.8%)
+ *           uncertainty:   3.5%
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- *
+ * KryoReadBench score: 758.789246 (758.8 663.2%)
+ *           uncertainty:   5.0%
  */
-
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * ForyNotMoreReadBench score: 1071.419922 (1071 697.7%)
- *                  uncertainty:   0.4%
+ * KryoReadBench score: 826.265747 (826.3 671.7%)
+ *           uncertainty:   0.9%
  */
-public final class ForyNotMoreReadBench extends MiniBench {
+public final class KryoReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -69,21 +68,27 @@ public final class ForyNotMoreReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("forynotmore.dat").readBytes();
-		ObjectObjectMap<String, ObjectList<Vector2>> big;
-		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.register(ObjectObjectMap.class);
-		fory.register(ObjectList.class);
-		fory.register(Vector2.class);
+		HashMap<String, ArrayList<Vector2>> big;
+		Kryo kryo = new Kryo();
+		kryo.register(HashMap.class);
+		kryo.register(ArrayList.class);
+		kryo.register(Vector2.class);
 
 		long counter = 0;
+
+		byte[] bytes = new HeadlessFiles().local("kryo.dat").readBytes();
+		ByteBuffer buffer = ByteBuffer.allocateDirect(bytes.length);
+		buffer.put(bytes);
+		buffer.flip();
+		ByteBufferInput input = new ByteBufferInput(buffer);
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
+				input.setBuffer(buffer);
 				startTimer();
-				big = fory.deserialize(data, ObjectObjectMap.class);
-				counter += big.size();
+				big = kryo.readObject(input, HashMap.class);
 				pauseTimer();
+				input.reset();
+				counter += big.size();
 			}
 		}
 		return numLoops * numIterationsPerLoop;
@@ -92,18 +97,8 @@ public final class ForyNotMoreReadBench extends MiniBench {
 
 // OLD
 /*
- * With deserializeJavaObject():
- * <br>
  * Java 17:
  * <br>
- * ForyReadBench score: 640.986328 (641.0 646.3%)
- *           uncertainty:   1.2%
- * <br>
- * With deserialize():
- * <br>
- * Java 17:
- * <br>
- * ForyReadBench score: 632.360962 (632.4 644.9%)
- *           uncertainty:   2.1%
+ * KryoReadBench score: 450.349823 (450.3 611.0%)
+ *           uncertainty:   0.4%
  */
-

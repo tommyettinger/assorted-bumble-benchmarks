@@ -12,7 +12,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.OrderedSet;
@@ -20,9 +20,6 @@ import com.github.tommyettinger.ds.ObjectDeque;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectOrderedMap;
 import com.github.tommyettinger.random.FourWheelRandom;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectDequeSerializer;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectOrderedMapSerializer;
-import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;

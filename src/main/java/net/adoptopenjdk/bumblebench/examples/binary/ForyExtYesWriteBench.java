@@ -12,9 +12,8 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
-import com.github.luben.zstd.ZstdOutputStreamNoFinalizer;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import net.adoptopenjdk.bumblebench.examples.random.PouchRandom;
@@ -22,19 +21,14 @@ import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
 import org.apache.fory.memory.MemoryBuffer;
-import org.apache.fory.meta.ZstdMetaCompressor;
 import org.apache.fory.serializer.collection.CollectionSerializers;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 
 /**
- * Doesn't work with the current Fory, 1.6.1 . Not sure why.
- * <br>
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
@@ -55,10 +49,15 @@ import java.util.ArrayList;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * ForyZstdExtYesWriteBench score: 66.441704 (66.44 419.6%)
- *                      uncertainty:   2.5%
+ * ForyExtYesWriteBench score: 64.928062 (64.93 417.3%)
+ *                  uncertainty:   1.9%
+ * <br>
+ * HotSpot Java 24 (BellSoft):
+ * <br>
+ * ForyExtYesWriteBench score: 111.676643 (111.7 471.6%)
+ *                  uncertainty:   5.8%
  */
-public final class ForyZstdExtYesWriteBench extends MiniBench {
+public final class ForyExtYesWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -73,10 +72,7 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-						.withMetaCompressor(new ZstdMetaCompressor())
-						.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
 		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Point4Float.class);
 
@@ -101,17 +97,14 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
 		}
 		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-				.withMetaCompressor(new ZstdMetaCompressor())
-				.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
 		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Point4Float.class);
 
 		System.out.println("There are " + pts.size() + " keys in the Map.");
 
 		try {
-			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("foryZstdExtYes.dat")), 20);
+			FileOutputStream stream = new FileOutputStream("foryExtYes.dat");
 			byte[] bytes = fory.serialize(pts);
 			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
 			stream.write(bytes);

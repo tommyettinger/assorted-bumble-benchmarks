@@ -12,21 +12,27 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.StreamUtils;
+import com.github.luben.zstd.ZstdInputStreamNoFinalizer;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
+import org.apache.fory.meta.ZstdMetaCompressor;
 import org.apache.fory.serializer.collection.CollectionSerializers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
+ * Doesn't work with the current Fory, 1.6.1 . Not sure why.
+ * <br>
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8:
@@ -47,15 +53,10 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 23 (Adoptium):
  * <br>
- * ForyExtYesReadBench score: 39.550735 (39.55 367.8%)
- *                 uncertainty:  21.4%
- * <br>
- * HotSpot Java 24 (BellSoft):
- * <br>
- * ForyExtYesReadBench score: 58.928036 (58.93 407.6%)
- *                 uncertainty:  10.1%
+ * ForyZstdExtYesReadBench score: 39.169086 (39.17 366.8%)
+ *                     uncertainty:   7.1%
  */
-public final class ForyExtYesReadBench extends MiniBench {
+public final class ForyZstdExtYesReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -63,10 +64,22 @@ public final class ForyExtYesReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("foryExtYes.dat").readBytes();
-		ArrayList<Point4Float> pts;
+        byte[] data;
+		FileHandle fh = new HeadlessFiles().local("foryZstdExtYes.dat");
+		InputStream iStream = fh.read();
+        try {
+            data = StreamUtils.copyStreamToByteArray(new ZstdInputStreamNoFinalizer(iStream), (int)fh.length());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+			StreamUtils.closeQuietly(iStream);
+		}
+        ArrayList<Point4Float> pts;
 		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+		Fory fory = Fory.builder().withMetaShare(true)
+				.withMetaCompressor(new ZstdMetaCompressor())
+				.withLanguage(Language.JAVA).build();
+//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
 		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
 		fory.register(Point4Float.class);
 

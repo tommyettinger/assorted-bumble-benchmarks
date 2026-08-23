@@ -12,19 +12,13 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.backends.headless.HeadlessFiles;
 import com.badlogic.gdx.math.Vector2;
 import com.github.tommyettinger.ds.ObjectDeque;
 import com.github.tommyettinger.ds.ObjectList;
-import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.ds.ObjectObjectOrderedMap;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectDequeSerializer;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectListSerializer;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectMapSerializer;
-import com.github.tommyettinger.tantrum.jdkgdxds.ObjectObjectOrderedMapSerializer;
-import com.github.tommyettinger.tantrum.libgdx.Vector2Serializer;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
@@ -57,10 +51,12 @@ import org.apache.fory.logging.LoggerFactory;
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
- * ForyMoreOrderedReadBench score: 918.961731 (919.0 682.3%)
- *                      uncertainty:   1.1%
+ * HotSpot Java 23 (Adoptium):
+ * <br>
+ * ForyNotMoreOrderedReadBench score: 522.609802 (522.6 625.9%)
+ *                         uncertainty:   2.1%
  */
-public final class ForyMoreOrderedReadBench extends MiniBench {
+public final class ForyNotMoreOrderedReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -68,13 +64,14 @@ public final class ForyMoreOrderedReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		byte[] data = new HeadlessFiles().local("forymoreordered.dat").readBytes();
+		byte[] data = new HeadlessFiles().local("forynotmoreordered.dat").readBytes();
 		ObjectObjectOrderedMap<String, ObjectDeque<Vector2>> big;
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ObjectObjectOrderedMap.class, new ObjectObjectOrderedMapSerializer(fory));
-		fory.registerSerializer(ObjectDeque.class, new ObjectDequeSerializer(fory));
-		fory.registerSerializer(Vector2.class, new Vector2Serializer(fory));
+		fory.register(ObjectObjectOrderedMap.class);
+		fory.register(ObjectDeque.class);
+		fory.register(ObjectList.class); // for order
+		fory.register(Vector2.class);
 
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
@@ -88,4 +85,3 @@ public final class ForyMoreOrderedReadBench extends MiniBench {
 		return numLoops * numIterationsPerLoop;
 	}
 }
-

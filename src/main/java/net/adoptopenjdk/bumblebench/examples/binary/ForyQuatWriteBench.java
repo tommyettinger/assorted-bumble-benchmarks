@@ -12,7 +12,7 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.math.Quaternion;
 import net.adoptopenjdk.bumblebench.core.MiniBench;

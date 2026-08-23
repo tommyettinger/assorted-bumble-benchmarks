@@ -12,27 +12,24 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ObjectSet;
 import com.badlogic.gdx.utils.OrderedSet;
+import com.github.tommyettinger.ds.ObjectList;
+import com.github.tommyettinger.ds.ObjectObjectMap;
 import com.github.tommyettinger.random.FourWheelRandom;
+import net.adoptopenjdk.bumblebench.core.MiniBench;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
 import org.apache.fory.memory.MemoryBuffer;
-import net.adoptopenjdk.bumblebench.core.MiniBench;
 import squidpony.StringKit;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-
 
 /*
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
@@ -62,20 +59,15 @@ import java.util.HashMap;
  * <br>
  * HotSpot Java 23 (Adoptium), Fory 0.7.1:
  * <br>
- * ForyWriteBench score: 1135.690552 (1136 703.5%)
- *            uncertainty:  14.4%
+ * ForyNotMoreWriteBench score: 898.888428 (898.9 680.1%)
+ *                   uncertainty:  17.2%
  * <br>
  * HotSpot Java 23 (Adoptium), Fory 0.8.0:
  * <br>
- * ForyWriteBench score: 996.084900 (996.1 690.4%)
- *            uncertainty:   3.7%
- * <br>
- * HotSpot Java 24 (BellSoft):
- * <br>
- * ForyWriteBench score: 1132.922729 (1133 703.3%)
- *            uncertainty:  30.2%
+ * ForyNotMoreWriteBench score: 900.169128 (900.2 680.3%)
+ *                   uncertainty:   1.5%
  */
-public final class ForyWriteBench extends MiniBench {
+public final class ForyNotMoreWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1000007;
@@ -90,20 +82,20 @@ public final class ForyWriteBench extends MiniBench {
 			e.printStackTrace();
 		}
 		final String[] words = StringKit.split(book, " ");
-		ObjectSet<String> unique = ObjectSet.with(words);
-		HashMap<String, ArrayList<Vector2>> big = new HashMap<>(unique.size);
+		OrderedSet<String> unique = OrderedSet.with(words);
+		ObjectObjectMap<String, ObjectList<Vector2>> big = new ObjectObjectMap<>(unique.size);
 		FourWheelRandom random = new FourWheelRandom(12345);
 		for(String u : unique){
-			big.put(u, new ArrayList<>(Arrays.asList(
+			big.put(u, ObjectList.with(
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
-			)));
+			));
 		}
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.register(HashMap.class);
-		fory.register(ArrayList.class);
+		fory.register(ObjectObjectMap.class);
+		fory.register(ObjectList.class);
 		fory.register(Vector2.class);
 
 		long counter = 0;
@@ -128,28 +120,28 @@ public final class ForyWriteBench extends MiniBench {
 		}
 		final String[] words = StringKit.split(book, " ");
 		OrderedSet<String> unique = OrderedSet.with(words);
-		HashMap<String, ArrayList<Vector2>> big = new HashMap<>(unique.size);
+		ObjectObjectMap<String, ObjectList<Vector2>> big = new ObjectObjectMap<>(unique.size);
 		FourWheelRandom random = new FourWheelRandom(12345);
 		for(String u : unique){
-			big.put(u, new ArrayList<>(Arrays.asList(
+			big.put(u, ObjectList.with(
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f),
 					new Vector2(random.nextExclusiveFloat() - 0.5f, random.nextExclusiveFloat() - 0.5f)
-			)));
+			));
 		}
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
 		LoggerFactory.disableLogging();
 		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.register(HashMap.class);
-		fory.register(ArrayList.class);
+		fory.register(ObjectObjectMap.class);
+		fory.register(ObjectList.class);
 		fory.register(Vector2.class);
 
 		try {
-			FileOutputStream stream = new FileOutputStream("fory.dat");
+			FileOutputStream stream = new FileOutputStream("forynotmore.dat");
 			byte[] bytes = fory.serialize(big);
-			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
+			System.out.println("Fory (Default) serialized data (jdkgdxds) is " + bytes.length + " bytes in size.");
 			stream.write(bytes);
 			stream.flush();
 			stream.close();
@@ -160,19 +152,3 @@ public final class ForyWriteBench extends MiniBench {
 
 }
 
-//OLD
-/*
- * With serializeJavaObject():
- * <br>
- * Java 17:
- * <br>
- * ForyWriteBench score: 526.263489 (526.3 626.6%)
- *            uncertainty:   8.4%
- * <br>
- * With serialize():
- * <br>
- * Java 17:
- * <br>
- * ForyWriteBench score: 521.859558 (521.9 625.7%)
- *            uncertainty:  19.0%
- */

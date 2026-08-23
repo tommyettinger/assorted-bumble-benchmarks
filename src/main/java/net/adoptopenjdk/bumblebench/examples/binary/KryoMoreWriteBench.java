@@ -12,18 +12,14 @@
 * limitations under the License.
 *******************************************************************************/
 
-package net.adoptopenjdk.bumblebench.examples;
+package net.adoptopenjdk.bumblebench.examples.binary;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.OrderedSet;
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.CollectionSerializer;
-import com.esotericsoftware.kryo.serializers.MapSerializer;
 import com.github.tommyettinger.ds.ObjectList;
 import com.github.tommyettinger.ds.ObjectObjectMap;
-import com.github.tommyettinger.ds.Utilities;
 import com.github.tommyettinger.kryo.jdkgdxds.ObjectListSerializer;
 import com.github.tommyettinger.kryo.jdkgdxds.ObjectObjectMapSerializer;
 import com.github.tommyettinger.random.FourWheelRandom;
