@@ -33,6 +33,11 @@ import java.util.HashMap;
  * <br>
  * ForyJsonReadBench score: 232.488068 (232.5 544.9%)
  *               uncertainty:   0.3%
+ * <br>
+ * (same as above, but with FieldMode enabled)
+ * <br>
+ * ForyJsonReadBench score: 285.871948 (285.9 565.6%)
+ *               uncertainty:   0.2%
  */
 public final class ForyJsonReadBench extends MiniBench {
 	private static final ForyJson JSON = ForyJson.builder().withFieldMode(true).build();
