@@ -52,6 +52,11 @@ import java.util.ArrayList;
  * <br>
  * ForyQuatWriteBench score: 132.882034 (132.9 488.9%)
  *                uncertainty:   5.0%
+ * <br>
+ * HotSpot Java 24 (BellSoft):
+ * <br>
+ * ForyQuatWriteBench score: 109.069901 (109.1 469.2%)
+ *                uncertainty:  13.4%
  */
 public final class ForyQuatWriteBench extends MiniBench {
 	@Override
