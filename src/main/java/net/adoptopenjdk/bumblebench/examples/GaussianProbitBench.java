@@ -16,6 +16,7 @@ package net.adoptopenjdk.bumblebench.examples;
 
 import com.github.tommyettinger.random.EnhancedRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
+import net.adoptopenjdk.bumblebench.examples.random.PouchRandom;
 
 /**
  * Windows 10, 10th gen i7 mobile hexacore at 2.6 GHz:

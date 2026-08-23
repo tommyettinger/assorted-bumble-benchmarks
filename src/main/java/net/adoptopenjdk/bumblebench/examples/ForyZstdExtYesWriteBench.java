@@ -17,6 +17,7 @@ package net.adoptopenjdk.bumblebench.examples;
 import com.github.luben.zstd.ZstdOutputStreamNoFinalizer;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
+import net.adoptopenjdk.bumblebench.examples.random.PouchRandom;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
@@ -24,7 +25,6 @@ import org.apache.fory.memory.MemoryBuffer;
 import org.apache.fory.meta.ZstdMetaCompressor;
 import org.apache.fory.serializer.collection.CollectionSerializers;
 
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;

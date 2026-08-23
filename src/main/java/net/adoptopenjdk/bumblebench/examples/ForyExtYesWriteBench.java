@@ -14,27 +14,18 @@
 
 package net.adoptopenjdk.bumblebench.examples;
 
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.ObjectSet;
-import com.badlogic.gdx.utils.OrderedSet;
-import com.github.tommyettinger.ds.ObjectList;
-import com.github.tommyettinger.random.FourWheelRandom;
 import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
+import net.adoptopenjdk.bumblebench.examples.random.PouchRandom;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
 import org.apache.fory.memory.MemoryBuffer;
 import org.apache.fory.serializer.collection.CollectionSerializers;
-import squidpony.StringKit;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 
 
 /**

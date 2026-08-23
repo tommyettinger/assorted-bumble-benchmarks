@@ -43,7 +43,7 @@ public class Launcher extends Util {
 			System.exit(1);
 		}
 
-		String testName = args[0].replace('.', '$');
+		String testName = args[0];//.replace('.', '$');
 
 		Class testClass = loadTestClass(packages, testName);
 		int numParallelInstances = option("parallelInstances", 0);
