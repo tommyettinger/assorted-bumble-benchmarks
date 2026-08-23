@@ -26,10 +26,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
+ * Wow, that's bad. This treats the "isUnit()" and "isZero()" predicates as getters for non-existent properties.
  * Java 17:
  * <br>
  * FastJsonReadBench score: 57.170677 (57.17 404.6%)
  *               uncertainty:   2.6%
+ * <br>
+ * HotSpot Java 24 (BellSoft):
+ * <br>
+ * FastJsonReadBench score: 175.999847 (176.0 517.0%)
+ *               uncertainty:   0.2%
  */
 public final class FastJsonReadBench extends MiniBench {
 	@Override
