@@ -55,6 +55,11 @@ import java.nio.ByteBuffer;
  * <br>
  * KryoNotMoreReadBench score: 519.106506 (519.1 625.2%)
  *                  uncertainty:   0.5%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Kryo 5.6.2:
+ * <br>
+ * KryoNotMoreReadBench score: 525.755188 (525.8 626.5%)
+ *                  uncertainty:   6.1%
  */
 public final class KryoNotMoreReadBench extends MiniBench {
 	@Override

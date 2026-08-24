@@ -37,6 +37,11 @@ import java.nio.file.Paths;
  * <br>
  * KryoNotMoreWriteBench score: 658.895996 (658.9 649.1%)
  *                   uncertainty:   2.2%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Kryo 5.6.2:
+ * <br>
+ * KryoNotMoreWriteBench score: 706.776428 (706.8 656.1%)
+ *                   uncertainty:   1.9%
  */
 public final class KryoNotMoreWriteBench extends MiniBench {
 	@Override
