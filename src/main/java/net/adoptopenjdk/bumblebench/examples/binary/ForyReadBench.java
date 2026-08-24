@@ -23,29 +23,6 @@ import org.apache.fory.logging.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-/*
- * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
- * <br>
- * HotSpot Java 8:
- * <br>
- *
- * <br>
- * HotSpot Java 17 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 21 (BellSoft):
- * <br>
- *
- * <br>
- * GraalVM Java 22:
- * <br>
- *
- * <br>
- * HotSpot Java 23 (Adoptium):
- * <br>
- *
- */
 
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
@@ -55,7 +32,7 @@ import java.util.HashMap;
  * ForyReadBench score: 1119.545654 (1120 702.1%)
  *           uncertainty:   2.3%
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
  * <br>
  * ForyReadBench score: 1210.919678 (1211 709.9%)
  *           uncertainty:   3.1%

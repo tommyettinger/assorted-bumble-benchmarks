@@ -33,7 +33,7 @@ import java.util.HashMap;
 
 /**
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), ForyJson 1.6.1:
  * <br>
  * ForyJsonWriteBench score: 203.580246 (203.6 531.6%)
  *                uncertainty:  10.6%

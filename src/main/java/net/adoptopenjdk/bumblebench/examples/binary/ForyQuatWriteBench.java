@@ -52,7 +52,7 @@ import java.util.ArrayList;
  * ForyQuatWriteBench score: 132.882034 (132.9 488.9%)
  *                uncertainty:   5.0%
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
  * <br>
  * ForyQuatWriteBench score: 109.069901 (109.1 469.2%)
  *                uncertainty:  13.4%

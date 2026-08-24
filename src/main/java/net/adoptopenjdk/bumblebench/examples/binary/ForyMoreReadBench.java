@@ -26,35 +26,16 @@ import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
 import org.apache.fory.logging.LoggerFactory;
 
-/*
- * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
- * <br>
- * HotSpot Java 8:
- * <br>
- *
- * <br>
- * HotSpot Java 17 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 21 (BellSoft):
- * <br>
- *
- * <br>
- * GraalVM Java 22:
- * <br>
- *
- * <br>
- * HotSpot Java 23 (Adoptium):
- * <br>
- *
- */
-
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * ForyMoreReadBench score: 977.462708 (977.5 688.5%)
  *               uncertainty:   3.6%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
+ * <br>
+ * ForyMoreReadBench score: 917.886780 (917.9 682.2%)
+ *               uncertainty:   4.6%
  */
 public final class ForyMoreReadBench extends MiniBench {
 	@Override

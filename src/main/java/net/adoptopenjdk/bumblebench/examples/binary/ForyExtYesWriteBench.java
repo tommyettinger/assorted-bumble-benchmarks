@@ -52,7 +52,7 @@ import java.util.ArrayList;
  * ForyExtYesWriteBench score: 64.928062 (64.93 417.3%)
  *                  uncertainty:   1.9%
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
  * <br>
  * ForyExtYesWriteBench score: 111.676643 (111.7 471.6%)
  *                  uncertainty:   5.8%

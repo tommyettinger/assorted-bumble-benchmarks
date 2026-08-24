@@ -29,7 +29,7 @@ import java.util.HashMap;
  * Like FastJson, this treats the "isUnit()" and "isZero()" predicates as getters for non-existent properties.
  * Also like FastJson, that can be disabled! Here it uses withFieldMode(true) .
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), ForyJson 1.6.1:
  * <br>
  * ForyJsonReadBench score: 232.488068 (232.5 544.9%)
  *               uncertainty:   0.3%

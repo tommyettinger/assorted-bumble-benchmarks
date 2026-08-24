@@ -35,7 +35,7 @@ import java.util.HashMap;
  * FastJsonReadBench score: 57.170677 (57.17 404.6%)
  *               uncertainty:   2.6%
  * <br>
- * HotSpot Java 24 (BellSoft):
+ * HotSpot Java 24 (BellSoft), FastJson2:
  * <br>
  * FastJsonReadBench score: 171.888123 (171.9 514.7%)
  *               uncertainty:   0.5%
