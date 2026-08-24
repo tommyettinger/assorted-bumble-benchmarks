@@ -67,6 +67,11 @@ import java.util.HashMap;
  * <br>
  * KryoWriteBench score: 671.841064 (671.8 651.0%)
  *            uncertainty:   0.8%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Kryo 5.6.2:
+ * <br>
+ * KryoWriteBench score: 700.099487 (700.1 655.1%)
+ *            uncertainty:   0.6%
  */
 public final class KryoWriteBench extends MiniBench {
 	@Override
