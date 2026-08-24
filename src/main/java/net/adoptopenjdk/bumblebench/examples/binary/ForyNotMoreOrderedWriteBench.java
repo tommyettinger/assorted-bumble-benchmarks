@@ -68,6 +68,11 @@ import java.nio.file.Paths;
  * <br>
  * ForyNotMoreOrderedWriteBench score: 650.952332 (651.0 647.8%)
  *                          uncertainty:  11.0%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
+ * <br>
+ * ForyNotMoreOrderedWriteBench score: 634.872437 (634.9 645.3%)
+ *                          uncertainty:   8.6%
  */
 public final class ForyNotMoreOrderedWriteBench extends MiniBench {
 	@Override

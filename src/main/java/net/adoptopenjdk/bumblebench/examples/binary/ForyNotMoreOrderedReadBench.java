@@ -55,6 +55,11 @@ import org.apache.fory.logging.LoggerFactory;
  * <br>
  * ForyNotMoreOrderedReadBench score: 522.609802 (522.6 625.9%)
  *                         uncertainty:   2.1%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
+ * <br>
+ * ForyNotMoreOrderedReadBench score: 833.886963 (833.9 672.6%)
+ *                         uncertainty:   3.6%
  */
 public final class ForyNotMoreOrderedReadBench extends MiniBench {
 	@Override

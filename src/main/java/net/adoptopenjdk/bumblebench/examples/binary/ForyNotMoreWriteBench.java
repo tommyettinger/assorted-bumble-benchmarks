@@ -31,29 +31,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-/*
- * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
- * <br>
- * HotSpot Java 8:
- * <br>
- *
- * <br>
- * HotSpot Java 17 (Adoptium):
- * <br>
- *
- * <br>
- * HotSpot Java 21 (BellSoft):
- * <br>
- *
- * <br>
- * GraalVM Java 22:
- * <br>
- *
- * <br>
- * HotSpot Java 23 (Adoptium):
- * <br>
- *
- */
 /**
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
@@ -66,6 +43,11 @@ import java.nio.file.Paths;
  * <br>
  * ForyNotMoreWriteBench score: 900.169128 (900.2 680.3%)
  *                   uncertainty:   1.5%
+ * <br>
+ * HotSpot Java 24 (BellSoft), Fory 1.6.1:
+ * <br>
+ * ForyNotMoreWriteBench score: 855.887878 (855.9 675.2%)
+ *                   uncertainty:  10.8%
  */
 public final class ForyNotMoreWriteBench extends MiniBench {
 	@Override
