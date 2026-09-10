@@ -14,21 +14,7 @@
 
 package net.adoptopenjdk.bumblebench.examples.binary;
 
-import com.badlogic.gdx.backends.headless.HeadlessFiles;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.StreamUtils;
-import com.github.luben.zstd.ZstdInputStreamNoFinalizer;
-import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import org.apache.fory.Fory;
-import org.apache.fory.config.Language;
-import org.apache.fory.logging.LoggerFactory;
-import org.apache.fory.meta.ZstdMetaCompressor;
-import org.apache.fory.serializer.collection.CollectionSerializers;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
 
 /**
  * Doesn't work with the current Fory, 1.6.1 . Not sure why.
@@ -64,34 +50,34 @@ public final class ForyZstdExtYesReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-        byte[] data;
-		FileHandle fh = new HeadlessFiles().local("foryZstdExtYes.dat");
-		InputStream iStream = fh.read();
-        try {
-            data = StreamUtils.copyStreamToByteArray(new ZstdInputStreamNoFinalizer(iStream), (int)fh.length());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } finally {
-			StreamUtils.closeQuietly(iStream);
-		}
-        ArrayList<Point4Float> pts;
-		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-				.withMetaCompressor(new ZstdMetaCompressor())
-				.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
-		fory.register(Point4Float.class);
-
-		long counter = 0;
-		for (long i = 0; i < numLoops; i++) {
-			for (int j = 0; j < numIterationsPerLoop; j++) {
-				startTimer();
-				pts = fory.deserialize(data, ArrayList.class);
-				counter += pts.size();
-				pauseTimer();
-			}
-		}
+//        byte[] data;
+//		FileHandle fh = new HeadlessFiles().local("foryZstdExtYes.dat");
+//		InputStream iStream = fh.read();
+//        try {
+//            data = StreamUtils.copyStreamToByteArray(new ZstdInputStreamNoFinalizer(iStream), (int)fh.length());
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//			StreamUtils.closeQuietly(iStream);
+//		}
+//        ArrayList<Point4Float> pts;
+//		LoggerFactory.disableLogging();
+//		Fory fory = Fory.builder().withMetaShare(true)
+//				.withMetaCompressor(new ZstdMetaCompressor())
+//				.withLanguage(Language.JAVA).build();
+////		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+//		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
+//		fory.register(Point4Float.class);
+//
+//		long counter = 0;
+//		for (long i = 0; i < numLoops; i++) {
+//			for (int j = 0; j < numIterationsPerLoop; j++) {
+//				startTimer();
+//				pts = fory.deserialize(data, ArrayList.class);
+//				counter += pts.size();
+//				pauseTimer();
+//			}
+//		}
 		return numLoops * numIterationsPerLoop;
 	}
 }

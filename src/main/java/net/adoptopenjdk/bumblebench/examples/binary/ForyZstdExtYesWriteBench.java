@@ -14,22 +14,7 @@
 
 package net.adoptopenjdk.bumblebench.examples.binary;
 
-import com.github.luben.zstd.ZstdOutputStreamNoFinalizer;
-import com.github.yellowstonegames.grid.Point4Float;
 import net.adoptopenjdk.bumblebench.core.MiniBench;
-import net.adoptopenjdk.bumblebench.examples.random.PouchRandom;
-import org.apache.fory.Fory;
-import org.apache.fory.config.Language;
-import org.apache.fory.logging.LoggerFactory;
-import org.apache.fory.memory.MemoryBuffer;
-import org.apache.fory.meta.ZstdMetaCompressor;
-import org.apache.fory.serializer.collection.CollectionSerializers;
-
-import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 
 
 /**
@@ -66,59 +51,59 @@ public final class ForyZstdExtYesWriteBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		PouchRandom random = new PouchRandom(12345);
-		ArrayList<Point4Float> pts = new ArrayList<>((1<<20));
-		for (int j = 0; j < (1 << 20); j++) {
-			pts.add(new Point4Float(random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat(),
-					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
-		}
-		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-						.withMetaCompressor(new ZstdMetaCompressor())
-						.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
-		fory.register(Point4Float.class);
-
-		long counter = 0;
-		for (long i = 0; i < numLoops; i++) {
-			for (int j = 0; j < numIterationsPerLoop; j++) {
-				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
-				startTimer();
-				fory.serialize(mem, pts);
-				pauseTimer();
-				counter += mem.size();
-			}
-		}
+//		PouchRandom random = new PouchRandom(12345);
+//		ArrayList<Point4Float> pts = new ArrayList<>((1<<20));
+//		for (int j = 0; j < (1 << 20); j++) {
+//			pts.add(new Point4Float(random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat(),
+//					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
+//		}
+//		LoggerFactory.disableLogging();
+//		Fory fory = Fory.builder().withMetaShare(true)
+//						.withMetaCompressor(new ZstdMetaCompressor())
+//						.withLanguage(Language.JAVA).build();
+////		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+//		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
+//		fory.register(Point4Float.class);
+//
+//		long counter = 0;
+//		for (long i = 0; i < numLoops; i++) {
+//			for (int j = 0; j < numIterationsPerLoop; j++) {
+//				MemoryBuffer mem = MemoryBuffer.newHeapBuffer(65536);
+//				startTimer();
+//				fory.serialize(mem, pts);
+//				pauseTimer();
+//				counter += mem.size();
+//			}
+//		}
 		return numLoops * numIterationsPerLoop;
 	}
 
 	public static void main(String[] args) {
-		PouchRandom random = new PouchRandom(12345);
-		ArrayList<Point4Float> pts = new ArrayList<>((1<<20));
-		for (int j = 0; j < (1 << 20); j++) {
-			pts.add(new Point4Float(random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat(),
-					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
-		}
-		LoggerFactory.disableLogging();
-		Fory fory = Fory.builder().withMetaShare(true)
-				.withMetaCompressor(new ZstdMetaCompressor())
-				.withLanguage(Language.JAVA).build();
-//		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
-		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
-		fory.register(Point4Float.class);
-
-		System.out.println("There are " + pts.size() + " keys in the Map.");
-
-		try {
-			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("foryZstdExtYes.dat")), 20);
-			byte[] bytes = fory.serialize(pts);
-			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
-			stream.write(bytes);
-			stream.flush();
-			stream.close();
-		} catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+//		PouchRandom random = new PouchRandom(12345);
+//		ArrayList<Point4Float> pts = new ArrayList<>((1<<20));
+//		for (int j = 0; j < (1 << 20); j++) {
+//			pts.add(new Point4Float(random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat(),
+//					random.nextExclusiveSignedFloat(), random.nextExclusiveSignedFloat()));
+//		}
+//		LoggerFactory.disableLogging();
+//		Fory fory = Fory.builder().withMetaShare(true)
+//				.withMetaCompressor(new ZstdMetaCompressor())
+//				.withLanguage(Language.JAVA).build();
+////		Fory fory = Fory.builder().withLanguage(Language.JAVA).build();
+//		fory.registerSerializer(ArrayList.class, new CollectionSerializers.ArrayListSerializer(fory.getTypeResolver()));
+//		fory.register(Point4Float.class);
+//
+//		System.out.println("There are " + pts.size() + " keys in the Map.");
+//
+//		try {
+//			OutputStream stream = new ZstdOutputStreamNoFinalizer(Files.newOutputStream(Paths.get("foryZstdExtYes.dat")), 20);
+//			byte[] bytes = fory.serialize(pts);
+//			System.out.println("Fory serialized data is " + bytes.length + " bytes in size.");
+//			stream.write(bytes);
+//			stream.flush();
+//			stream.close();
+//		} catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }
