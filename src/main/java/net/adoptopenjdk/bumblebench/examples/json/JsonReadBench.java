@@ -27,6 +27,11 @@ import net.adoptopenjdk.bumblebench.core.MiniBench;
  * <br>
  * JsonReadBench score: 8.233253 (8.233 210.8%)
  *           uncertainty:   3.7%
+ * <br>
+ * HotSpot Java 26 (Azul):
+ * <br>
+ * JsonReadBench score: 28.814829 (28.81 336.1%)
+ *           uncertainty:   2.3%
  */
 public final class JsonReadBench extends MiniBench {
 	@Override

@@ -42,6 +42,11 @@ import java.util.HashMap;
  * <br>
  * JsoniterWriteBench score: 109.739372 (109.7 469.8%)
  *                uncertainty:   1.0%
+ * <br>
+ * HotSpot Java 26 (Azul), FastJson2:
+ * <br>
+ * JsoniterWriteBench score: 205.746887 (205.7 532.7%)
+ *                uncertainty:   2.0%
  */
 public final class JsoniterWriteBench extends MiniBench {
 	@Override

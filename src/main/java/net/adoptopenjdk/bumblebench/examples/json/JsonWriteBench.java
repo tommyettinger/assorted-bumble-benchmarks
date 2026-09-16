@@ -33,6 +33,11 @@ import java.util.HashMap;
  * <br>
  * JsonWriteBench score: 19.107616 (19.11 295.0%)
  *            uncertainty:   1.5%
+ * <br>
+ * HotSpot Java 26 (Azul):
+ * <br>
+ * JsonWriteBench score: 42.424946 (42.42 374.8%)
+ *            uncertainty:   8.1%
  */
 public final class JsonWriteBench extends MiniBench {
 	@Override
