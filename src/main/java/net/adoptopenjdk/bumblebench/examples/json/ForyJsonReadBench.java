@@ -38,6 +38,11 @@ import java.util.HashMap;
  * <br>
  * ForyJsonReadBench score: 285.871948 (285.9 565.6%)
  *               uncertainty:   0.2%
+ * <br>
+ * HotSpot Java 26 (Azul):
+ * <br>
+ * ForyJsonReadBench score: 262.802948 (262.8 557.1%)
+ *              uncertainty:   0.1%
  */
 public final class ForyJsonReadBench extends MiniBench {
 	private static final ForyJson JSON = ForyJson.builder().withFieldMode(true).build();
