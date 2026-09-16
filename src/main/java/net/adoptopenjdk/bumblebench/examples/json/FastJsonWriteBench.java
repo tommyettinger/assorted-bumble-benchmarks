@@ -52,6 +52,9 @@ import java.util.HashMap;
  * <br>
  * FastJsonWriteBench score: 269.248138 (269.2 559.6%)
  *                uncertainty:   2.9%
+ * <br>
+ * Testing with {@code --enable-native-access=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --sun-misc-unsafe-memory-access=deny}
+ * gives an error I can't get around due to shading causing files from Fory-Core, FastJson2, and ForyJson to overlap.
  */
 public final class FastJsonWriteBench extends MiniBench {
 	@Override
