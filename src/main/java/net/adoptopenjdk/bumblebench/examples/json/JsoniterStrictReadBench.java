@@ -26,6 +26,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * JsoniterStrictReadBench score: 281.784149 (281.8 564.1%)
+ *                     uncertainty:   0.9%
+ * <br>
+ * TRASH RESULTS; these were actually running some mode other than the one that should be tested.
+ * <br>
  * HotSpot Java 26 (Azul):
  * <br>
  * JsoniterStrictReadBench score: 282.440338 (282.4 564.3%)
@@ -43,8 +50,8 @@ public final class JsoniterStrictReadBench extends MiniBench {
 		HashMap<String, ArrayList<Vector2>> big;
 		Config cfg = new Config.Builder()
 				.omitDefaultValue(true)
+				.decodingMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_STRICTLY)
 				.build();
-		JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_STRICTLY);
 		TypeLiteral<HashMap<String, ArrayList<Vector2>>> tl = new TypeLiteral<HashMap<String, ArrayList<Vector2>>>(){};
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {

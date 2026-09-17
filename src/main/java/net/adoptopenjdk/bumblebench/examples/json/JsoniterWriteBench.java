@@ -33,6 +33,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * JsoniterWriteBench score: 237.092865 (237.1 546.8%)
+ *                uncertainty:   0.2%
+ * <br>
+ * TRASH RESULTS; these were actually running some mode other than the one that should be tested.
+ * <br>
  * Java 8:
  * <br>
  * JsoniterWriteBench score: 102.231216 (102.2 462.7%)
@@ -79,8 +86,8 @@ public final class JsoniterWriteBench extends MiniBench {
 		}
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
+				.encodingMode(EncodingMode.DYNAMIC_MODE)
 				.build();
-		JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
@@ -111,8 +118,8 @@ public final class JsoniterWriteBench extends MiniBench {
 		}
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
+				.encodingMode(EncodingMode.DYNAMIC_MODE)
 				.build();
-		JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
