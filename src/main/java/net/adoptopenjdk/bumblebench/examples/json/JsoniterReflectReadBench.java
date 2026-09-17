@@ -26,10 +26,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * JsoniterReflectReadBench score: 243.719757 (243.7 549.6%)
+ *                      uncertainty:   0.4%
+ * <br>
  * HotSpot Java 26 (Azul):
  * <br>
  * JsoniterReflectReadBench score: 275.970612 (276.0 562.0%)
  *                      uncertainty:  10.8%
+ * JsoniterReflectReadBench score: 276.003967 (276.0 562.0%)
+ *                      uncertainty:   3.9%
  */
 public final class JsoniterReflectReadBench extends MiniBench {
 	@Override
@@ -43,8 +50,8 @@ public final class JsoniterReflectReadBench extends MiniBench {
 		HashMap<String, ArrayList<Vector2>> big;
 		Config cfg = new Config.Builder()
 				.omitDefaultValue(true)
+				.decodingMode(DecodingMode.REFLECTION_MODE)
 				.build();
-		JsonIterator.setMode(DecodingMode.REFLECTION_MODE);
 		TypeLiteral<HashMap<String, ArrayList<Vector2>>> tl = new TypeLiteral<HashMap<String, ArrayList<Vector2>>>(){};
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {

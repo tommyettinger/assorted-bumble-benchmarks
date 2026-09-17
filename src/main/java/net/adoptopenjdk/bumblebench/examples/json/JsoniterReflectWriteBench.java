@@ -33,10 +33,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
+ * HotSpot Java 8 (BellSoft):
+ * <br>
+ * JsoniterReflectWriteBench score: 173.877625 (173.9 515.8%)
+ *                       uncertainty:   1.1%
+ * <br>
  * HotSpot Java 26 (Azul):
  * <br>
  * JsoniterReflectWriteBench score: 199.636993 (199.6 529.7%)
  *                       uncertainty:   0.7%
+ * JsoniterReflectWriteBench score: 209.275848 (209.3 534.4%)
+ *                       uncertainty:   1.3%
  */
 public final class JsoniterReflectWriteBench extends MiniBench {
 	@Override
@@ -65,8 +72,8 @@ public final class JsoniterReflectWriteBench extends MiniBench {
 		}
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
+				.encodingMode(EncodingMode.REFLECTION_MODE)
 				.build();
-		JsonStream.setMode(EncodingMode.REFLECTION_MODE);
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
@@ -97,8 +104,8 @@ public final class JsoniterReflectWriteBench extends MiniBench {
 		}
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
+				.encodingMode(EncodingMode.REFLECTION_MODE)
 				.build();
-		JsonStream.setMode(EncodingMode.REFLECTION_MODE);
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
