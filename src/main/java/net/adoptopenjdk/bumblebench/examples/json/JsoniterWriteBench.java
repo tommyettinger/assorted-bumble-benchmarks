@@ -49,6 +49,8 @@ import java.util.HashMap;
  *                uncertainty:   2.0%
  * JsoniterWriteBench score: 208.255035 (208.3 533.9%)
  *                uncertainty:   3.2%
+ * JsoniterWriteBench score: 204.530106 (204.5 532.1%)
+ *                uncertainty:   2.5%
  */
 public final class JsoniterWriteBench extends MiniBench {
 	@Override

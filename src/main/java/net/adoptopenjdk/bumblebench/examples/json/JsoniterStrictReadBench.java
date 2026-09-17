@@ -26,26 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Java 8:
- * <br>
- * JsoniterReadBench score: 145.798828 (145.8 498.2%)
- *               uncertainty:   0.5%
- * <br>
- * Java 17:
- * <br>
- * JsoniterReadBench score: 178.906281 (178.9 518.7%)
- *               uncertainty:   2.1%
- * <br>
  * HotSpot Java 26 (Azul):
  * <br>
- * JsoniterReadBench score: 294.025665 (294.0 568.4%)
- *               uncertainty:   4.4%
- * JsoniterReadBench score: 276.257141 (276.3 562.1%)
- *               uncertainty:   1.3%
- * JsoniterReadBench score: 280.908264 (280.9 563.8%)
- *               uncertainty:   4.5%
+ * JsoniterStrictReadBench score: 282.440338 (282.4 564.3%)
+ *                     uncertainty:   5.7%
  */
-public final class JsoniterReadBench extends MiniBench {
+public final class JsoniterStrictReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1007;
@@ -58,7 +44,7 @@ public final class JsoniterReadBench extends MiniBench {
 		Config cfg = new Config.Builder()
 				.omitDefaultValue(true)
 				.build();
-		JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
+		JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_STRICTLY);
 		TypeLiteral<HashMap<String, ArrayList<Vector2>>> tl = new TypeLiteral<HashMap<String, ArrayList<Vector2>>>(){};
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
