@@ -33,24 +33,12 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 /**
- * Java 8:
- * <br>
- * JsoniterWriteBench score: 102.231216 (102.2 462.7%)
- *                uncertainty:   4.7%
- * <br>
- * Java 17:
- * <br>
- * JsoniterWriteBench score: 109.739372 (109.7 469.8%)
- *                uncertainty:   1.0%
- * <br>
  * HotSpot Java 26 (Azul):
  * <br>
- * JsoniterWriteBench score: 205.746887 (205.7 532.7%)
- *                uncertainty:   2.0%
- * JsoniterWriteBench score: 208.255035 (208.3 533.9%)
- *                uncertainty:   3.2%
+ * JsoniterReflectWriteBench score: 199.636993 (199.6 529.7%)
+ *                       uncertainty:   0.7%
  */
-public final class JsoniterWriteBench extends MiniBench {
+public final class JsoniterReflectWriteBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1007;
@@ -78,7 +66,7 @@ public final class JsoniterWriteBench extends MiniBench {
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
 				.build();
-		JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
+		JsonStream.setMode(EncodingMode.REFLECTION_MODE);
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
 			for (int j = 0; j < numIterationsPerLoop; j++) {
@@ -110,11 +98,11 @@ public final class JsoniterWriteBench extends MiniBench {
 		Config config = new Config.Builder()
 				.omitDefaultValue(true)
 				.build();
-		JsonStream.setMode(EncodingMode.DYNAMIC_MODE);
+		JsonStream.setMode(EncodingMode.REFLECTION_MODE);
 
 		System.out.println("There are " + big.size() + " keys in the Map.");
 
-		new HeadlessFiles().local("jsoniter.json").writeString(JsonStream.serialize(config, big), false);
+		new HeadlessFiles().local("jsoniterreflect.json").writeString(JsonStream.serialize(config, big), false);
 	}
 
 }

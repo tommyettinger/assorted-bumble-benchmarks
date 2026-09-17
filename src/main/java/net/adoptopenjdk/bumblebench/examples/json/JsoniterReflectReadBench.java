@@ -26,24 +26,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * Java 8:
- * <br>
- * JsoniterReadBench score: 145.798828 (145.8 498.2%)
- *               uncertainty:   0.5%
- * <br>
- * Java 17:
- * <br>
- * JsoniterReadBench score: 178.906281 (178.9 518.7%)
- *               uncertainty:   2.1%
- * <br>
  * HotSpot Java 26 (Azul):
  * <br>
- * JsoniterReadBench score: 294.025665 (294.0 568.4%)
- *               uncertainty:   4.4%
- * JsoniterReadBench score: 276.257141 (276.3 562.1%)
- *               uncertainty:   1.3%
+ * JsoniterReflectReadBench score: 275.970612 (276.0 562.0%)
+ *                      uncertainty:  10.8%
  */
-public final class JsoniterReadBench extends MiniBench {
+public final class JsoniterReflectReadBench extends MiniBench {
 	@Override
 	protected int maxIterationsPerLoop() {
 		return 1007;
@@ -51,12 +39,12 @@ public final class JsoniterReadBench extends MiniBench {
 
 	@Override
 	protected long doBatch(long numLoops, int numIterationsPerLoop) throws InterruptedException {
-		String data = new HeadlessFiles().local("jsoniter.json").readString();
+		String data = new HeadlessFiles().local("jsoniterreflect.json").readString();
 		HashMap<String, ArrayList<Vector2>> big;
 		Config cfg = new Config.Builder()
 				.omitDefaultValue(true)
 				.build();
-		JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
+		JsonIterator.setMode(DecodingMode.REFLECTION_MODE);
 		TypeLiteral<HashMap<String, ArrayList<Vector2>>> tl = new TypeLiteral<HashMap<String, ArrayList<Vector2>>>(){};
 		long counter = 0;
 		for (long i = 0; i < numLoops; i++) {
@@ -68,17 +56,6 @@ public final class JsoniterReadBench extends MiniBench {
 			}
 		}
 		return numLoops * numIterationsPerLoop;
-	}
-	public static void main(String[] args) {
-		byte[] data = new HeadlessFiles().local("jsoniter.json").readBytes();
-		Config cfg = new Config.Builder()
-				.omitDefaultValue(true)
-				.build();
-		JsonIterator.setMode(DecodingMode.DYNAMIC_MODE_AND_MATCH_FIELD_WITH_HASH);
-
-		HashMap<String, ArrayList<Vector2>> big = JsonIterator.deserialize(cfg, data,
-				new TypeLiteral<HashMap<String, ArrayList<Vector2>>>(){});
-		System.out.println(big.get("whoremongers")); // big pimpin' King James
 	}
 }
 
