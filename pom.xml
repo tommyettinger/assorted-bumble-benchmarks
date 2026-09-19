@@ -131,7 +131,7 @@
         <dependency>
             <groupId>com.github.tommyettinger</groupId>
             <artifactId>jsonbiter</artifactId>
-            <version>a56aec6491</version>
+            <version>ed9519a9ac</version>
             <scope>compile</scope>
         </dependency>
 <!--        <dependency>-->
