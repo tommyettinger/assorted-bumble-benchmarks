@@ -121,11 +121,17 @@
             <version>0.9.23</version>
             <scope>compile</scope>
         </dependency>
-
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
             <version>3.22.0-GA</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.tommyettinger</groupId>
+            <artifactId>jsonbiter</artifactId>
+            <version>a56aec6491</version>
             <scope>compile</scope>
         </dependency>
 <!--        <dependency>-->
