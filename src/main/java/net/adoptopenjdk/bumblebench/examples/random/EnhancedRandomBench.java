@@ -19,9 +19,11 @@ import com.github.tommyettinger.random.Deserializer;
 import com.github.tommyettinger.random.EnhancedRandom;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
+/**
+ * {@code set RANDOM_TAG=AceR& java -jar target\BumbleBench.jar random.EnhancedRandomBench}
+ */
 public final class EnhancedRandomBench extends MicroBench {
 
 	private long sum = 0L;
@@ -29,9 +31,11 @@ public final class EnhancedRandomBench extends MicroBench {
 	protected long doBatch(long numIterations) throws InterruptedException {
 		final EnhancedRandom rng = Deserializer.get(System.getenv("RANDOM_TAG"));
 		if(rng == null){
+			System.out.println("RANDOM_TAG is '" + System.getenv("RANDOM_TAG") + "'");
 			TreeSet<String> sortedTags = new TreeSet<>(Deserializer.copyTags());
 			for(String tag : sortedTags)
 				System.out.println(tag);
+			System.exit(1);
 			return 0;
 		}
 		for (long i = 0; i < numIterations; i++)
