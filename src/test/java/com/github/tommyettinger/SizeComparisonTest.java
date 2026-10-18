@@ -18,12 +18,14 @@ import net.jpountz.lz4.LZ4Factory;
 import net.jpountz.lz4.LZ4FastDecompressor;
 import org.apache.fory.Fory;
 import org.apache.fory.config.Language;
-import org.apache.fory.meta.DeflaterMetaCompressor;
+import org.apache.fory.memory.MemoryBuffer;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.zip.Deflater;
+import java.util.zip.Inflater;
 
 public class SizeComparisonTest {
     /**
@@ -60,7 +62,8 @@ public class SizeComparisonTest {
         LZ4Compressor lz4Compressor = lz4Factory.fastCompressor();
         LZ4FastDecompressor lz4Decompressor = lz4Factory.fastDecompressor();
 
-        DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
+        Deflater deflate = new Deflater();
+        Inflater inflate = new Inflater();
 
         byte[] bytesFory = fory.serialize(data);
         {
@@ -77,10 +80,18 @@ public class SizeComparisonTest {
             Array<?> data2 = fory.deserialize(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
-        {
-            Array<?> data2 = fory.deserialize(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
+        deflate.setInput(bytesFory);
+        deflate.finish();
+        byte[] bytesForyDeflate = new byte[bytesFory.length];
+        int deflatedForyLength = deflate.deflate(bytesForyDeflate);
+        try {
+            inflate.setInput(bytesForyDeflate, 0, deflatedForyLength);
+            byte[] bytesForyInflate = new byte[bytesFory.length];
+            int foryInflated = inflate.inflate(bytesForyInflate, 0, deflatedForyLength);
+            Array<?> data2 = fory.deserialize(MemoryBuffer.fromByteArray(bytesForyInflate, 0, foryInflated), Array.class);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
@@ -102,10 +113,21 @@ public class SizeComparisonTest {
             Array<?> data2 = kryo.readObject(new Input(lz4Decompressor.decompress(bytesKryoLz4, bytesKryo.length)), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesKryoDeflate = deflate.compress(bytesKryo, 0, bytesKryo.length);
-        {
-            Array<?> data2 = kryo.readObject(new Input(deflate.decompress(bytesKryoDeflate, 0, bytesKryoDeflate.length)), Array.class);
+
+        deflate.reset();
+        deflate.setInput(bytesKryo);
+        deflate.finish();
+        byte[] bytesKryoDeflate = new byte[bytesKryo.length];
+        int deflatedKryoLength = deflate.deflate(bytesKryoDeflate);
+        try {
+            inflate.reset();
+            inflate.setInput(bytesKryoDeflate, 0, deflatedKryoLength);
+            byte[] bytesKryoInflate = new byte[bytesKryo.length];
+            int kryoInflated = inflate.inflate(bytesKryoInflate, 0, deflatedKryoLength);
+            Array<?> data2 = kryo.readObject(new Input(bytesKryoInflate, 0, kryoInflated), Array.class);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         String text = json.toJson(data, Array.class, String.class);
@@ -126,11 +148,22 @@ public class SizeComparisonTest {
             Array<?> data2 = json.fromJson(Array.class, String.class, textJsonLz4);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesJsonDeflate = deflate.compress(bytesJson, 0, bytesJson.length);
-        {
-            String textJsonLz4 = new String(deflate.decompress(bytesJsonDeflate, 0, bytesJsonDeflate.length), StandardCharsets.ISO_8859_1);
-            Array<?> data2 = json.fromJson(Array.class, String.class, textJsonLz4);
+
+        deflate.reset();
+        deflate.setInput(bytesJson);
+        deflate.finish();
+        byte[] bytesJsonDeflate = new byte[bytesJson.length];
+        int deflatedJsonLength = deflate.deflate(bytesJsonDeflate);
+        try {
+            inflate.reset();
+            inflate.setInput(bytesJsonDeflate, 0, deflatedJsonLength);
+            byte[] bytesJsonInflate = new byte[bytesJson.length];
+            int jsonInflated = inflate.inflate(bytesJsonInflate, 0, deflatedJsonLength);
+            String textJsonDeflate = new String(bytesJsonInflate, 0, jsonInflated, StandardCharsets.ISO_8859_1);
+            Array<?> data2 = json.fromJson(Array.class, String.class, textJsonDeflate);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         System.out.println("Fory bytes length : " + bytesFory.length);
@@ -145,7 +178,6 @@ public class SizeComparisonTest {
         System.out.println("JSON with Zstd    : " + bytesJsonZstd.length);
         System.out.println("JSON with LZ4     : " + bytesJsonLz4.length);
         System.out.println("JSON with Deflate : " + bytesJsonDeflate.length);
-//        System.out.println("JSON data: " + text);
     }
 
     /**
@@ -188,7 +220,8 @@ public class SizeComparisonTest {
         LZ4Compressor lz4Compressor = lz4Factory.fastCompressor();
         LZ4FastDecompressor lz4Decompressor = lz4Factory.fastDecompressor();
 
-        DeflaterMetaCompressor deflate = new DeflaterMetaCompressor();
+        Deflater deflate = new Deflater();
+        Inflater inflate = new Inflater();
 
         byte[] bytesFory = fory.serialize(data);
         {
@@ -205,10 +238,20 @@ public class SizeComparisonTest {
             Array<?> data2 = fory.deserialize(lz4Decompressor.decompress(bytesForyLz4, bytesFory.length), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesForyDeflate = deflate.compress(bytesFory, 0, bytesFory.length);
-        {
-            Array<?> data2 = fory.deserialize(deflate.decompress(bytesForyDeflate, 0, bytesForyDeflate.length), Array.class);
+        deflate.reset();
+        deflate.setInput(bytesFory);
+        deflate.finish();
+        byte[] bytesForyDeflate = new byte[bytesFory.length];
+        int deflatedForyLength = deflate.deflate(bytesForyDeflate);
+        try {
+            inflate.reset();
+            inflate.setInput(bytesForyDeflate, 0, deflatedForyLength);
+            byte[] bytesForyInflate = new byte[bytesFory.length];
+            int foryInflated = inflate.inflate(bytesForyInflate, 0, deflatedForyLength);
+            Array<?> data2 = fory.deserialize(MemoryBuffer.fromByteArray(bytesForyInflate, 0, foryInflated), Array.class);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream(1024);
@@ -230,10 +273,21 @@ public class SizeComparisonTest {
             Array<?> data2 = kryo.readObject(new Input(lz4Decompressor.decompress(bytesKryoLz4, bytesKryo.length)), Array.class);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesKryoDeflate = deflate.compress(bytesKryo, 0, bytesKryo.length);
-        {
-            Array<?> data2 = kryo.readObject(new Input(deflate.decompress(bytesKryoDeflate, 0, bytesKryoDeflate.length)), Array.class);
+
+        deflate.reset();
+        deflate.setInput(bytesKryo);
+        deflate.finish();
+        byte[] bytesKryoDeflate = new byte[bytesKryo.length];
+        int deflatedKryoLength = deflate.deflate(bytesKryoDeflate);
+        try {
+            inflate.reset();
+            inflate.setInput(bytesKryoDeflate, 0, deflatedKryoLength);
+            byte[] bytesKryoInflate = new byte[bytesKryo.length];
+            int kryoInflated = inflate.inflate(bytesKryoInflate, 0, deflatedKryoLength);
+            Array<?> data2 = kryo.readObject(new Input(bytesKryoInflate, 0, kryoInflated), Array.class);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         String text = json.toJson(data, Array.class, String.class);
@@ -254,11 +308,22 @@ public class SizeComparisonTest {
             Array<?> data2 = json.fromJson(Array.class, String.class, textJsonLz4);
             Assert.assertEquals(data, data2);
         }
-        byte[] bytesJsonDeflate = deflate.compress(bytesJson, 0, bytesJson.length);
-        {
-            String textJsonLz4 = new String(deflate.decompress(bytesJsonDeflate, 0, bytesJsonDeflate.length), StandardCharsets.ISO_8859_1);
-            Array<?> data2 = json.fromJson(Array.class, String.class, textJsonLz4);
+
+        deflate.reset();
+        deflate.setInput(bytesJson);
+        deflate.finish();
+        byte[] bytesJsonDeflate = new byte[bytesJson.length];
+        int deflatedJsonLength = deflate.deflate(bytesJsonDeflate);
+        try {
+            inflate.reset();
+            inflate.setInput(bytesJsonDeflate, 0, deflatedJsonLength);
+            byte[] bytesJsonInflate = new byte[bytesJson.length];
+            int jsonInflated = inflate.inflate(bytesJsonInflate, 0, deflatedJsonLength);
+            String textJsonDeflate = new String(bytesJsonInflate, 0, jsonInflated, StandardCharsets.ISO_8859_1);
+            Array<?> data2 = json.fromJson(Array.class, String.class, textJsonDeflate);
             Assert.assertEquals(data, data2);
+        } catch (java.util.zip.DataFormatException e) {
+            e.printStackTrace();
         }
 
         System.out.println("Fory bytes length : " + bytesFory.length);
@@ -273,7 +338,6 @@ public class SizeComparisonTest {
         System.out.println("JSON with Zstd    : " + bytesJsonZstd.length);
         System.out.println("JSON with LZ4     : " + bytesJsonLz4.length);
         System.out.println("JSON with Deflate : " + bytesJsonDeflate.length);
-//        System.out.println("JSON data: " + text);
     }
 
     @Test
