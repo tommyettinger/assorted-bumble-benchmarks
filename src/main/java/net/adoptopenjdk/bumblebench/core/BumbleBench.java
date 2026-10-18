@@ -260,8 +260,8 @@ public abstract class BumbleBench extends Util implements Runnable {
 
 		String spaces = String.format("%" + (_name.length()-5) + "s", "");
 		if (verify()) {
-			out().println("\n  " + _name + " score: " + String.format("%f",_maxPeak) + " (" + score(_maxPeak) + " " + logPoints(_maxPeak) + "%)");
-		out().println("  " + spaces + "uncertainty: " + percentage(_uncertainty) + "%");
+			System.out.println("\n  " + _name + " score: " + String.format("%f",_maxPeak) + " (" + score(_maxPeak) + " " + logPoints(_maxPeak) + "%)");
+		System.out.println("  " + spaces + "uncertainty: " + percentage(_uncertainty) + "%");
 		} else {
 			out().println("ERROR: failed verification.");
 		}
