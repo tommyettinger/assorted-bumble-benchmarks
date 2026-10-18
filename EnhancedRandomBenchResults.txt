@@ -1,311 +1,354 @@
-Java 27, HotSpot (Zulu):
-
+Java 8, HotSpot (BellSoft Liberica):
 AceR
-
+  EnhancedRandomBench score: 1027022720.000000 (1.027G 2075.0%)
+                uncertainty:  16.8%
+BeaR
+  EnhancedRandomBench score: 338071488.000000 (338.1M 1963.9%)
+                uncertainty:   0.3%
+Ch3R
+  EnhancedRandomBench score: 294916000.000000 (294.9M 1950.2%)
+                uncertainty:   1.3%
+ChiR
+  EnhancedRandomBench score: 632781888.000000 (632.8M 2026.6%)
+                uncertainty:   0.4%
+ChoR
+  EnhancedRandomBench score: 421092864.000000 (421.1M 1985.8%)
+                uncertainty:   0.6%
+ChpR
+  EnhancedRandomBench score: 710963008.000000 (711.0M 2038.2%)
+                uncertainty:   0.3%
+CraR
+  EnhancedRandomBench score: 1088143232.000000 (1.088G 2080.8%)
+                uncertainty:   0.8%
+DisR
+  EnhancedRandomBench score: 1412164736.000000 (1.412G 2106.8%)
+                uncertainty:   0.2%
+ExoR
+  EnhancedRandomBench score: 520312704.000000 (520.3M 2007.0%)
+                uncertainty:   0.9%
+FloR
+  EnhancedRandomBench score: 940667136.000000 (940.7M 2066.2%)
+                uncertainty:   3.3%
+FoWR
+  EnhancedRandomBench score: 1254242304.000000 (1.254G 2095.0%)
+                uncertainty:  40.0%
+Gb3R
+  EnhancedRandomBench score: 613719232.000000 (613.7M 2023.5%)
+                uncertainty:   0.4%
+Gb4R
+  EnhancedRandomBench score: 432664512.000000 (432.7M 1988.5%)
+                uncertainty:   1.0%
+Gb5R
+  EnhancedRandomBench score: 334966176.000000 (335.0M 1963.0%)
+                uncertainty:   0.5%
+Gb6R
+  EnhancedRandomBench score: 257242304.000000 (257.2M 1936.6%)
+                uncertainty:   0.2%
+Gb7R
+  EnhancedRandomBench score: 196279200.000000 (196.3M 1909.5%)
+                uncertainty:   0.4%
+GoQR
+  EnhancedRandomBench score: 2347048448.000000 (2.347G 2157.6%)
+                uncertainty:   0.5%
+HrnR
+  EnhancedRandomBench score: 1315900160.000000 (1.316G 2099.8%)
+                uncertainty:   1.0%
+JS3R
+  EnhancedRandomBench score: 618825408.000000 (618.8M 2024.3%)
+                uncertainty:   0.6%
+L64R
+  EnhancedRandomBench score: 1566540160.000000 (1.567G 2117.2%)
+                uncertainty:   0.4%
+LCQR
+  EnhancedRandomBench score: 1565715456.000000 (1.566G 2117.2%)
+                uncertainty:   0.1%
+LF6R
+  EnhancedRandomBench score: 1400788352.000000 (1.401G 2106.0%)
+                uncertainty:   0.3%
+LasR
+  EnhancedRandomBench score: 1334503040.000000 (1.335G 2101.2%)
+                uncertainty:   0.3%
+Lm3R
+  EnhancedRandomBench score: 400806368.000000 (400.8M 1980.9%)
+                uncertainty:   0.2%
+MizR
+  EnhancedRandomBench score: 1004653888.000000 (1.005G 2072.8%)
+                uncertainty:   0.5%
+Mx3R
+  EnhancedRandomBench score: 1161812608.000000 (1.162G 2087.3%)
+                uncertainty:   0.4%
+OrbR
+  EnhancedRandomBench score: 878145280.000000 (878.1M 2059.3%)
+                uncertainty:   0.7%
+PRXR
+  EnhancedRandomBench score: 951409664.000000 (951.4M 2067.3%)
+                uncertainty:   0.2%
+PasR
+  EnhancedRandomBench score: 862738880.000000 (862.7M 2057.6%)
+                uncertainty:  26.8%
+PouR
+  EnhancedRandomBench score: 1062732032.000000 (1.063G 2078.4%)
+                uncertainty:  37.4%
+QxrR
+  EnhancedRandomBench score: 848035072.000000 (848.0M 2055.8%)
+                uncertainty:   0.6%
+RTrR
+  EnhancedRandomBench score: 1404609536.000000 (1.405G 2106.3%)
+                uncertainty:   1.5%
+Re3R
+  EnhancedRandomBench score: 251438736.000000 (251.4M 1934.3%)
+                uncertainty:   0.2%
+ScrR
+  EnhancedRandomBench score: 1302422272.000000 (1.302G 2098.7%)
+                uncertainty:  10.8%
+SfcR
+  EnhancedRandomBench score: 1155196032.000000 (1.155G 2086.8%)
+                uncertainty:  25.6%
+SolR
+  EnhancedRandomBench score: 1145197568.000000 (1.145G 2085.9%)
+                uncertainty:   0.3%
+StrR
+  EnhancedRandomBench score: 1166506624.000000 (1.167G 2087.7%)
+                uncertainty:  26.1%
+ThaR
+  EnhancedRandomBench score: 1576485504.000000 (1.576G 2117.8%)
+                uncertainty:   0.2%
+ThoR
+  EnhancedRandomBench score: 1346315392.000000 (1.346G 2102.1%)
+                uncertainty:  14.7%
+TrcR
+  EnhancedRandomBench score: 1136434688.000000 (1.136G 2085.1%)
+                uncertainty:   9.2%
+TriR
+  EnhancedRandomBench score: 1563443840.000000 (1.563G 2117.0%)
+                uncertainty:   4.0%
+TrmR
+  EnhancedRandomBench score: 1339442560.000000 (1.339G 2101.6%)
+                uncertainty:   0.7%
+TuQR
+  EnhancedRandomBench score: 1575071232.000000 (1.575G 2117.8%)
+                uncertainty:   0.1%
+TxnR
+  EnhancedRandomBench score: 326045856.000000 (326.0M 1960.3%)
+                uncertainty:   0.3%
+VCQR
+  EnhancedRandomBench score: 532673888.000000 (532.7M 2009.3%)
+                uncertainty:   0.4%
+WhiR
+  EnhancedRandomBench score: 1416439424.000000 (1.416G 2107.1%)
+                uncertainty:   0.1%
+WolR
+  EnhancedRandomBench score: 1091849472.000000 (1.092G 2081.1%)
+                uncertainty:   0.1%
+X5PR
+  EnhancedRandomBench score: 591894592.000000 (591.9M 2019.9%)
+                uncertainty:   0.1%
+XB6R
+  EnhancedRandomBench score: 1177853056.000000 (1.178G 2088.7%)
+                uncertainty:   0.2%
+XMXR
+  EnhancedRandomBench score: 786828800.000000 (786.8M 2048.4%)
+                uncertainty:   0.3%
+XPPR
+  EnhancedRandomBench score: 668535040.000000 (668.5M 2032.1%)
+                uncertainty:   0.9%
+XRAR
+  EnhancedRandomBench score: 559696448.000000 (559.7M 2014.3%)
+                uncertainty:   0.7%
+XRSR
+  EnhancedRandomBench score: 1091977088.000000 (1.092G 2081.1%)
+                uncertainty:   0.3%
+XS6R
+  EnhancedRandomBench score: 783815424.000000 (783.8M 2048.0%)
+                uncertainty:   0.3%
+XSSR
+  EnhancedRandomBench score: 944591040.000000 (944.6M 2066.6%)
+                uncertainty:   0.1%
+---------------------------------------------------------------
+Java 27, HotSpot (Zulu):
+AceR
   EnhancedRandomBench score: 2317377024.000000 (2.317G 2156.4%)
                 uncertainty:   0.7%
-
 ArcW
-
   EnhancedRandomBench score: 227457520.000000 (227.5M 1924.2%)
                 uncertainty:  16.5%
-
 BeaR
-
   EnhancedRandomBench score: 354654336.000000 (354.7M 1968.7%)
                 uncertainty:   0.5%
-
 Ch3R
-
   EnhancedRandomBench score: 333111424.000000 (333.1M 1962.4%)
                 uncertainty:   0.3%
-
 ChiR
-
   EnhancedRandomBench score: 624447360.000000 (624.4M 2025.2%)
                 uncertainty:   0.8%
-
 ChoR
-
   EnhancedRandomBench score: 387644672.000000 (387.6M 1977.6%)
                 uncertainty:   0.6%
-
 ChpR
-
   EnhancedRandomBench score: 593427392.000000 (593.4M 2020.1%)
                 uncertainty:   1.4%
-
 CmpW
-
   EnhancedRandomBench score: 477324096.000000 (477.3M 1998.4%)
                 uncertainty:   0.2%
-
 CraR
-
   EnhancedRandomBench score: 1465672448.000000 (1.466G 2110.6%)
                 uncertainty:   0.1%
-
 DecW
-
   EnhancedRandomBench score: 399603808.000000 (399.6M 1980.6%)
                 uncertainty:   0.4%
-
 DisR
-
   EnhancedRandomBench score: 1425596672.000000 (1.426G 2107.8%)
                 uncertainty:   0.5%
-
 DsrW
-
   EnhancedRandomBench score: 462870944.000000 (462.9M 1995.3%)
                 uncertainty:   0.2%
-
 ExoR
-
   EnhancedRandomBench score: 433051904.000000 (433.1M 1988.6%)
                 uncertainty:   0.4%
-
 FloR
-
   EnhancedRandomBench score: 799365888.000000 (799.4M 2049.9%)
                 uncertainty:   0.3%
-
 FoWR
-
   EnhancedRandomBench score: 2043014528.000000 (2.043G 2143.8%)
                 uncertainty:   0.6%
-
 Gb3R
-
   EnhancedRandomBench score: 522972064.000000 (523.0M 2007.5%)
                 uncertainty:   0.6%
-
 Gb4R
-
   EnhancedRandomBench score: 387511648.000000 (387.5M 1977.5%)
                 uncertainty:   0.3%
-
 Gb5R
-
   EnhancedRandomBench score: 298479360.000000 (298.5M 1951.4%)
                 uncertainty:   0.1%
-
 Gb6R
-
   EnhancedRandomBench score: 238075632.000000 (238.1M 1928.8%)
                 uncertainty:   0.4%
-
 Gb7R
-
   EnhancedRandomBench score: 189783328.000000 (189.8M 1906.1%)
                 uncertainty:   0.2%
-
 GoQR
-
   EnhancedRandomBench score: 4507835392.000000 (4.508G 2222.9%)
                 uncertainty:   0.1%
-
 HrnR
-
   EnhancedRandomBench score: 1235300736.000000 (1.235G 2093.5%)
                 uncertainty:   0.8%
-
 InrW
-
   EnhancedRandomBench score: 282786208.000000 (282.8M 1946.0%)
                 uncertainty:   0.8%
-
 JS3R
-
   EnhancedRandomBench score: 733855424.000000 (733.9M 2041.4%)
                 uncertainty:   0.2%
-
 KnSR
-
   EnhancedRandomBench score: 3120547328.000000 (3.121G 2186.1%)
                 uncertainty:   0.3%
-
 L64R
-
   EnhancedRandomBench score: 3088879872.000000 (3.089G 2185.1%)
                 uncertainty:   0.5%
-
 LCQR
-
   EnhancedRandomBench score: 2795856896.000000 (2.796G 2175.1%)
                 uncertainty:   0.2%
-
 LF6R
-
   EnhancedRandomBench score: 1437388416.000000 (1.437G 2108.6%)
                 uncertainty:   0.3%
-
 LasR
-
   EnhancedRandomBench score: 1218144640.000000 (1.218G 2092.1%)
                 uncertainty:   0.8%
-
 Lm3R
-
   EnhancedRandomBench score: 447911968.000000 (447.9M 1992.0%)
                 uncertainty:   0.3%
-
 MizR
-
   EnhancedRandomBench score: 1024345088.000000 (1.024G 2074.7%)
                 uncertainty:   0.4%
-
 Mx3R
-
   EnhancedRandomBench score: 1208272768.000000 (1.208G 2091.2%)
                 uncertainty:   0.1%
-
 OrbR
-
   EnhancedRandomBench score: 826212480.000000 (826.2M 2053.2%)
                 uncertainty:   0.1%
-
 PRXR
-
   EnhancedRandomBench score: 965238272.000000 (965.2M 2068.8%)
                 uncertainty:   0.3%
-
 PasR
-
   EnhancedRandomBench score: 1946898816.000000 (1.947G 2139.0%)
                 uncertainty:   0.6%
-
 PouR
-
   EnhancedRandomBench score: 2290797312.000000 (2.291G 2155.2%)
                 uncertainty:   1.4%
-
 QxrR
-
   EnhancedRandomBench score: 839058880.000000 (839.1M 2054.8%)
                 uncertainty:   0.4%
-
 RTrR
-
   EnhancedRandomBench score: 1623349504.000000 (1.623G 2120.8%)
                 uncertainty:   0.3%
-
 Re3R
-
   EnhancedRandomBench score: 249723824.000000 (249.7M 1933.6%)
                 uncertainty:   1.0%
-
 RevW
-
   EnhancedRandomBench score: 1507128832.000000 (1.507G 2113.3%)
                 uncertainty:   0.1%
-
 ScrR
-
   EnhancedRandomBench score: 2210971648.000000 (2.211G 2151.7%)
                 uncertainty:   0.8%
-
 SfcR
-
   EnhancedRandomBench score: 1144320000.000000 (1.144G 2085.8%)
                 uncertainty:   1.1%
-
 SolR
-
   EnhancedRandomBench score: 1128595328.000000 (1.129G 2084.4%)
                 uncertainty:   0.3%
-
 StrR
-
   EnhancedRandomBench score: 1533966720.000000 (1.534G 2115.1%)
                 uncertainty:   0.6%
-
 ThaR
-
   EnhancedRandomBench score: 1968620672.000000 (1.969G 2140.1%)
                 uncertainty:   0.2%
-
 ThoR
-
   EnhancedRandomBench score: 1801676032.000000 (1.802G 2131.2%)
                 uncertainty:   0.8%
-
 TrcR
-
   EnhancedRandomBench score: 2739017984.000000 (2.739G 2173.1%)
                 uncertainty:   0.2%
-
 TriR
-
   EnhancedRandomBench score: 1597461888.000000 (1.597G 2119.2%)
                 uncertainty:   0.4%
-
 TrmR
-
   EnhancedRandomBench score: 1734895104.000000 (1.735G 2127.4%)
                 uncertainty:   0.4%
-
 TuQR
-
   EnhancedRandomBench score: 2654970880.000000 (2.655G 2170.0%)
                 uncertainty:   0.3%
-
 TxnR
-
   EnhancedRandomBench score: 377053888.000000 (377.1M 1974.8%)
                 uncertainty:   0.4%
-
 VCQR
-
   EnhancedRandomBench score: 1890621312.000000 (1.891G 2136.0%)
                 uncertainty:   0.2%
-
 WhiR
-
   EnhancedRandomBench score: 2113090176.000000 (2.113G 2147.1%)
                 uncertainty:   0.2%
-
 WolR
-
   EnhancedRandomBench score: 1049245056.000000 (1.049G 2077.1%)
                 uncertainty:   0.3%
-
 X5PR
-
   EnhancedRandomBench score: 1108108032.000000 (1.108G 2082.6%)
                 uncertainty:   0.4%
-
 XB6R
-
   EnhancedRandomBench score: 1167759104.000000 (1.168G 2087.8%)
                 uncertainty:   0.2%
-
 XMXR
-
   EnhancedRandomBench score: 805332864.000000 (805.3M 2050.7%)
                 uncertainty:   0.4%
-
 XPPR
-
   EnhancedRandomBench score: 938405184.000000 (938.4M 2066.0%)
                 uncertainty:   0.6%
-
 XRAR
-
   EnhancedRandomBench score: 699547008.000000 (699.5M 2036.6%)
                 uncertainty:   1.1%
-
 XRSR
-
   EnhancedRandomBench score: 1143740288.000000 (1.144G 2085.8%)
                 uncertainty:   0.1%
-
 XS6R
-
   EnhancedRandomBench score: 782025856.000000 (782.0M 2047.7%)
                 uncertainty:   0.3%
-
 XSSR
-
   EnhancedRandomBench score: 1304009344.000000 (1.304G 2098.9%)
                 uncertainty:   0.4%
