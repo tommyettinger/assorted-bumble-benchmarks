@@ -40,6 +40,11 @@ import net.adoptopenjdk.bumblebench.core.MicroBench;
  * <br>
  * TraceRandomBench score: 2510592512.000000 (2.511G 2164.4%)
  *              uncertainty:   0.4%
+ * <br>
+ * HotSpot Java 27 (Zulu):
+ * <br>
+ * TraceRandomBench score: 2807661312.000000 (2.808G 2175.6%)
+ *              uncertainty:   0.3%
  */
 public final class TraceRandomBench extends MicroBench {
 
