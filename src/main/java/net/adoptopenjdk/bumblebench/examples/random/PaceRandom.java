@@ -32,6 +32,8 @@ import java.math.BigInteger;
  */
 public class PaceRandom extends EnhancedRandom {
 
+	private static final long INCREMENT = 0xB65443A313F8BED1L;
+
 	@Override
 	public String getTag() {
 		return "PacR";
@@ -313,7 +315,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA = fa + 0xB65443A313F8BED1L;
+		stateA = fa + INCREMENT;
 		stateB = fa ^ fe;
 		stateC = fb + fd;
 		stateD = (fc << 44 | fc >>> 20);
@@ -327,7 +329,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA -= 0xB65443A313F8BED1L;
+		stateA -= INCREMENT;
 		stateC = (fd >>> 44 | fd << 20);
 		stateB = fe - stateC;
 		stateD = fc - stateB;
@@ -342,7 +344,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA = fa + 0xB65443A313F8BED1L;
+		stateA = fa + INCREMENT;
 		stateB = fa ^ fe;
 		stateC = fb + fd;
 		stateD = (fc << 44 | fc >>> 20);

@@ -18,32 +18,43 @@ package net.adoptopenjdk.bumblebench.examples.random;
 import net.adoptopenjdk.bumblebench.core.MicroBench;
 
 /**
+ * (The first result in each pair uses a literal; the second uses a private static final constant.)
  * Windows 11, 12th Gen i7-12800H at 2.40 GHz:
  * <br>
  * HotSpot Java 8 (BellSoft):
  * <br>
  * PaceRandomBench score: 1067263616.000000 (1.067G 2078.8%)
  *             uncertainty:  40.0%
+ * PaceRandomBench score: 1012192832.000000 (1.012G 2073.5%)
+ *             uncertainty:  14.4%
  * <br>
  * HotSpot Java 17 (Adoptium):
  * <br>
  * PaceRandomBench score: 2107501440.000000 (2.108G 2146.9%)
  *             uncertainty:   0.4%
+ * PaceRandomBench score: 2104409984.000000 (2.104G 2146.7%)
+ *             uncertainty:   0.8%
  * <br>
  * HotSpot Java 21 (BellSoft):
  * <br>
  * PaceRandomBench score: 2361616128.000000 (2.362G 2158.3%)
  *             uncertainty:   0.6%
+ * PaceRandomBench score: 2360589824.000000 (2.361G 2158.2%)
+ *             uncertainty:   1.0%
  * <br>
  * GraalVM CE Java 25:
  * <br>
  * PaceRandomBench score: 2761871104.000000 (2.762G 2173.9%)
  *             uncertainty:   0.2%
+ * PaceRandomBench score: 2765066752.000000 (2.765G 2174.0%)
+ *             uncertainty:   0.1%
  * <br>
  * HotSpot Java 27 (Zulu):
  * <br>
  * PaceRandomBench score: 2470840064.000000 (2.471G 2162.8%)
  *             uncertainty:   0.1%
+ * PaceRandomBench score: 2472792320.000000 (2.473G 2162.9%)
+ *             uncertainty:   0.2%
  */
 public final class PaceRandomBench extends MicroBench {
 
