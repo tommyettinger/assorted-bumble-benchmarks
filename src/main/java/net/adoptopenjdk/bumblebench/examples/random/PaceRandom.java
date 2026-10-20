@@ -30,9 +30,7 @@ import java.math.BigInteger;
  * a generator starts to have problems, would permit an enormous 2 to the 155 calls before becoming, in some vague way,
  * "bad." That's over 45,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000 calls to {@link #nextLong()}.
  */
-public class PaceRandom extends EnhancedRandom {
-
-	private static final long INCREMENT = 0xB65443A313F8BED1L;
+public final class PaceRandom extends EnhancedRandom {
 
 	@Override
 	public String getTag() {
@@ -59,24 +57,24 @@ public class PaceRandom extends EnhancedRandom {
 	/**
 	 * The first state; can be any long.
 	 */
-	protected long stateA;
+	private long stateA;
 	/**
 	 * The second state; can be any long. The first call to {@link #nextLong()} will return this verbatim, if no other
 	 * methods have been called.
 	 */
-	protected long stateB;
+	private long stateB;
 	/**
 	 * The third state; can be any long.
 	 */
-	protected long stateC;
+	private long stateC;
 	/**
 	 * The fourth state; can be any long.
 	 */
-	protected long stateD;
+	private long stateD;
 	/**
 	 * The fifth state; can be any long.
 	 */
-	protected long stateE;
+	private long stateE;
 
 	/**
 	 * Creates a new TraceRandom with a random state.
@@ -315,7 +313,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA = fa + INCREMENT;
+		stateA = fa + 0xB65443A313F8BED1L;
 		stateB = fa ^ fe;
 		stateC = fb + fd;
 		stateD = (fc << 44 | fc >>> 20);
@@ -329,7 +327,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA -= INCREMENT;
+		stateA -= 0xB65443A313F8BED1L;
 		stateC = (fd >>> 44 | fd << 20);
 		stateB = fe - stateC;
 		stateD = fc - stateB;
@@ -344,7 +342,7 @@ public class PaceRandom extends EnhancedRandom {
 		final long fc = stateC;
 		final long fd = stateD;
 		final long fe = stateE;
-		stateA = fa + INCREMENT;
+		stateA = fa + 0xB65443A313F8BED1L;
 		stateB = fa ^ fe;
 		stateC = fb + fd;
 		stateD = (fc << 44 | fc >>> 20);
